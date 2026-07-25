@@ -295,8 +295,16 @@
     height: auto;
   }
 
+  /* `relative`, not `static` — this panel is the containing block for
+     `.contact-main__pattern`, the `inset: 0` dash texture. Static handed that
+     role to `section.contact-main`, stretching the texture over the whole
+     section (form included) instead of just the black panel. Harmless to look
+     at — white dashes at 4% opacity are invisible on the white form area, and
+     the panel stayed covered regardless — but the layer was no longer bound
+     to the thing it belongs to. left/top stay 0 from the desktop rule, so
+     `relative` introduces no offset. */
   .contact-main__left {
-    position: static;
+    position: relative;
     width: auto;
     height: auto;
     padding: 48px 24px 40px;

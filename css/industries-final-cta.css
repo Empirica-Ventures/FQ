@@ -69,8 +69,26 @@
 /* Stacked mobile/tablet fallback — no mobile Figma frame exists for this
    CTA band. Heading/body/button drop into normal flow, full width. */
 @media (max-width: 900px) {
+  /* The section itself needs the height reset too, not just __inner — this is
+     the only CTA band on the site that pins a height on both (the others put
+     it on __inner alone, or don't set one). Left at 260px it kept clipping
+     the stacked content via its own `overflow: hidden`, cutting 33px off the
+     bottom: the button's lower edge and all of the 40px bottom padding. */
+  .industries-final-cta,
   .industries-final-cta__inner {
     height: auto;
+  }
+
+  /* Keeps the band at its design depth wherever the stacked content is
+     shorter than 260px (~249px at 768px), so relaxing the height above only
+     ever adds room and never tightens the band. Peer CTA sections don't need
+     this because none of them pin a height on the section in the first
+     place. */
+  .industries-final-cta {
+    min-height: 260px;
+  }
+
+  .industries-final-cta__inner {
     padding: 40px 24px;
   }
 

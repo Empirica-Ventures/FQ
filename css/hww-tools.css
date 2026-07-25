@@ -174,8 +174,17 @@
     display: none;
   }
 
+  /* `relative`, not `static` — this element is the containing block for the
+     two absolutely-positioned `.hww-tools__fade` gradients. Making it static
+     dropped it out of that role, so the fades re-anchored to
+     `.hww-tools__inner` and rendered as two green gradient rectangles over
+     the eyebrow and heading at the top of the section, while the logo band
+     itself lost its edge fades entirely. `relative` with no offsets still
+     places the band in normal flow exactly as `static` did. Same reason
+     `.services-grid__icon` and `.locations__map` stay relative in their own
+     mobile fallbacks. */
   .hww-tools__band {
-    position: static;
+    position: relative;
     left: auto;
     top: auto;
     width: 100%;
@@ -186,11 +195,17 @@
     left: auto;
     right: 0;
   }
-}
 
-@media (max-width: 480px) {
+  /* Proportional below 900px rather than the desktop 200px (or the 80px this
+     used to drop to at 480px). Both were tuned against a 1440px band and are
+     far too wide once the band is a few hundred pixels: 2x80px covered ~49%
+     of a 327px band at 375px, and 2x200px covered ~56% at 768px, largely
+     burying the outermost logos. Worth stating that this was invisible until
+     the containing-block fix above — the fades weren't over the band at all
+     on mobile, so nothing appeared to be obscured. 15% keeps the fade reading
+     as an edge treatment at every width (~49px at 375px, ~108px at 768px). */
   .hww-tools__fade--left,
   .hww-tools__fade--right {
-    width: 80px;
+    width: 15%;
   }
 }
