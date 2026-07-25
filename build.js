@@ -93,7 +93,7 @@ function buildErrorPage() {
   const template = read(path.join(ROOT, 'src/404.html'));
   const pageCss = minifyCss(read(path.join(ROOT, 'css', 'error-404.css')));
   const html = replaceAll(template, {
-    '{{TITLE}}': '404 — Page Not Found | Frontier Quotient',
+    '{{TITLE}}': '404: Page Not Found | Frontier Quotient',
     '{{DESCRIPTION}}': 'This page could not be found.',
     '{{CANONICAL_URL}}': SITE_ORIGIN + '/404.html',
     '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
