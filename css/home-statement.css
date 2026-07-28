@@ -47,9 +47,18 @@
   top: 328px;
 }
 
+/* The caption, headline and tagline below all center via left:0/right:0 +
+   text-align rather than a hardcoded `left` measured against the old, longer
+   strings (617/267/457px, each computed so that left + half the text's width
+   landed on 720px). Those offsets only held for one exact wording — when the
+   tagline changed to "Ambition measured." / "طموحٌ يُقاس" all three drifted
+   left of center. Centering this way survives any future copy change. Same
+   approach already used for .services-final-cta__heading. */
 .statement__caption {
   position: absolute;
-  left: 617px;
+  left: 0;
+  right: 0;
+  text-align: center;
   top: 74px;
   font-family: var(--font-primary);
   font-weight: 700;
@@ -84,7 +93,9 @@
 
 .statement__headline {
   position: absolute;
-  left: 267px;
+  left: 0;
+  right: 0;
+  text-align: center;
   top: 105px;
   font-family: 'Amiri', serif;
   font-weight: 700;
@@ -97,7 +108,9 @@
 
 .statement__tagline {
   position: absolute;
-  left: 457px;
+  left: 0;
+  right: 0;
+  text-align: center;
   top: 300px;
   font-family: var(--font-primary);
   font-weight: 600;
