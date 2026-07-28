@@ -101,15 +101,6 @@
   top: 68px;
 }
 
-.hero__eyebrow {
-  width: 500px;
-  font-family: var(--font-primary);
-  font-weight: 700;
-  font-size: 15px;
-  letter-spacing: 3px;
-  color: var(--color-white);
-}
-
 .hero__headline {
   margin-top: 21px;
   width: 800px;
@@ -515,7 +506,6 @@
   }
 
   .hero__text,
-  .hero__eyebrow,
   .hero__headline,
   .hero__body,
   .hero__meta,
@@ -535,12 +525,11 @@
     padding-right: 0;
   }
 
-  .hero__eyebrow {
-    margin-top: 28px;
-  }
-
+  /* 28px, not the 12px this used to have: the eyebrow above it carried the
+     28px gap below the photo strip and has been removed, so the headline is
+     now the first element in the stack and inherits that spacing. */
   .hero__headline {
-    margin-top: 12px;
+    margin-top: 28px;
     font-size: 32px;
     line-height: 1.15;
   }
