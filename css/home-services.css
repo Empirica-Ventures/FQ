@@ -8,7 +8,11 @@
   max-width: var(--page-width);
   margin: 0 auto;
   position: relative;
-  height: 660px;
+  /* 740px, up from 660px: growing the grid's second row from 130px to 210px
+     pushes the grid's bottom edge from 588px to 668px, and `.services` has
+     `overflow: hidden`, so the old height would have clipped the bottom row.
+     740 preserves the same ~72px of breathing room under the grid as before. */
+  height: 740px;
 }
 
 /* Decorative outline circles (Pattern / Outline Circles) */
@@ -93,7 +97,7 @@
   transform: translateX(2px);
 }
 
-/* Card grid: row 1 = tall bordered cards (210px), row 2 = cream cards (130px) */
+/* Card grid: 3x2 of equally-sized bordered cards (210px rows) */
 .services__grid {
   position: absolute;
   left: 80px;
@@ -101,7 +105,11 @@
   width: 1300px;
   display: grid;
   grid-template-columns: repeat(3, 420px);
-  grid-template-rows: 210px 130px;
+  /* Both rows 210px. The second row used to be 130px, which is what made the
+     bottom three services read as subsidiary: too short to fit the
+     `.services__card-link` (positioned at top: 169px) and sized to look like a
+     secondary tier. All six are core services, so they share one row height. */
+  grid-template-rows: repeat(2, 210px);
   column-gap: 20px;
   row-gap: 52px;
 }
@@ -116,7 +124,7 @@
   transform: translateY(-3px);
 }
 
-/* Type B: white, bordered, shadow, top accent bar (Management Reporting, Cash Flow, FP&A) */
+/* White, bordered, shadow, green top accent bar — used by all six cards */
 .services__card--lg {
   background: var(--color-white);
   border: 1px solid var(--color-border-soft);
@@ -137,17 +145,10 @@
   background: var(--color-green);
 }
 
-/* Type A: cream, no border/shadow (Bookkeeping, Tax & VAT, Cleanup) */
-.services__card--sm {
-  background: var(--color-cream);
-  border-radius: 8px;
-}
-
-/* No shadow at rest (flat cream card) — add one on hover only, so the lift
-   reads as the card rising off the page rather than just sliding up. */
-.services__card--sm:hover {
-  box-shadow: 0 8px 20px rgba(2, 12, 69, 0.12);
-}
+/* The former `--sm` variant (flat cream, no border/shadow/accent bar, smaller
+   type, no LEARN MORE link) has been removed. It applied to Bookkeeping,
+   Tax & VAT and Cleanup, and made them read as sub-services rather than core
+   ones. All six cards now use `--lg`. */
 
 /* Icon circle + glyph */
 .services__icon {
@@ -159,11 +160,6 @@
 .services__card--lg .services__icon {
   left: 19px;
   top: 19px;
-}
-
-.services__card--sm .services__icon {
-  left: 20px;
-  top: 20px;
 }
 
 .services__icon-bg {
@@ -216,15 +212,6 @@
   line-height: 26px;
 }
 
-.services__card--sm .services__card-title {
-  left: 80px;
-  top: 22px;
-  width: 318px;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 26px;
-}
-
 /* Card body copy */
 .services__card-body {
   position: absolute;
@@ -240,16 +227,6 @@
   font-size: 13px;
   line-height: 20px;
   color: var(--color-navy);
-  opacity: 0.55;
-}
-
-.services__card--sm .services__card-body {
-  left: 24px;
-  top: 80px;
-  width: 372px;
-  font-size: 12px;
-  line-height: 20px;
-  color: #6b7280;
   opacity: 0.55;
 }
 
@@ -275,7 +252,7 @@
 /* No mobile Figma frame — fallback: hide the decorative outline rings,
    flow eyebrow/heading/"view all" link normally, and collapse the 3x2
    fixed-position card grid into a single flexible column where each card
-   sizes to its own content instead of a fixed 210px/130px row height. */
+   sizes to its own content instead of the fixed 210px row height. */
 @media (max-width: 900px) {
   .services__inner {
     height: auto;
@@ -313,8 +290,7 @@
     gap: 20px;
   }
 
-  .services__card--lg,
-  .services__card--sm {
+  .services__card--lg {
     width: 100%;
     height: auto;
     padding: 20px;
@@ -324,22 +300,19 @@
     width: 100%;
   }
 
-  .services__card--lg .services__icon,
-  .services__card--sm .services__icon {
+  .services__card--lg .services__icon {
     position: relative;
     left: auto;
     top: auto;
   }
 
-  .services__card--lg .services__card-title,
-  .services__card--sm .services__card-title {
+  .services__card--lg .services__card-title {
     position: static;
     width: auto;
     margin-top: 16px;
   }
 
-  .services__card--lg .services__card-body,
-  .services__card--sm .services__card-body {
+  .services__card--lg .services__card-body {
     position: static;
     width: auto;
     margin-top: 8px;
