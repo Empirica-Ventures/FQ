@@ -361,6 +361,18 @@
     box-sizing: border-box;
   }
 
+  /* Span the card instead of keeping the desktop card's fixed 604px. The bar
+     looked right at these widths already, but only because the card's
+     `overflow: hidden` happened to crop 604px down to exactly the full-width
+     bar intended — left/right anchoring makes that the actual rule rather
+     than a side effect. -1px on each side still covers the card's border, as
+     the desktop `left: -1px` does. */
+  .services-grid__card-bar {
+    left: -1px;
+    right: -1px;
+    width: auto;
+  }
+
   .services-grid__watermark {
     display: none;
   }

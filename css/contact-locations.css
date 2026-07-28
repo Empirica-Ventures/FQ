@@ -407,4 +407,23 @@
     transform: scale(0.43);
     transform-origin: top left;
   }
+
+  /* Under the 0.43 above, each of these lands between 4.3px and 5.2px
+     effective — rendered, but past the point of being readable, which comes
+     across as a rendering fault rather than a deliberately small graphic.
+     Hidden here, leaving the rings, connector lines, pins and the pin names
+     (15px -> 6.5px, the largest text and the part that anchors the
+     geography). No information goes with them: the map is aria-hidden
+     decoration, and every market it labels is already spelled out as real
+     text in the .locations__market rows above it.
+     Scaling the map up instead isn't available at these widths — 0.43 is
+     already the largest factor that fits its 750px canvas into the ~327px a
+     375px viewport leaves after padding, so anything larger trades unreadable
+     labels for a cropped map. */
+  .locations__map-label,
+  .locations__pin-label,
+  .locations__pin-country,
+  .locations__legend {
+    display: none;
+  }
 }

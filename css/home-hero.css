@@ -588,4 +588,26 @@
     transform: scale(0.7);
     transform-origin: top left;
   }
+
+  /* The scale above has to be restated per animation state, because this
+     card also carries `.animate-on-scroll` and base.css's
+     `.animate-on-scroll.is-visible { transform: translateY(0) }` is a
+     two-class selector — it outranks the single-class rule above and
+     replaces the whole `transform`, scale included. So the shrink held
+     only until the card scrolled into view, at which point it snapped back
+     to its full 460x452 and .hero__dashboard-wrap clipped 109px off its
+     right edge and 102px off its bottom at 375px (the third stat card, the
+     status badge, the chart legend, two forecast bars and the entire
+     variance table). Because it needed a scroll to trigger, the hero
+     looked correct on load and broke a moment later.
+     Both states below therefore carry the scale explicitly, at equal or
+     higher specificity than the base.css pair, composed with the fade-up
+     translate so the reveal still animates rather than being suppressed. */
+  .hero__dashboard.animate-on-scroll {
+    transform: translateY(20px) scale(0.7);
+  }
+
+  .hero__dashboard.animate-on-scroll.is-visible {
+    transform: translateY(0) scale(0.7);
+  }
 }
