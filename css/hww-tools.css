@@ -84,9 +84,13 @@
   animation: hww-tools-scroll 32s linear infinite;
 }
 
+/* Travel exactly one full set so the loop is seamless: 11 logos at a 140px
+   pitch (84px chip + 56px gap) = 1540px. This must be updated whenever a logo
+   is added or removed — at 10 logos it was 1400px, and leaving it stale makes
+   the marquee visibly jump on every cycle. */
 @keyframes hww-tools-scroll {
   from { transform: translateX(0); }
-  to { transform: translateX(-1400px); }
+  to { transform: translateX(-1540px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
