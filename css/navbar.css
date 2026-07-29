@@ -13,12 +13,38 @@
   height: 80px;
 }
 
+/* The logo asset is a 402x402 export in which the wordmark occupies only a
+   250x81 region (measured off the file), so the rendered img box is ~75%
+   transparent padding and overhangs the 80px bar by design via top:-61px.
+   That padding is why the img carries `pointer-events: none` — without it the
+   empty area would swallow clicks on whatever sits below the bar.
+
+   To make the logo link home without reintroducing that dead zone, the anchor
+   is sized to the *visible* wordmark and the img is offset back inside it by
+   the same amount, so the img lands at exactly its previous coordinates
+   (68-34 = 34, 21-82 = -61) and nothing moves. `pointer-events` stays off on
+   the img, so only the anchor's wordmark-sized box is clickable. Each
+   breakpoint below keeps that pairing in step. */
+.navbar__logo-link {
+  position: absolute;
+  left: 68px;
+  top: 21px;
+  display: block;
+  width: 125px;
+  height: 41px;
+}
+
 .navbar__logo {
   position: absolute;
-  left: 34px;
-  top: -61px;
+  left: -34px;
+  top: -82px;
   width: 201px;
   height: 201px;
+  /* base.css sets `img { max-width: 100% }`. That was inert while this img's
+     containing block was the 1440px .navbar__inner, but the anchor above is
+     only as wide as the wordmark, so 100% would now clamp the img to 125px and
+     squash the logo. */
+  max-width: none;
   object-fit: cover;
   pointer-events: none;
 }
@@ -146,9 +172,18 @@
     display: flex;
   }
 
+  /* 180px render => 0.448 scale; wordmark becomes 112x37 at offset (30, 73),
+     so the img sits back at (50-30, 18-73) = (20, -55) as before. */
+  .navbar__logo-link {
+    left: 50px;
+    top: 18px;
+    width: 112px;
+    height: 37px;
+  }
+
   .navbar__logo {
-    left: 20px;
-    top: -55px;
+    left: -30px;
+    top: -73px;
     width: 180px;
     height: 180px;
   }
@@ -159,9 +194,18 @@
 }
 
 @media (max-width: 480px) {
+  /* 160px render => 0.398 scale; wordmark becomes 100x32 at offset (27, 65),
+     so the img sits back at (39-27, 15-65) = (12, -50) as before. */
+  .navbar__logo-link {
+    left: 39px;
+    top: 15px;
+    width: 100px;
+    height: 33px;
+  }
+
   .navbar__logo {
-    left: 12px;
-    top: -50px;
+    left: -27px;
+    top: -65px;
     width: 160px;
     height: 160px;
   }

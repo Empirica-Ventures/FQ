@@ -90,6 +90,19 @@
   object-fit: cover;
 }
 
+/* founder-muzammil-khan.webp is 480x617 (portrait) where the other founder
+   photo is a square 480x480. In a 132px circle, `cover` scales this one to
+   ~170px tall and the default centered crop then takes ~19px off the top,
+   cutting into the top of his head. Biasing the crop upward keeps the whole
+   head inside the frame with headroom comparable to the square photo, and
+   leaves the face near the circle's center. Verified by rendering both
+   portraits side by side at 0/10/20/30% — 50% clips the hair, 20%+ starts to
+   touch the top edge. Only this photo needs it; the square one crops to
+   nothing at any position. */
+.founders__portrait--muzammil img {
+  object-position: 50% 10%;
+}
+
 .founders__name {
   position: absolute;
   left: 169px;

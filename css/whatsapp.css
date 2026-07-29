@@ -1,0 +1,69 @@
+/* Floating WhatsApp contact button, present on every page (injected from
+   src/shell.html and src/404.html, styled here and loaded via build.js's
+   BASE_CSS_FILES alongside navbar.css/footer.css since it is a sitewide
+   component rather than a per-section one).
+
+   z-index 90 deliberately sits *below* .navbar (100) so the sticky header and
+   the open mobile nav drawer both pass over it, and below .skip-link (200) so
+   keyboard focus is never obscured. */
+.wa-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  /* WhatsApp's own brand green, not a site brand color — a recognizable
+     WhatsApp button is the point, and the site palette has no green close to
+     it (--color-green is a much darker forest tone). */
+  background: #25d366;
+  box-shadow: 0 6px 18px -2px rgba(0, 0, 0, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.wa-float:hover {
+  background: #1da851;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px -2px rgba(0, 0, 0, 0.34);
+  /* base.css gives every bare <a> a hover underline; nothing to underline on
+     an icon-only link, and it would otherwise draw a stray line in the
+     circle. */
+  text-decoration: none;
+}
+
+.wa-float svg {
+  width: 30px;
+  height: 30px;
+  display: block;
+  fill: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa-float {
+    transition: none;
+  }
+
+  .wa-float:hover {
+    transform: none;
+  }
+}
+
+/* Slightly tighter inset and size on phones so the button doesn't crowd the
+   content or sit over the bottom of a CTA. */
+@media (max-width: 480px) {
+  .wa-float {
+    right: 16px;
+    bottom: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .wa-float svg {
+    width: 27px;
+    height: 27px;
+  }
+}

@@ -37,7 +37,7 @@ const navbar = read(path.join(ROOT, 'src/partials/navbar.html'));
 const footer = read(path.join(ROOT, 'src/partials/footer.html'));
 const shellTemplate = read(path.join(ROOT, 'src/shell.html'));
 
-const BASE_CSS_FILES = ['fonts.css', 'variables.css', 'base.css', 'navbar.css', 'footer.css'];
+const BASE_CSS_FILES = ['fonts.css', 'variables.css', 'base.css', 'navbar.css', 'footer.css', 'whatsapp.css'];
 const baseCss = BASE_CSS_FILES
   .map(name => minifyCss(read(path.join(ROOT, 'css', name))))
   .join('\n');
