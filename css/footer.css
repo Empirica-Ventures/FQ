@@ -39,12 +39,29 @@
   background: var(--color-brand-red);
 }
 
+/* Same arrangement as .navbar__logo-link: this asset is a 422x422 export whose
+   wordmark occupies only 255x84, and it overhangs the footer's top edge via
+   top:-46px, which is why the img carries `pointer-events: none`. The anchor
+   takes the wordmark-sized box and the img is offset back inside it, landing at
+   (105-40, 40-86) = (65, -46) exactly as before. */
+.footer__logo-link {
+  position: absolute;
+  left: 105px;
+  top: 40px;
+  display: block;
+  width: 128px;
+  height: 42px;
+}
+
 .footer__logo {
   position: absolute;
-  left: 65px;
-  top: -46px;
+  left: -40px;
+  top: -86px;
   width: 211px;
   height: 211px;
+  /* See .navbar__logo: base.css's `img { max-width: 100% }` would otherwise
+     clamp this to the anchor's wordmark width. */
+  max-width: none;
   pointer-events: none;
 }
 
@@ -166,6 +183,19 @@
   .footer__inner {
     height: auto;
     padding: 32px 24px;
+  }
+
+  /* Both anchor and img return to normal flow here. The anchor wraps the img's
+     own block rather than the wordmark, so the transparent padding is clickable
+     on mobile — harmless, because in static flow that padding is the logo's own
+     space and overlaps nothing, unlike the desktop overhang. */
+  /* inline-block, not block: a block anchor would stretch the full footer width
+     and make ~650px of empty space clickable. This shrink-wraps the img. */
+  .footer__logo-link {
+    position: static;
+    display: inline-block;
+    width: auto;
+    height: auto;
   }
 
   .footer__logo {
