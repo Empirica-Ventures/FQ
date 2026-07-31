@@ -1,0 +1,37 @@
+name: Verify build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  mobile-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # devDependencies only — build.js itself has zero runtime dependencies.
+      - run: npm install
+      - run: npx playwright install --with-deps chromium
+
+      - run: node build.js
+
+      - name: Serve dist/
+        run: |
+          node verify/serve.js dist 8843 &
+          for i in $(seq 1 20); do
+            curl -sf http://127.0.0.1:8843/index.html > /dev/null && exit 0
+            sleep 0.5
+          done
+          echo "server did not come up" >&2
+          exit 1
+
+      # CHROMIUM_PATH='' overrides this repo's local-sandbox default
+      # (/opt/pw-browsers/chromium) so Playwright's own installed browser
+      # (from the step above) is used instead.
+      - name: Mobile clipping audit (375 + 414px vs 1440px baseline)
+        run: CHROMIUM_PATH='' node verify/mobile_audit.js

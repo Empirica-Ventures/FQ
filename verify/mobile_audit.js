@@ -37,6 +37,13 @@ const WIDTHS = (process.argv[3] || '375,414').split(',').map(Number);
 const BASE = process.argv[4] || 'http://127.0.0.1:8843';
 const DESKTOP = 1440;
 
+// The toolkit logo strip is an infinite horizontal marquee (see
+// css/hww-tools.css) — by construction, most of its duplicated chip set sits
+// outside the visible band at every viewport width, and narrower viewports
+// simply fit fewer chips before the cutoff. That's not a regression, so it's
+// excluded from the pass/fail signal (still printed below, for visibility).
+const KNOWN_CLIPPING_VIA = ['div.hww-tools__band'];
+
 const MEASURE = (vw) => {
   const label = el => {
     const cls = (el.className || '').toString().trim().split(/\s+/)
@@ -135,6 +142,8 @@ const MEASURE = (vw) => {
   }
   await dp.close();
 
+  let anyRegression = false;
+
   for (const w of WIDTHS) {
     const page = await browser.newPage({ viewport: { width: w, height: 812 } });
     for (const name of PAGES) {
@@ -152,8 +161,10 @@ const MEASURE = (vw) => {
         .filter(([k]) => !base.clipped[k]).map(([, v]) => v);
       const newVclip = Object.entries(m.vclip)
         .filter(([k, v]) => !base.vclip[k] || v.lost > base.vclip[k].lost + 4).map(([, v]) => v);
+      const unexpectedClipped = newClipped.filter(o => !KNOWN_CLIPPING_VIA.includes(o.via));
 
       const has = newClipped.length || newVclip.length || m.animconf.length;
+      if (unexpectedClipped.length || newVclip.length || m.animconf.length) anyRegression = true;
       console.log(`\n=== ${name} @ ${w}px  (scrollWidth ${m.docW}, height ${m.bodyH})`);
       const show = (title, arr, fmt) => {
         if (!arr.length) return;
@@ -175,4 +186,11 @@ const MEASURE = (vw) => {
     await page.close();
   }
   await browser.close();
+
+  if (anyRegression) {
+    console.error('\nFAILED: new mobile-only clipping/scroll-reveal-conflict detected (see above).');
+    process.exitCode = 1;
+  } else {
+    console.log('\nOK: no unexpected mobile regressions.');
+  }
 })();
