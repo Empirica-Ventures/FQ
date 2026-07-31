@@ -1,6 +1,7 @@
 {
   "title": "Contact | Frontier Quotient",
   "description": "Get in touch with Frontier Quotient to discuss your finance and accounting needs across the GCC.",
+  "priority": 0.8,
   "sections": [
     "contact/01-main.html",
     "contact/02-locations.html",

@@ -1,6 +1,7 @@
 {
   "title": "Bookkeeping & Accounting | Frontier Quotient",
   "description": "Organized, accurate bookkeeping and accounting services that keep your financial records up to date, compliant, and audit-ready.",
+  "priority": 0.6,
   "sections": [
     "services/bookkeeping/01-hero.html",
     "services/bookkeeping/02-body.html",

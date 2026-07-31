@@ -1,6 +1,7 @@
 {
   "title": "About | Frontier Quotient",
   "description": "Frontier Quotient combines accounting expertise with practical finance strategy to help GCC companies operate with clarity and confidence.",
+  "priority": 0.8,
   "sections": [
     "about/01-hero.html",
     "about/02-who-we-are.html",

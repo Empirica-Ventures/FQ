@@ -1,6 +1,7 @@
 {
   "title": "Case Studies | Frontier Quotient",
   "description": "Real outcomes from GCC operators who partnered with Frontier Quotient for FP&A and business finance support.",
+  "priority": 0.7,
   "sections": [
     "case-studies/01-hero.html",
     "case-studies/02-filters.html",
