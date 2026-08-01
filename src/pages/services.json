@@ -4,7 +4,7 @@
   "priority": 0.9,
   "sections": [
     "services/01-hero.js",
-    "services/02-trusted-by.html",
+    "services/02-trusted-by.js",
     "services/03-services-grid.js",
     "services/04-final-cta.html"
   ],
