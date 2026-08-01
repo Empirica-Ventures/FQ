@@ -78,9 +78,13 @@
   color: var(--color-navy);
 }
 
+/* right, not the original hardcoded left:1157px — a longer link label
+   would have pushed past the 1440px edge instead of growing leftward.
+   83px reproduces the same measured right edge for the current text and
+   stays correct for any string length. */
 .services__view-all {
   position: absolute;
-  left: 1157px;
+  right: 83px;
   top: 84px;
   display: inline-block;
   font-family: var(--font-primary);

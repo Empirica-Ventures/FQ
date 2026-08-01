@@ -44,9 +44,14 @@
   color: var(--color-pink-light);
 }
 
+/* right, not the original hardcoded left:1120px — 1120 + 240px width put
+   the right edge at exactly x=1360, an 80px margin matching the same 80px
+   used on the left for .hww-cta__heading/__rule/__subtext. right:80px
+   reproduces that exactly and stays correct if the button or section width
+   ever changes, instead of silently drifting off the old 1440px canvas. */
 .hww-cta__button {
   position: absolute;
-  left: 1120px;
+  right: 80px;
   top: 120px;
   width: 240px;
   height: 56px;

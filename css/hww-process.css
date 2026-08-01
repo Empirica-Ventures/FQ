@@ -59,9 +59,14 @@
   background: var(--color-green);
 }
 
+/* right, not the original hardcoded left:1280px — that value only kept this
+   right-aligned-looking because it happened to leave ~92px before the
+   1440px edge for this exact text ("01 to 05"); any longer string would
+   push past the edge instead of growing left. right:92px reproduces the
+   same measured position and stays correct for any string length. */
 .hww-process__count {
   position: absolute;
-  left: 1280px;
+  right: 92px;
   top: 96px;
   font-family: var(--font-primary);
   font-weight: 700;
@@ -329,6 +334,7 @@
   .hww-process__count {
     position: static;
     left: auto;
+    right: auto;
     top: auto;
   }
 

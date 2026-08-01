@@ -32,10 +32,15 @@
   pointer-events: none;
 }
 
-/* Giant faint "5" watermark behind the heading/cards */
+/* Giant faint "5" watermark behind the heading/cards. right, not the
+   original hardcoded left:1100px — this digit tracks the number of
+   why-FQ reasons, so a future switch to a 2-digit count would push a
+   second character past the 1440px edge instead of the watermark growing
+   leftward from the edge. right:49px reproduces the same measured right
+   edge for "5" and stays correct if the digit count changes. */
 .why-fq__bignum {
   position: absolute;
-  left: 1100px;
+  right: 49px;
   top: -60px;
   font-family: var(--font-primary);
   font-weight: 800;

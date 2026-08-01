@@ -65,9 +65,15 @@
   white-space: nowrap;
 }
 
+/* right, not the original hardcoded left:1205px — a longer link label would
+   have pushed past the 1440px edge instead of growing leftward. 84px
+   reproduces the same measured right edge for the current text and stays
+   correct for any string length. (.industries__cta-rule below stays
+   left-anchored: it's a fixed 40px decorative underline under the start of
+   the text, not text content, so it can't overflow the viewport.) */
 .industries__cta {
   position: absolute;
-  left: 1205px;
+  right: 84px;
   top: 92px;
   display: inline-flex;
   align-items: center;
