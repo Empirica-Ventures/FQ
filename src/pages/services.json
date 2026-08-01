@@ -3,9 +3,9 @@
   "description": "Flexible finance and accounting support for GCC businesses, from FP&A to bookkeeping, tax compliance, and cash flow forecasting.",
   "priority": 0.9,
   "sections": [
-    "services/01-hero.html",
+    "services/01-hero.js",
     "services/02-trusted-by.html",
-    "services/03-services-grid.html",
+    "services/03-services-grid.js",
     "services/04-final-cta.html"
   ],
   "css": [

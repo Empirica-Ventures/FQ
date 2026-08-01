@@ -1,9 +1,15 @@
-// The only two escapers a render function may use. Never expose raw HTML
-// to content data -- every editable string goes through one of these.
+// The only escapers a render function may use. Never expose raw HTML to
+// content data -- every editable string goes through one of these.
 
 // Editable text -> HTML text node.
 function text(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Editable text -> HTML attribute value (e.g. alt="..."). Same as text()
+// plus quotes, which a text node never needs escaped but an attribute does.
+function attr(s) {
+  return text(s).replace(/"/g, '&quot;');
 }
 
 // Same as text(), plus re-spells the typographic characters this site's
@@ -33,4 +39,4 @@ function spell(s) {
   return text(s).replace(ENTITY_PATTERN, function (c) { return ENTITY_SPELLING[c]; });
 }
 
-module.exports = { text: text, spell: spell };
+module.exports = { text: text, attr: attr, spell: spell };

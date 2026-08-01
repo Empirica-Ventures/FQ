@@ -1,0 +1,77 @@
+{
+  "items": [
+    {
+      "slug": "fpa",
+      "href": "/fpa.html",
+      "name": "FP&A / Business Finance",
+      "homeNameLines": ["FP&A / Business Finance"],
+      "gridBlurb": "Strategic finance leadership without the cost of a full-time CFO.",
+      "gridTagRows": [
+        { "top": 245, "tags": ["Financial strategy", "Board reporting", "Planning support"] }
+      ],
+      "gridLinkText": "Better financial decision-making",
+      "homeBlurb": "Strategic finance guidance without full-time overhead"
+    },
+    {
+      "slug": "mgmt-reporting",
+      "href": "/mgmt-reporting.html",
+      "name": "Management Reporting",
+      "homeNameLines": ["Management", "Reporting"],
+      "gridBlurb": "Monthly reporting that helps leadership understand business performance.",
+      "gridTagRows": [
+        { "top": 245, "tags": ["P&L reports", "Dashboards", "KPI tracking", "Management summaries"] }
+      ],
+      "gridLinkText": "Smarter operational and financial decisions",
+      "homeBlurb": "Clear monthly reporting and performance insights"
+    },
+    {
+      "slug": "cashflow",
+      "href": "/cashflow.html",
+      "name": "Cash Flow & Forecasting",
+      "homeNameLines": ["Cash Flow &", "Forecasting"],
+      "gridBlurb": "Forecasting and cash flow planning for improved financial stability.",
+      "gridTagRows": [
+        { "top": 245, "tags": ["Cash flow forecasting", "Budgeting", "Financial planning"] }
+      ],
+      "gridLinkText": "Improved visibility and reduced surprises",
+      "homeBlurb": "Better planning and financial visibility"
+    },
+    {
+      "slug": "bookkeeping",
+      "href": "/bookkeeping.html",
+      "name": "Bookkeeping & Accounting",
+      "homeNameLines": ["Bookkeeping &", "Accounting"],
+      "gridBlurb": "Organized, accurate bookkeeping that keeps your financial records up to date.",
+      "gridTagRows": [
+        { "top": 267, "tags": ["Transaction recording", "Reconciliations", "Month-end close"] },
+        { "top": 301, "tags": ["Financial statements"] }
+      ],
+      "gridLinkText": "Better accuracy and financial visibility",
+      "homeBlurb": "Accurate books and organized financial records"
+    },
+    {
+      "slug": "tax-vat",
+      "href": "/tax-vat.html",
+      "name": "Tax & VAT Compliance",
+      "homeNameLines": ["Tax & VAT", "Compliance"],
+      "gridBlurb": "Finance support that keeps VAT, corporate tax and Saudi Zakat/ZATCA obligations on track.",
+      "gridTagRows": [
+        { "top": 245, "tags": ["VAT support", "Compliance coordination", "Finance documentation"] }
+      ],
+      "gridLinkText": "Reduced operational risk",
+      "homeBlurb": "VAT, corporate tax and Saudi Zakat/ZATCA compliance"
+    },
+    {
+      "slug": "cleanup",
+      "href": "/cleanup.html",
+      "name": "Cleanup & Catch-Up Accounting",
+      "homeNameLines": ["Cleanup & Catch-Up Accounting"],
+      "gridBlurb": "Resolve accounting backlogs and organize financial records.",
+      "gridTagRows": [
+        { "top": 245, "tags": ["Historical bookkeeping cleanup", "Reconciliations", "Reporting fixes"] }
+      ],
+      "gridLinkText": "Reliable and organized financial data",
+      "homeBlurb": "Resolve backlogs and fix reporting issues"
+    }
+  ]
+}
