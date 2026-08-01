@@ -1,0 +1,15 @@
+{
+  "items": [
+    { "src": "/assets/tool-logos/xero.png", "alt": "Xero" },
+    { "src": "/assets/tool-logos/sap.png", "alt": "SAP" },
+    { "src": "/assets/tool-logos/powerbi.png", "alt": "Power BI" },
+    { "src": "/assets/tool-logos/googledocs.png", "alt": "Google Docs" },
+    { "src": "/assets/tool-logos/quickbooks.png", "alt": "QuickBooks" },
+    { "src": "/assets/tool-logos/sql.png", "alt": "SQL" },
+    { "src": "/assets/tool-logos/canva.png", "alt": "Canva" },
+    { "src": "/assets/tool-logos/zoho.png", "alt": "Zoho" },
+    { "src": "/assets/tool-logos/office365.png", "alt": "Office 365" },
+    { "src": "/assets/tool-logos/docsend.png", "alt": "DocSend" },
+    { "src": "/assets/tool-logos/odoo.png", "alt": "Odoo" }
+  ]
+}
