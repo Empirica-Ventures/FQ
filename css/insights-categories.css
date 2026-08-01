@@ -23,14 +23,29 @@
   opacity: 0.08;
 }
 
+/* Flex row instead of per-tab hardcoded `left` px (see
+   src/partials/insights/02-categories.html) — same fix already applied to
+   the sibling case-studies filter bar (css/cs-filters.css:26). The 6 fixed
+   offsets were measured against these exact 6 labels at their current
+   lengths; renaming a category or adding a 7th has no defined position and
+   would either overlap a neighbour or land off after the last hardcoded
+   value. Flex + gap sizes itself to whatever the actual label widths are.
+   Rendered gaps between the original 6 labels ranged ~30-46px (not a
+   uniform grid — each was placed individually); 36px is a representative
+   value, not a legacy measurement to preserve exactly. */
 .categories__tabs {
-  position: relative;
-  height: 100%;
+  position: absolute;
+  left: 80px;
+  top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  height: auto;
 }
 
 .categories__tab {
-  position: absolute;
-  top: 30px;
+  position: relative;
+  margin: 0;
   background: none;
   border: none;
   padding: 0;
@@ -67,14 +82,11 @@
   background: var(--color-brand-red);
 }
 
-/* Mobile/tablet fallback — no mobile Figma frame exists for this bar. Each
-   tab was individually absolutely-positioned via inline `left` styles in
-   the HTML (see src/partials/insights/02-categories.html); those inline
-   values are harmless once `position` switches to static/relative below,
-   since `left` only applies to positioned elements. Becomes a horizontally-
-   scrollable strip (own inner element, not the page) for the same reason
-   as the Industries quick-nav — 6 tabs at their natural widths don't wrap
-   cleanly without a hand-tuned per-tab breakpoint. */
+/* Mobile/tablet fallback — no mobile Figma frame exists for this bar.
+   Becomes a horizontally-scrollable strip (own inner element, not the
+   page) for the same reason as the Industries quick-nav — 6 tabs at their
+   natural widths don't wrap cleanly without a hand-tuned per-tab
+   breakpoint. */
 @media (max-width: 900px) {
   .categories {
     height: auto;
@@ -93,6 +105,9 @@
   }
 
   .categories__tabs {
+    position: static;
+    left: auto;
+    top: auto;
     display: flex;
     gap: 24px;
     height: auto;
@@ -102,7 +117,6 @@
   .categories__tab {
     position: relative;
     top: auto;
-    left: auto !important;
   }
 
   .categories__tab--active::after {
