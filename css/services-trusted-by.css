@@ -71,13 +71,24 @@
 /* 13 columns x 2 rows of client logo tiles. Row pitch (112px) already
    includes the card + label + vertical gap, so no additional row-gap is
    needed on the grid itself. */
+/* grid-auto-rows, not the original grid-template-rows: repeat(2, 112px) —
+   that hardcoded exactly 2 rows for exactly 26 logos (13 columns x 2). A
+   27th logo would have opened an implicit 3rd row sized by the grid's
+   default row-sizing instead of the intended 112px, and — since
+   `.trusted-by` fixes its own height at 400px and clips overflow-y — that
+   3rd row would render entirely invisible, no error, no scrollbar.
+   grid-auto-rows fixes the row height for however many rows the grid
+   actually needs, so it stays correct at any logo count. (The container's
+   own fixed height is a separate, larger constraint — deliberately left
+   for the CMS phase, which caps this collection at today's count until the
+   container itself is made auto-height as its own reviewed change.) */
 .trusted-by__grid {
   position: absolute;
   left: 36px;
   top: 160px;
   display: grid;
   grid-template-columns: repeat(13, 96px);
-  grid-template-rows: repeat(2, 112px);
+  grid-auto-rows: 112px;
   column-gap: 10px;
 }
 
@@ -166,6 +177,7 @@
     margin-top: 32px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: none;
+    grid-auto-rows: auto;
     column-gap: 12px;
     row-gap: 24px;
   }
