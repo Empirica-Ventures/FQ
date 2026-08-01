@@ -37,6 +37,24 @@ const navbar = read(path.join(ROOT, 'src/partials/navbar.html'));
 const footer = read(path.join(ROOT, 'src/partials/footer.html'));
 const shellTemplate = read(path.join(ROOT, 'src/shell.html'));
 
+// Editable content, loaded once. Every file in content/collections/ and
+// content/taxonomies/ is exposed under a camelCase key derived from its
+// filename (case-studies.json -> content.caseStudies), for render modules
+// in src/render/ to read from. Plain JSON, no parser dependency.
+function loadContent() {
+  const out = {};
+  for (const dir of ['content/collections', 'content/taxonomies']) {
+    const abs = path.join(ROOT, dir);
+    if (!fs.existsSync(abs)) continue;
+    for (const f of fs.readdirSync(abs).filter(f => f.endsWith('.json'))) {
+      const key = f.slice(0, -'.json'.length).replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+      out[key] = JSON.parse(read(path.join(abs, f)));
+    }
+  }
+  return out;
+}
+const content = loadContent();
+
 const BASE_CSS_FILES = ['fonts.css', 'variables.css', 'base.css', 'navbar.css', 'footer.css', 'whatsapp.css'];
 const baseCss = BASE_CSS_FILES
   .map(name => minifyCss(read(path.join(ROOT, 'css', name))))
@@ -73,9 +91,14 @@ function escapeAttr(str) {
     .replace(/>/g, '&gt;');
 }
 
+function buildSection(rel) {
+  if (rel.endsWith('.js')) return require(path.join(ROOT, 'src/render', rel))(content);
+  return read(path.join(ROOT, 'src/partials', rel));
+}
+
 function buildPage(config) {
   const sectionsHtml = config.sections
-    .map(rel => read(path.join(ROOT, 'src/partials', rel)))
+    .map(buildSection)
     .join('\n');
   const pageCss = config.css
     .map(name => minifyCss(read(path.join(ROOT, 'css', name))))

@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "slug": "retail-ecommerce", "tabLabel": "RETAIL & E-COMMERCE", "cardLabel": "RETAIL & E-COMMERCE" },
+    { "slug": "construction", "tabLabel": "CONSTRUCTION", "cardLabel": "CONSTRUCTION" },
+    { "slug": "professional-services", "tabLabel": "PROFESSIONAL SERVICES", "cardLabel": "PROFESSIONAL SERVICES" },
+    { "slug": "logistics", "tabLabel": "LOGISTICS", "cardLabel": "LOGISTICS & TRADING" },
+    { "slug": "startups", "tabLabel": "STARTUPS", "cardLabel": "STARTUPS & SMEs" }
+  ]
+}

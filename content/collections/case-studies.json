@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "category": "retail-ecommerce",
+      "accent": "green",
+      "mono": false,
+      "featured": true,
+      "value": "-72%",
+      "statLabel": "Reporting time",
+      "statSub": "Close cycle: 18 days → 5 days",
+      "challenge": "A multi-platform D2C operator in UAE with no clear month-end process. Books were 3 months behind. No P&L visibility.",
+      "outcome": "Management now reviews financials every Friday. Cash position tracked in real time.",
+      "tags": ["Bookkeeping", "Management Reporting", "Cash Flow"]
+    },
+    {
+      "category": "construction",
+      "accent": "navy",
+      "mono": false,
+      "featured": false,
+      "value": "+AED 8.4M",
+      "statLabel": "Gross margin recovered",
+      "statSub": "Revenue: AED 33M",
+      "challenge": "A construction business in KSA with project-level reporting gaps. No WIP accounting. Margin bleeding invisibly.",
+      "outcome": "Identified 3 projects losing money. Repriced 2. Exited 1. Gross margin expanded +600bps.",
+      "tags": ["Management Reporting", "Fractional CFO", "Cleanup"]
+    },
+    {
+      "category": "startups",
+      "accent": "green",
+      "mono": false,
+      "featured": true,
+      "value": "18mo",
+      "statLabel": "Cash runway modelled",
+      "statSub": "Raised AED 5.1M seed",
+      "challenge": "A health-tech startup preparing for seed round. Books messy. No financial model. Investors asking for data room.",
+      "outcome": "Closed AED 5.1M seed round. Investor cited financial clarity as a key factor in decision.",
+      "tags": ["Fractional CFO", "Cash Flow", "Investor Reporting"]
+    },
+    {
+      "category": "logistics",
+      "accent": "navy",
+      "mono": false,
+      "featured": false,
+      "value": "40%",
+      "statLabel": "Working capital freed",
+      "statSub": "Cash cycle: 67 days → 41 days",
+      "challenge": "A logistics company in Bahrain with a 67-day cash conversion cycle. Supplier terms misaligned with receivables.",
+      "outcome": "Cash cycle reduced to 41 days. Working capital freed up by AED 2.9M.",
+      "tags": ["Cash Flow", "Bookkeeping", "Tax & VAT"]
+    },
+    {
+      "category": "professional-services",
+      "accent": "green",
+      "mono": true,
+      "featured": false,
+      "value": "32%",
+      "statLabel": "Revenue per head increase",
+      "statSub": "Billable utilization: 58% → 78%",
+      "challenge": "A consultancy in Dubai with 12 staff and no utilization tracking. Headcount growing but margins flat.",
+      "outcome": "Identified 4 underperforming client accounts. Repriced or exited. Profit per head up 32%.",
+      "tags": ["Management Reporting", "Fractional CFO"]
+    },
+    {
+      "category": "retail-ecommerce",
+      "accent": "navy",
+      "mono": false,
+      "featured": false,
+      "value": "VAT-Ready",
+      "statLabel": "in 6 weeks",
+      "statSub": "Post-UAE CT implementation",
+      "challenge": "An e-commerce business that had never filed VAT correctly. 2 years of messy books. UAE CT deadline approaching.",
+      "outcome": "Fully compliant. No penalties. Clean books handed to ongoing accounting team.",
+      "tags": ["Tax & VAT", "Cleanup", "Bookkeeping"]
+    }
+  ]
+}

@@ -4,8 +4,8 @@
   "priority": 0.7,
   "sections": [
     "case-studies/01-hero.html",
-    "case-studies/02-filters.html",
-    "case-studies/03-grid.html",
+    "case-studies/02-filters.js",
+    "case-studies/03-grid.js",
     "case-studies/04-final-cta.html"
   ],
   "css": [
