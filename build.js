@@ -180,6 +180,41 @@ function buildPage(config) {
   console.log('built', config.outputFile);
 }
 
+// Insights articles are the first "one config -> N pages" fan-out the build
+// has: each item in content/collections/insights-articles.json becomes its
+// own dist/insights/<slug>.html, reusing the same shell/navbar/footer as
+// buildPage() but with its own CSS bundle (insights-article-detail.css is
+// deliberately NOT in src/pages/insights.json's css list, since it must not
+// apply to the /insights.html listing page). Returns one pseudo page-config
+// per article so buildSitemap() picks them up the same way it does real pages.
+const insightsArticleDetail = require('./src/render/insights/article-detail');
+
+function buildInsightsArticles(content) {
+  const categories = content.insightsCategories.items;
+  const articles = content.insightsArticles.items;
+  const articleCss = minifyCss(read(path.join(ROOT, 'css', 'insights-article-detail.css')));
+  const allCss = baseCss + '\n' + articleCss;
+  const outDir = path.join(DIST, 'insights');
+  fs.mkdirSync(outDir, { recursive: true });
+
+  return articles.map(article => {
+    const outputFile = 'insights/' + article.slug + '.html';
+    const html = injectTokens(shellTemplate, {
+      '{{TITLE}}': escapeAttr(article.title + ' | Frontier Quotient Insights'),
+      '{{DESCRIPTION}}': escapeAttr(article.excerpt),
+      '{{CANONICAL_URL}}': SITE_ORIGIN + '/' + outputFile,
+      '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
+      '{{ALL_CSS}}': allCss,
+      '{{NAVBAR}}': navbar,
+      '{{CONTENT}}': insightsArticleDetail(article, categories),
+      '{{FOOTER}}': footer,
+    });
+    fs.writeFileSync(path.join(DIST, outputFile), html, 'utf-8');
+    console.log('built', outputFile);
+    return { outputFile, priority: 0.5 };
+  });
+}
+
 function buildErrorPage() {
   const template = read(path.join(ROOT, 'src/404.html'));
   const pageCss = minifyCss(read(path.join(ROOT, 'css', 'error-404.css')));
@@ -229,12 +264,13 @@ function main() {
 
   for (const config of pageConfigs) buildPage(config);
   buildErrorPage();
+  const insightsArticleConfigs = buildInsightsArticles(content);
 
   copyDir(path.join(ROOT, 'js'), path.join(DIST, 'js'));
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
   if (fs.existsSync(path.join(ROOT, 'admin'))) copyDir(path.join(ROOT, 'admin'), path.join(DIST, 'admin'));
   buildRobotsTxt();
-  buildSitemap(pageConfigs);
+  buildSitemap(pageConfigs.concat(insightsArticleConfigs));
   console.log('done. dist/ is ready.');
 }
 

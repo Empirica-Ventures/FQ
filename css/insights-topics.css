@@ -1,6 +1,13 @@
+/* height was 320px, sized for exactly 4 cards in one row
+   (grid-template-columns: repeat(4, 172px) below never wraps on its own —
+   a 5th card just continues onto an implicit 2nd row at the same 4-column
+   width). Adding the missing 5th topic (CFO Insights) would have wrapped
+   invisibly under this fixed height + overflow:hidden, no error, no
+   scrollbar. 468px = the same 96px top offset + 2 rows of 120px cards +
+   28px inter-row gap + the original 104px of bottom breathing room. */
 .topics {
   position: relative;
-  height: 320px;
+  height: 468px;
   background: var(--color-brand-red);
   overflow: hidden;
 }

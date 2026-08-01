@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "slug": "uae-corporate-tax-thresholds",
+      "category": "vat-compliance",
+      "featured": true,
+      "title": "What UAE Corporate Tax means for a business doing AED 4M to AED 18M in revenue.",
+      "excerpt": "UAE Corporate Tax landed in June 2023. If you're operating between AED 2M and AED 18M in revenue, here's exactly what changes, what doesn't, and what you need to do before your next financial year.",
+      "readTime": "8 min read"
+    },
+    {
+      "slug": "gcc-monthly-close-structure",
+      "category": "finance-tips",
+      "featured": false,
+      "title": "How should a GCC business structure its monthly close?",
+      "excerpt": "Most businesses close their books in 3 weeks. Here's how the best ones do it in 5 days, and what they look at first.",
+      "readTime": "6 min read"
+    },
+    {
+      "slug": "founder-bookkeeping-handoff",
+      "category": "cash-flow",
+      "featured": false,
+      "title": "When should a founder stop doing their own bookkeeping?",
+      "excerpt": "The answer isn't a revenue number. It's a decision quality question, and most founders wait 12 months too long.",
+      "readTime": "5 min read"
+    },
+    {
+      "slug": "fractional-cfo-explained",
+      "category": "cfo-insights",
+      "featured": false,
+      "title": "What is a Fractional CFO and does your business need one?",
+      "excerpt": "A Fractional CFO isn't just a part-time finance director. Here's what they actually do, and when the investment pays off.",
+      "readTime": "7 min read"
+    },
+    {
+      "slug": "ksa-vat-zatca-einvoicing-guide",
+      "category": "vat-compliance",
+      "featured": false,
+      "title": "KSA VAT and ZATCA e-invoicing: a practical guide for SMEs.",
+      "excerpt": "Saudi Arabia's e-invoicing mandate (ZATCA) applies to most businesses now. What you need to know and do before penalties hit.",
+      "readTime": "9 min read"
+    },
+    {
+      "slug": "series-a-books-readiness",
+      "category": "business-growth",
+      "featured": false,
+      "title": "How to prepare your books for a Series A investor conversation.",
+      "excerpt": "Investors ask for data rooms. Most founders aren't ready. Here's exactly what finance documents you need, and how to clean them up fast.",
+      "readTime": "10 min read"
+    },
+    {
+      "slug": "retail-cash-flow-vs-pnl",
+      "category": "finance-tips",
+      "featured": false,
+      "title": "Retail cash flow: why your P&L looks great but your bank is empty.",
+      "excerpt": "Revenue is vanity, cash is sanity. Retail and e-commerce businesses face a specific cash timing problem. Here's how to model it.",
+      "readTime": "6 min read"
+    }
+  ]
+}

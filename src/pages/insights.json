@@ -4,10 +4,10 @@
   "priority": 0.6,
   "sections": [
     "insights/01-hero.html",
-    "insights/02-categories.html",
-    "insights/03-featured.html",
-    "insights/04-article-grid.html",
-    "insights/05-topics.html"
+    "insights/02-categories.js",
+    "insights/03-featured.js",
+    "insights/04-article-grid.js",
+    "insights/05-topics.js"
   ],
   "css": [
     "insights-hero.css",

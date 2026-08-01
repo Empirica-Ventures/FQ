@@ -1,0 +1,84 @@
+/* Article detail page — new UI with no Figma trace to follow (Phase 4 of
+   the CMS plan: making the 6 article cards link somewhere real). Built
+   with normal flow / max-width instead of this site's usual absolute-
+   positioned-to-a-1440px-canvas pattern, since there's no fixed design to
+   trace and a reading page benefits from being naturally responsive.
+   Typography reuses css/svc-detail.css's body-copy values (17px/30px,
+   --color-text-body) for consistency with the rest of the site. */
+.insights-article {
+  background: var(--color-white);
+}
+
+.insights-article__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+.insights-article__back {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: 32px;
+}
+
+.insights-article__back:hover {
+  color: var(--color-navy);
+}
+
+.insights-article__category {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.insights-article__category--navy { background: rgba(2, 12, 69, 0.08); color: var(--color-navy); }
+.insights-article__category--red { background: rgba(139, 10, 50, 0.08); color: var(--color-brand-red); }
+.insights-article__category--green { background: rgba(43, 107, 37, 0.08); color: var(--color-green); }
+
+.insights-article__title {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 1.25;
+  color: var(--color-navy);
+  margin: 0 0 16px;
+}
+
+.insights-article__meta {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: 0 0 40px;
+}
+
+.insights-article__body {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 30px;
+  color: var(--color-text-body);
+}
+
+.insights-article__body p {
+  margin: 0 0 24px;
+}
+
+.insights-article__body p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .insights-article__title {
+    font-size: 28px;
+  }
+}

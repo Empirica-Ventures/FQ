@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "slug": "finance-tips", "label": "FINANCE TIPS", "topicTitle": "Finance Tips", "gridAccent": "navy" },
+    { "slug": "cash-flow", "label": "CASH FLOW", "topicTitle": "Cash Flow", "gridAccent": "red" },
+    { "slug": "vat-compliance", "label": "VAT & COMPLIANCE", "topicTitle": "VAT & Compliance", "topicTitleTight": true, "gridAccent": "red" },
+    { "slug": "business-growth", "label": "BUSINESS GROWTH", "topicTitle": "Business Growth", "gridAccent": "green" },
+    { "slug": "cfo-insights", "label": "CFO INSIGHTS", "topicTitle": "CFO Insights", "gridAccent": "green" }
+  ]
+}
