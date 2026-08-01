@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "label": "About Us", "href": "/about.html" },
+    { "label": "How We Work", "href": "/how-we-work.html" },
+    { "label": "Industries", "href": "/industries.html" },
+    { "label": "Insights", "href": "/insights.html" },
+    { "label": "Contact", "href": "/contact.html" }
+  ]
+}

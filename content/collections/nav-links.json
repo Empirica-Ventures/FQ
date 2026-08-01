@@ -1,0 +1,12 @@
+{
+  "items": [
+    { "label": "Home", "href": "/index.html" },
+    { "label": "About", "href": "/about.html" },
+    { "label": "Services", "href": "/services.html" },
+    { "label": "How We Work", "href": "/how-we-work.html" },
+    { "label": "Industries", "href": "/industries.html" },
+    { "label": "Case Studies", "href": "/case-studies.html" },
+    { "label": "Insights", "href": "/insights.html" },
+    { "label": "Contact Us", "href": "/contact.html" }
+  ]
+}

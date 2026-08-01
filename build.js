@@ -33,7 +33,6 @@ function minifyCss(css) {
     .join('\n');
 }
 
-const navbar = read(path.join(ROOT, 'src/partials/navbar.html'));
 const shellTemplate = read(path.join(ROOT, 'src/shell.html'));
 
 // Editable content, loaded once. Every file in content/collections/ and
@@ -127,15 +126,27 @@ function imageTokens(images) {
 }
 const IMAGE_TOKENS = imageTokens(content.images);
 
-// footer.html stays a static partial (it has a logo, tagline, and 4 link
-// columns that aren't extracted yet) except for its services column, which
-// is data-driven the same way images are: a single {{FOOTER_SERVICES_LIST}}
-// token, computed from the shared services collection in the footer's own
-// link order (see src/render/footer/services-list.js for why that order
-// differs from every other services render site).
+// navbar.html stays a static partial (logo/CTA/menu-toggle aren't
+// extracted) except for its two nav-link lists, which used to be two
+// hand-typed 8-item lists kept in sync by hand.
+const navbarLinks = require('./src/render/navbar/links');
+const navbar = injectTokens(read(path.join(ROOT, 'src/partials/navbar.html')), {
+  '{{NAVBAR_LINKS}}': navbarLinks(content, { mobile: false }),
+  '{{NAVBAR_MOBILE_LINKS}}': navbarLinks(content, { mobile: true }),
+});
+
+// footer.html stays a static partial (logo, tagline, contact column) except
+// for its services/company/social columns, each data-driven the same way
+// images are: a single token per list, computed from a shared collection.
+// See src/render/footer/services-list.js for why the footer's services
+// order differs from every other services render site.
 const footerServicesList = require('./src/render/footer/services-list');
+const footerCompanyList = require('./src/render/footer/company-list');
+const footerSocialList = require('./src/render/footer/social-list');
 const footer = injectTokens(read(path.join(ROOT, 'src/partials/footer.html')), {
   '{{FOOTER_SERVICES_LIST}}': footerServicesList(content),
+  '{{FOOTER_COMPANY_LIST}}': footerCompanyList(content),
+  '{{FOOTER_SOCIAL_LIST}}': footerSocialList(content),
 });
 
 function buildSection(rel) {
