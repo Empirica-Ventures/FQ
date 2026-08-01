@@ -3,14 +3,14 @@
   "description": "Finance and accounting built around how your industry actually works: D2C & CPG, Retail, Healthcare, Manufacturing, Logistics, Construction.",
   "priority": 0.8,
   "sections": [
-    "industries/01-hero.html",
-    "industries/02-quick-nav.html",
-    "industries/03-d2c-cpg.html",
-    "industries/04-retail-ecommerce.html",
-    "industries/05-healthcare.html",
-    "industries/06-manufacturing.html",
-    "industries/07-logistics.html",
-    "industries/08-construction.html",
+    "industries/01-hero.js",
+    "industries/02-quick-nav.js",
+    "industries/03-d2c-cpg.js",
+    "industries/04-retail-ecommerce.js",
+    "industries/05-healthcare.js",
+    "industries/06-manufacturing.js",
+    "industries/07-logistics.js",
+    "industries/08-construction.js",
     "industries/09-final-cta.html"
   ],
   "css": [

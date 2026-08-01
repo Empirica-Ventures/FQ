@@ -1,0 +1,152 @@
+{
+  "items": [
+    {
+      "id": "d2c-cpg",
+      "label": "Direct to Consumer & CPG",
+      "headingLines": [
+        "Direct to Consumer",
+        "& CPG"
+      ],
+      "tagline": "Working-capital and margin clarity for product brands.",
+      "description": "D2C and CPG brands juggle inventory, multi-channel sales, and thin margins. We build finance systems that reveal true unit economics and free up cash tied in stock.",
+      "challenges": [
+        "Working capital tied up in inventory",
+        "Channel and SKU-level profitability",
+        "Marketing spend vs. contribution margin",
+        "Cash flow across sales cycles"
+      ],
+      "serviceSlugs": [
+        "cashflow",
+        "mgmt-reporting",
+        "bookkeeping",
+        "fpa"
+      ],
+      "caseStudyText": "How we helped a D2C brand optimise their working capital by 50%",
+      "homeDesc": "Inventory, margins, and cash flow visibility",
+      "homeAccent": "red"
+    },
+    {
+      "id": "retail-ecommerce",
+      "label": "Retail & E-commerce",
+      "headingLines": [
+        "Retail &",
+        "E-commerce"
+      ],
+      "tagline": "Finance support for inventory-heavy businesses.",
+      "description": "Retail and e-commerce businesses face multi-platform revenue, inventory management, high return rates, and cash flow tied up in stock. We give you real visibility into what's actually profitable.",
+      "challenges": [
+        "Multi-platform revenue reconciliation",
+        "Inventory valuation and stock accounting",
+        "High return rates affecting revenue",
+        "Cash flow gaps between sale and settlement"
+      ],
+      "serviceSlugs": [
+        "bookkeeping",
+        "cashflow",
+        "mgmt-reporting",
+        "tax-vat"
+      ],
+      "caseStudyText": "How we gave a retail group real-time visibility into product margins",
+      "homeDesc": "Multi-channel revenue and inventory clarity",
+      "homeAccent": "cream"
+    },
+    {
+      "id": "healthcare",
+      "label": "Healthcare",
+      "headingLines": [
+        "Healthcare"
+      ],
+      "tagline": "Compliance-ready finance for clinics and care providers.",
+      "description": "Healthcare operators balance patient volumes, payer cycles, and strict compliance. We structure reporting and cash flow so leadership can focus on care, not spreadsheets.",
+      "challenges": [
+        "Insurance and payer reconciliation",
+        "Revenue recognition across services",
+        "Regulatory and VAT compliance",
+        "Multi-location cost control"
+      ],
+      "serviceSlugs": [
+        "bookkeeping",
+        "mgmt-reporting",
+        "tax-vat",
+        "cashflow"
+      ],
+      "caseStudyText": "How we streamlined month-end close for a multi-clinic group",
+      "homeDesc": "Payer reconciliation and compliant reporting",
+      "homeAccent": "green"
+    },
+    {
+      "id": "manufacturing",
+      "label": "Manufacturing",
+      "headingLines": [
+        "Manufacturing"
+      ],
+      "tagline": "Cost, inventory, and margin control for producers.",
+      "description": "Manufacturers live and die by cost accuracy. We bring structure to COGS, inventory, and production costing so you know the true margin on every product line.",
+      "challenges": [
+        "Inventory and COGS accounting",
+        "Production and unit-level costing",
+        "Margin visibility by product line",
+        "Supplier terms and working capital"
+      ],
+      "serviceSlugs": [
+        "bookkeeping",
+        "mgmt-reporting",
+        "cashflow",
+        "fpa"
+      ],
+      "caseStudyText": "How we rebuilt product-level costing for a GCC manufacturer",
+      "homeDesc": "Costing, COGS, and margin by product line",
+      "homeAccent": "cream"
+    },
+    {
+      "id": "logistics-supply-chain",
+      "label": "Logistics & Supply Chain",
+      "headingLines": [
+        "Logistics &",
+        "Supply Chain"
+      ],
+      "tagline": "Cash flow and operational finance for asset-heavy operations.",
+      "description": "Logistics and supply-chain businesses run on tight margins and heavy assets. We keep cash flow, receivables, and operating costs under control so you can scale without surprises.",
+      "challenges": [
+        "Cash flow across long payment cycles",
+        "Receivables and credit management",
+        "Fleet and asset cost tracking",
+        "Multi-entity, cross-border accounting"
+      ],
+      "serviceSlugs": [
+        "cashflow",
+        "bookkeeping",
+        "mgmt-reporting",
+        "tax-vat"
+      ],
+      "caseStudyText": "How we tightened receivables and cash flow for a logistics operator",
+      "homeDesc": "Cash flow across long payment cycles",
+      "homeAccent": "red"
+    },
+    {
+      "id": "construction-real-estate",
+      "label": "Construction & Real Estate",
+      "headingLines": [
+        "Construction &",
+        "Real Estate"
+      ],
+      "tagline": "Project reporting and operational finance.",
+      "description": "Construction and real estate businesses manage long project cycles, retentions, and complex costs. We build project-level reporting and cash flow control so every job stays profitable.",
+      "challenges": [
+        "Project-based cost tracking",
+        "Retentions and progress billing",
+        "Cash flow across long cycles",
+        "WIP and revenue recognition"
+      ],
+      "serviceSlugs": [
+        "mgmt-reporting",
+        "cashflow",
+        "bookkeeping",
+        "fpa"
+      ],
+      "caseStudyText": "How we brought project-level profitability into focus for a developer",
+      "homeDesc": "Project costing and revenue recognition",
+      "homeAccent": "green"
+    }
+  ]
+}
