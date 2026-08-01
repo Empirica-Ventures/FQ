@@ -1,0 +1,100 @@
+# Sveltia CMS config (Decap-compatible format).
+#
+# Auth is NOT configured here on purpose: GitHub's OAuth flow needs a small
+# proxy (Sveltia publishes a ready-made Cloudflare Worker for this) that has
+# to be deployed under an account this repo doesn't have access to. Until
+# that's done, `backend` below is enough for local testing with Sveltia's
+# local dev proxy but will not authenticate against the real repo. See
+# https://github.com/sveltia/sveltia-cms#setting-up-oauth for the one-time
+# setup: register a GitHub OAuth App, deploy the Cloudflare Worker, then add
+# `auth_endpoint` / `base_url` here.
+backend:
+  name: github
+  repo: Empirica-Ventures/FQ
+  branch: main
+
+# Every edit opens a PR instead of committing straight to main, so Vercel
+# builds a real preview deployment of the actual page before anything goes
+# live — see build.js's Phase 1 hardening and the CI clipping gate, neither
+# of which a raw commit-to-main workflow would get a chance to run against.
+publish_mode: editorial_workflow
+
+media_folder: "content/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "case_studies"
+    label: "Case Studies"
+    files:
+      - file: "content/collections/case-studies.json"
+        label: "Case Studies"
+        name: "case_studies"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # Exactly 6 today. css/cs-grid.css lays these out as 2 rows of
+            # 3 in a `height: 920px; overflow: hidden` section — a 7th
+            # item opens a third row that would render entirely invisible,
+            # no error, no scrollbar. Revisit only once that container is
+            # made auto-height as its own reviewed visual change.
+            allow_add: false
+            min: 6
+            max: 6
+            fields:
+              - label: "Category"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Retail & E-Commerce", value: "retail-ecommerce" }
+                  - { label: "Construction", value: "construction" }
+                  - { label: "Professional Services", value: "professional-services" }
+                  - { label: "Logistics", value: "logistics" }
+                  - { label: "Startups", value: "startups" }
+                hint: "Also drives the printed category label on the card and the filter-tab grouping — see content/taxonomies/case-study-categories.json."
+              - label: "Accent Color"
+                name: "accent"
+                widget: "select"
+                options: ["green", "navy"]
+              - label: "Monochrome Icon Style"
+                name: "mono"
+                widget: "boolean"
+                default: false
+              - label: "Featured Badge"
+                name: "featured"
+                widget: "boolean"
+                default: false
+              - label: "Headline Stat Value"
+                name: "value"
+                widget: "string"
+                # Longest live today is 9 chars ("VAT-Ready", "+AED 8.4M").
+                # This is a soft hint, not the real guard: the field is
+                # nowrap at 56px in a 440px card, so actual safety comes
+                # from the CI mobile-clipping audit (verify/mobile_audit.js),
+                # which measures real rendered pixels regardless of which
+                # characters are used.
+                pattern: ['^.{1,14}$', "Keep it to 14 characters or fewer"]
+              - label: "Stat Label"
+                name: "statLabel"
+                widget: "string"
+                pattern: ['^.{1,40}$', "Keep it to 40 characters or fewer"]
+              - label: "Stat Sub-line"
+                name: "statSub"
+                widget: "string"
+                pattern: ['^.{1,45}$', "Keep it to 45 characters or fewer"]
+              - label: "Challenge"
+                name: "challenge"
+                widget: "text"
+                pattern: ['^.{1,160}$', "Keep it to 160 characters or fewer"]
+              - label: "Outcome"
+                name: "outcome"
+                widget: "text"
+                pattern: ['^.{1,160}$', "Keep it to 160 characters or fewer"]
+              - label: "Tags"
+                name: "tags"
+                widget: "list"
+                field: { label: "Tag", name: "tag", widget: "string" }
+                # .cs-grid__tags has no flex-wrap, so tags run off the
+                # 440px card horizontally past 3 at today's typical lengths.
+                min: 2
+                max: 3

@@ -211,6 +211,7 @@ function main() {
 
   copyDir(path.join(ROOT, 'js'), path.join(DIST, 'js'));
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
+  if (fs.existsSync(path.join(ROOT, 'admin'))) copyDir(path.join(ROOT, 'admin'), path.join(DIST, 'admin'));
   buildRobotsTxt();
   buildSitemap(pageConfigs);
   console.log('done. dist/ is ready.');
