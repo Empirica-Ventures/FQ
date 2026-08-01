@@ -6,7 +6,7 @@
     "about/01-hero.html",
     "about/02-who-we-are.html",
     "about/03-mission.html",
-    "about/04-values.html",
+    "about/04-values.js",
     "about/05-cta.html"
   ],
   "css": [
