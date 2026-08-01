@@ -1,0 +1,9 @@
+{
+  "items": [
+    { "title": "Consultation", "desc": "Understand business challenges and finance needs", "badgeBg": "white", "numColor": "red", "labelVariant": "light", "titleVariant": "light", "descVariant": "light" },
+    { "title": "Assessment", "desc": "Review current finance setup and gaps", "badgeBg": "navy", "numColor": "white", "labelVariant": "navy", "titleVariant": "navy", "descVariant": "muted" },
+    { "title": "Strategy & Scope", "desc": "Recommend the right services", "badgeBg": "white", "numColor": "green", "labelVariant": "light", "titleVariant": "light", "descVariant": "light" },
+    { "title": "Setup", "desc": "Organize systems and workflows", "badgeBg": "red", "numColor": "white", "labelVariant": "red", "titleVariant": "navy", "descVariant": "muted" },
+    { "title": "Ongoing Support", "desc": "Deliver continuous reporting and finance support", "badgeBg": "white", "numColor": "navy", "labelVariant": "light", "titleVariant": "light", "descVariant": "light" }
+  ]
+}

@@ -4,7 +4,7 @@
   "priority": 0.7,
   "sections": [
     "how-we-work/01-hero.html",
-    "how-we-work/02-process.html",
+    "how-we-work/02-process.js",
     "how-we-work/03-tools.html",
     "how-we-work/04-cta.html"
   ],
