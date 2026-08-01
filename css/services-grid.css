@@ -178,8 +178,16 @@
   gap: 8px;
 }
 
+/* Padding instead of a per-tag hardcoded `width` (see
+   src/partials/services/03-services-grid.html) — the 20 inline widths were
+   each individually measured against that exact label; renaming a tag or
+   adding a 21st has no defined width and would either clip the text or
+   leave it swimming in extra box. Measured the gap between each tag's
+   declared width and its actual text width: 24.0-25.1px across all 20,
+   tight enough to be `padding: 0 12px` by design, not per-tag tuning. */
 .services-grid__tag {
   height: 26px;
+  padding: 0 12px;
   border-radius: 4px;
   display: flex;
   align-items: center;
