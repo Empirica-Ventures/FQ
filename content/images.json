@@ -1,0 +1,17 @@
+{
+  "items": {
+    "home-hero-uae": { "src": "/assets/images/hero-uae.webp", "alt": "United Arab Emirates skyline", "width": 900, "height": 620 },
+    "home-hero-ksa": { "src": "/assets/images/hero-ksa.webp", "alt": "Saudi Arabia skyline", "width": 900, "height": 620 },
+    "home-hero-qatar": { "src": "/assets/images/hero-qatar.webp", "alt": "Qatar skyline", "width": 900, "height": 620 },
+    "home-hero-bahrain": { "src": "/assets/images/hero-bahrain.webp", "alt": "Bahrain skyline", "width": 900, "height": 620 },
+    "home-trust-intro-desk": { "src": "/assets/images/trust-intro-desk.webp", "alt": "", "width": 1717, "height": 916 },
+    "home-founder-mudassir": { "src": "/assets/images/founder-mudassir.webp", "alt": "Mudassir Khan", "width": 132, "height": 132 },
+    "home-founder-muzammil": { "src": "/assets/images/founder-muzammil-khan.webp", "alt": "Muzammil Khan", "width": 132, "height": 132 },
+    "about-hero-bg": { "src": "/assets/images/about-hero-bg.webp", "alt": "", "width": 1672, "height": 941 },
+    "services-hero-bg": { "src": "/assets/images/services-hero-bg.webp", "alt": "", "width": 1689, "height": 931 },
+    "industries-hero-bg": { "src": "/assets/images/industries-hero-bg.webp", "alt": "", "width": 1704, "height": 923 },
+    "case-studies-hero-bg": { "src": "/assets/images/case-studies-hero-bg.webp", "alt": "", "width": 1672, "height": 941 },
+    "insights-hero-bg": { "src": "/assets/images/insights-hero-bg.webp", "alt": "", "width": 1536, "height": 1024 },
+    "how-we-work-hero-bg": { "src": "/assets/images/howwework-hero-bg.webp", "alt": "", "width": 1536, "height": 1024 }
+  }
+}

@@ -51,6 +51,8 @@ function loadContent() {
       out[key] = JSON.parse(read(path.join(abs, f)));
     }
   }
+  const imagesPath = path.join(ROOT, 'content/images.json');
+  if (fs.existsSync(imagesPath)) out.images = JSON.parse(read(imagesPath));
   return out;
 }
 const content = loadContent();
@@ -91,9 +93,31 @@ function escapeAttr(str) {
     .replace(/>/g, '&gt;');
 }
 
+// One {{IMG_<KEY>_SRC/ALT/WIDTH/HEIGHT}} token per field, built from
+// content/images.json — the simplest possible content mechanism for a
+// singleton field (an <img>'s attributes) sitting inside an otherwise
+// hand-written partial that isn't extracted to a render function. width/
+// height are data-driven, not hardcoded in the HTML, so a replacement
+// image with different real dimensions doesn't get squashed into the old
+// image's aspect ratio (verify/check_image_dims.js asserts they match the
+// actual file).
+function imageTokens(images) {
+  const map = {};
+  if (!images) return map;
+  for (const [key, img] of Object.entries(images.items)) {
+    const upper = key.toUpperCase().replace(/-/g, '_');
+    map[`{{IMG_${upper}_SRC}}`] = img.src;
+    map[`{{IMG_${upper}_ALT}}`] = escapeAttr(img.alt);
+    map[`{{IMG_${upper}_WIDTH}}`] = String(img.width);
+    map[`{{IMG_${upper}_HEIGHT}}`] = String(img.height);
+  }
+  return map;
+}
+const IMAGE_TOKENS = imageTokens(content.images);
+
 function buildSection(rel) {
   if (rel.endsWith('.js')) return require(path.join(ROOT, 'src/render', rel))(content);
-  return read(path.join(ROOT, 'src/partials', rel));
+  return injectTokens(read(path.join(ROOT, 'src/partials', rel)), IMAGE_TOKENS);
 }
 
 function buildPage(config) {

@@ -20,6 +20,9 @@ jobs:
 
       - run: node build.js
 
+      - name: Image dimension check
+        run: node verify/check_image_dims.js
+
       - name: Serve dist/
         run: |
           node verify/serve.js dist 8843 &
