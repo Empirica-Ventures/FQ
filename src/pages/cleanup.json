@@ -4,7 +4,7 @@
   "priority": 0.6,
   "sections": [
     "services/cleanup/01-hero.html",
-    "services/cleanup/02-body.html",
+    "services/cleanup/02-body.js",
     "services/cleanup/03-cta.html"
   ],
   "css": [

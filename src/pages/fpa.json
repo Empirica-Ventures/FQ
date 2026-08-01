@@ -4,7 +4,7 @@
   "priority": 0.6,
   "sections": [
     "services/fpa/01-hero.html",
-    "services/fpa/02-body.html",
+    "services/fpa/02-body.js",
     "services/fpa/03-cta.html"
   ],
   "css": [

@@ -53,6 +53,19 @@ function loadContent() {
   }
   const imagesPath = path.join(ROOT, 'content/images.json');
   if (fs.existsSync(imagesPath)) out.images = JSON.parse(read(imagesPath));
+
+  // Page-scoped singleton content (one file per page, kept under its own
+  // kebab-case filename as the key rather than flattened to the top level —
+  // unlike collections/taxonomies, these aren't meant to be a stable public
+  // API for render modules in general, just per-page data for that page's
+  // own render function).
+  out.pages = {};
+  const pagesDir = path.join(ROOT, 'content/pages');
+  if (fs.existsSync(pagesDir)) {
+    for (const f of fs.readdirSync(pagesDir).filter(f => f.endsWith('.json'))) {
+      out.pages[f.slice(0, -'.json'.length)] = JSON.parse(read(path.join(pagesDir, f)));
+    }
+  }
   return out;
 }
 const content = loadContent();

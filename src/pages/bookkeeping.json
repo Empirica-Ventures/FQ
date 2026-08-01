@@ -4,7 +4,7 @@
   "priority": 0.6,
   "sections": [
     "services/bookkeeping/01-hero.html",
-    "services/bookkeeping/02-body.html",
+    "services/bookkeeping/02-body.js",
     "services/bookkeeping/03-cta.html"
   ],
   "css": [

@@ -4,7 +4,7 @@
   "priority": 0.6,
   "sections": [
     "services/mgmt-reporting/01-hero.html",
-    "services/mgmt-reporting/02-body.html",
+    "services/mgmt-reporting/02-body.js",
     "services/mgmt-reporting/03-cta.html"
   ],
   "css": [
