@@ -5,7 +5,7 @@
   "sections": [
     "contact/01-main.html",
     "contact/02-locations.html",
-    "contact/03-quick-faq.html"
+    "contact/03-quick-faq.js"
   ],
   "css": [
     "contact-main.css",

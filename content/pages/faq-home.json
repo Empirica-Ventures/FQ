@@ -1,0 +1,11 @@
+{
+  "heading": ["Common questions,", "honest answers."],
+  "items": [
+    { "question": "What size businesses do you work with?", "answer": "We support SMEs, growing startups, and established businesses across the GCC." },
+    { "question": "Can you work with our existing accountant?", "answer": "Yes. We can collaborate with your current accountant or finance team." },
+    { "question": "Do you offer one-time projects?", "answer": "Yes. We support both ongoing monthly engagements and project-based work." },
+    { "question": "What accounting systems do you support?", "answer": "We work with major accounting platforms and finance tools." },
+    { "question": "How do you price your services?", "answer": "Pricing depends on scope, business size, and required support." },
+    { "question": "Do you provide strategic finance support?", "answer": "Yes. Our Fractional CFO services help businesses with planning and decision-making." }
+  ]
+}

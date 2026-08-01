@@ -1,0 +1,11 @@
+{
+  "heading": "Before you reach out.",
+  "items": [
+    { "question": "How quickly do you respond?", "answer": "Within 1 business day. Usually faster." },
+    { "question": "Is there a minimum commitment?", "answer": "No. Monthly retainers and one-time projects available." },
+    { "question": "Do you work outside the GCC?", "answer": "Our focus is GCC-based businesses. Reach out to discuss." },
+    { "question": "What happens after I get in touch?", "answer": "We set up a short intro call to understand your goals and scope the work." },
+    { "question": "Is the first call free?", "answer": "Yes. The discovery call is complimentary, with no obligation." },
+    { "question": "How soon can we start?", "answer": "Typically within a week of agreeing on scope and terms." }
+  ]
+}
