@@ -58,12 +58,32 @@
   white-space: nowrap;
 }
 
-/* Each member block is anchored at the photo's left edge; name/role sit
-   at a fixed offset to the right of it (matches Figma: photo at x=900,
-   name/role at x=1069 → +169px). */
-.founders__member {
+/* Wrapper stacks member blocks in normal flow instead of each one carrying
+   an individually hand-picked inline `top:` (30px, 197px — see git history)
+   — a 3rd founder needed a new hardcoded `top` value with no defined
+   position of its own. gap:35px reproduces the original 167px pitch
+   exactly (132px photo + 35px gap) and now applies to however many
+   members exist. */
+.founders__members {
   position: absolute;
   left: 900px;
+  top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* Anchored at the photo's left edge; name/role sit at a fixed offset to the
+   right of it (matches Figma: photo at x=900, name/role at x=1069 ->
+   +169px). Stays `relative`, not `static` — it's the containing block for
+   .founders__portrait/.founders__name/.founders__role below, which are all
+   position:absolute. height:132px is load-bearing: every child is
+   absolutely positioned, so with no in-flow content this box would
+   otherwise collapse to zero height and every member would stack on top
+   of the next instead of 35px below it. */
+.founders__member {
+  position: relative;
+  height: 132px;
 }
 
 .founders__portrait {
@@ -157,6 +177,16 @@
   .founders__cta {
     display: inline-block;
     margin-top: 16px;
+  }
+
+  /* display:block, not flex — each .founders__member below sets its own
+     margin-top (32px first, 28px after), so the wrapper itself must not
+     add any gap of its own on top of that. */
+  .founders__members {
+    position: static;
+    left: auto;
+    top: auto;
+    display: block;
   }
 
   /* name + role sit beside the photo via grid rather than flex, since
