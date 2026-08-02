@@ -269,6 +269,12 @@ function main() {
   copyDir(path.join(ROOT, 'js'), path.join(DIST, 'js'));
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
   if (fs.existsSync(path.join(ROOT, 'admin'))) copyDir(path.join(ROOT, 'admin'), path.join(DIST, 'admin'));
+  // admin/config.yml's media_folder/public_folder pair (content/uploads ->
+  // /assets/uploads): without this, a CMS image upload lands in the repo
+  // but never reaches dist/, so it 404s on the live site.
+  if (fs.existsSync(path.join(ROOT, 'content/uploads'))) {
+    copyDir(path.join(ROOT, 'content/uploads'), path.join(DIST, 'assets/uploads'));
+  }
   buildRobotsTxt();
   buildSitemap(pageConfigs.concat(insightsArticleConfigs));
   console.log('done. dist/ is ready.');
