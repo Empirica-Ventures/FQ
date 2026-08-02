@@ -16,8 +16,18 @@ backend:
 # of which a raw commit-to-main workflow would get a chance to run against.
 publish_mode: editorial_workflow
 
-media_folder: "content/uploads"
-public_folder: "/assets/uploads"
+# Points directly at the repo's real asset root, not a separate "uploads"
+# folder — this is required, not cosmetic. Sveltia can only render a live
+# preview thumbnail for a file that lives inside the exact media_folder/
+# public_folder pair configured here (a known upstream limitation:
+# https://github.com/sveltia/sveltia-cms/issues/497 — the image widget
+# can't resolve or preview a path outside it). Every image already on this
+# site lives under /assets/..., so pointing here means every existing
+# image slot previews correctly, and a future upload lands right in the
+# same tree build.js already copies wholesale into dist/ -- no separate
+# copy step needed.
+media_folder: "assets"
+public_folder: "/assets"
 
 # Not exposed here, on purpose:
 #
