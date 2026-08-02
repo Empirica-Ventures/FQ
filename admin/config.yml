@@ -1,17 +1,14 @@
 # Sveltia CMS config (Decap-compatible format).
 #
-# Auth is NOT configured here on purpose: GitHub's OAuth flow needs a small
-# proxy (Sveltia publishes a ready-made Cloudflare Worker for this) that has
-# to be deployed under an account this repo doesn't have access to. Until
-# that's done, `backend` below is enough for local testing with Sveltia's
-# local dev proxy but will not authenticate against the real repo. See
-# https://github.com/sveltia/sveltia-cms#setting-up-oauth for the one-time
-# setup: register a GitHub OAuth App, deploy the Cloudflare Worker, then add
-# `auth_endpoint` / `base_url` here.
+# Auth proxy: a Cloudflare Worker running sveltia-cms-auth
+# (https://github.com/sveltia/sveltia-cms-auth), backing a GitHub OAuth App
+# whose callback URL is <base_url>/callback. Default auth_endpoint ("auth")
+# is used, so base_url alone is enough.
 backend:
   name: github
   repo: Empirica-Ventures/FQ
   branch: main
+  base_url: https://sveltia-cms-auths.rafaybinyousuf314.workers.dev
 
 # Every edit opens a PR instead of committing straight to main, so Vercel
 # builds a real preview deployment of the actual page before anything goes
