@@ -33,18 +33,42 @@ public_folder: "/assets/uploads"
 #   verify/check_image_dims.js only warns (not fails) on a mismatch, since
 #   these are CLS-prevention layout hints, not exact pixel enforcement.
 #
-# Collections below are grouped and ordered to match the live site's own
-# navigation (Home, About, Services, How We Work, Industries, Case
-# Studies, Insights, Contact), with a final "Site-Wide" group for content
-# — like this one — that isn't scoped to a single page. `divider: true`
-# entries are Sveltia's supported way to draw a line between groups in the
-# sidebar; there's no group-header text support yet (an unreleased
-# "nested collections" feature), so each collection's label also carries
-# its page name for a reader scanning the flat list.
+# Collections below are grouped to match the site's own navigation (Home,
+# About, Services, How We Work, Industries, Case Studies, Insights,
+# Contact), then a final "Site-Wide" group for content that isn't scoped
+# to a single page. `divider: true` entries draw a line between groups;
+# Sveltia has no group-header text yet (that's an unreleased "nested
+# collections" feature), so every label also carries an ALL-CAPS page
+# prefix as the stand-in for a real section header.
+#
+# Within each group, collections are ordered by how often a non-technical
+# editor is actually likely to open them: quick text edits (quotes,
+# questions, blurbs) first, anything involving an image upload or a
+# mostly-locked reference list last — not necessarily the order things
+# appear on the page.
 collections:
   # ---------------------------------------------------------------- HOME
+  - name: "testimonials"
+    label: "HOME — Testimonials"
+    icon: "format_quote"
+    files:
+      - file: "content/collections/testimonials.json"
+        label: "Testimonials"
+        name: "testimonials"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # css/home-trust-intro.css: fixed height/overflow:hidden.
+            allow_add: false
+            min: 3
+            max: 3
+            fields:
+              - { label: "Quote", name: "quote", widget: "text", pattern: ['^.{1,156}$', "Keep it to 156 characters or fewer"] }
+              - { label: "Attribution", name: "attribution", widget: "string" }
+
   - name: "trust_stats"
-    label: "Trust Strip Stats (Home)"
+    label: "HOME — Trust Strip Stats"
     icon: "bar_chart"
     files:
       - file: "content/collections/trust-stats.json"
@@ -63,67 +87,8 @@ collections:
               - { label: "Value", name: "value", widget: "string", pattern: ['^.{1,10}$', "Keep it short — fixed-height strip"] }
               - { label: "Label", name: "label", widget: "string" }
 
-  - name: "testimonials"
-    label: "Testimonials (Home)"
-    icon: "format_quote"
-    files:
-      - file: "content/collections/testimonials.json"
-        label: "Testimonials"
-        name: "testimonials"
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            # css/home-trust-intro.css: fixed height/overflow:hidden.
-            allow_add: false
-            min: 3
-            max: 3
-            fields:
-              - { label: "Quote", name: "quote", widget: "text", pattern: ['^.{1,156}$', "Keep it to 156 characters or fewer"] }
-              - { label: "Attribution", name: "attribution", widget: "string" }
-
-  - name: "why_fq"
-    label: "Why FQ Cards (Home)"
-    icon: "star"
-    files:
-      - file: "content/collections/why-fq.json"
-        label: "Why FQ"
-        name: "why_fq"
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            # The 2-left/3-right column split is a hardcoded
-            # LEFT_COLUMN_COUNT constant in src/render/home/06-why-fq.js, so
-            # the count is locked.
-            allow_add: false
-            min: 5
-            max: 5
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Description", name: "desc", widget: "text", pattern: ['^.{1,141}$', "Keep it to 141 characters or fewer"] }
-
-  - name: "how_it_works"
-    label: "How It Works (Home)"
-    icon: "route"
-    files:
-      - file: "content/collections/how-it-works.json"
-        label: "How It Works"
-        name: "how_it_works"
-        fields:
-          - label: "Items"
-            name: "items"
-            widget: "list"
-            # css/home-how-it-works.css: fixed height:480px/overflow:hidden.
-            allow_add: false
-            min: 4
-            max: 4
-            fields:
-              - { label: "Title", name: "title", widget: "string" }
-              - { label: "Text", name: "text", widget: "text", pattern: ['^.{1,110}$', "Keep it to 110 characters or fewer"] }
-
   - name: "faq_home"
-    label: "FAQ — Home"
+    label: "HOME — FAQ"
     icon: "help"
     files:
       - file: "content/pages/faq-home.json"
@@ -147,11 +112,51 @@ collections:
               - { label: "Question", name: "question", widget: "string" }
               - { label: "Answer", name: "answer", widget: "text" }
 
+  - name: "why_fq"
+    label: "HOME — Why FQ Cards"
+    icon: "star"
+    files:
+      - file: "content/collections/why-fq.json"
+        label: "Why FQ"
+        name: "why_fq"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # The 2-left/3-right column split is a hardcoded
+            # LEFT_COLUMN_COUNT constant in src/render/home/06-why-fq.js, so
+            # the count is locked.
+            allow_add: false
+            min: 5
+            max: 5
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "desc", widget: "text", pattern: ['^.{1,141}$', "Keep it to 141 characters or fewer"] }
+
+  - name: "how_it_works"
+    label: "HOME — How It Works"
+    icon: "route"
+    files:
+      - file: "content/collections/how-it-works.json"
+        label: "How It Works"
+        name: "how_it_works"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # css/home-how-it-works.css: fixed height:480px/overflow:hidden.
+            allow_add: false
+            min: 4
+            max: 4
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Text", name: "text", widget: "text", pattern: ['^.{1,110}$', "Keep it to 110 characters or fewer"] }
+
   - divider: true
 
   # --------------------------------------------------------------- ABOUT
   - name: "values"
-    label: "About — Values"
+    label: "ABOUT — Values"
     icon: "diversity_3"
     files:
       - file: "content/collections/values.json"
@@ -172,8 +177,146 @@ collections:
   - divider: true
 
   # ------------------------------------------------------------ SERVICES
+  - name: "service_bookkeeping"
+    label: "SERVICES — Body Copy: Bookkeeping & Accounting"
+    icon: "receipt_long"
+    files:
+      - file: "content/pages/service-bookkeeping.json"
+        label: "Bookkeeping & Accounting"
+        name: "service_bookkeeping"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs (1–3 — real flow layout, no clipping risk)"
+            name: "paragraphs"
+            widget: "list"
+            min: 1
+            max: 3
+            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
+          - label: "What You Get (exactly 6 items)"
+            name: "includes"
+            widget: "list"
+            allow_add: false
+            min: 6
+            max: 6
+            field: { label: "Item", name: "item", widget: "string" }
+
+  - name: "service_cashflow"
+    label: "SERVICES — Body Copy: Cash Flow & Forecasting"
+    icon: "payments"
+    files:
+      - file: "content/pages/service-cashflow.json"
+        label: "Cash Flow & Forecasting"
+        name: "service_cashflow"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs (1–3)"
+            name: "paragraphs"
+            widget: "list"
+            min: 1
+            max: 3
+            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
+          - label: "What You Get (exactly 6 items)"
+            name: "includes"
+            widget: "list"
+            allow_add: false
+            min: 6
+            max: 6
+            field: { label: "Item", name: "item", widget: "string" }
+
+  - name: "service_cleanup"
+    label: "SERVICES — Body Copy: Cleanup & Catch-Up Accounting"
+    icon: "cleaning_services"
+    files:
+      - file: "content/pages/service-cleanup.json"
+        label: "Cleanup & Catch-Up Accounting"
+        name: "service_cleanup"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs (1–3)"
+            name: "paragraphs"
+            widget: "list"
+            min: 1
+            max: 3
+            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
+          - label: "What You Get (exactly 6 items)"
+            name: "includes"
+            widget: "list"
+            allow_add: false
+            min: 6
+            max: 6
+            field: { label: "Item", name: "item", widget: "string" }
+
+  - name: "service_fpa"
+    label: "SERVICES — Body Copy: FP&A / Business Finance"
+    icon: "insights"
+    files:
+      - file: "content/pages/service-fpa.json"
+        label: "FP&A / Business Finance"
+        name: "service_fpa"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs (1–3)"
+            name: "paragraphs"
+            widget: "list"
+            min: 1
+            max: 3
+            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
+          - label: "What You Get (exactly 6 items)"
+            name: "includes"
+            widget: "list"
+            allow_add: false
+            min: 6
+            max: 6
+            field: { label: "Item", name: "item", widget: "string" }
+
+  - name: "service_mgmt_reporting"
+    label: "SERVICES — Body Copy: Management Reporting"
+    icon: "monitoring"
+    files:
+      - file: "content/pages/service-mgmt-reporting.json"
+        label: "Management Reporting"
+        name: "service_mgmt_reporting"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs (1–3)"
+            name: "paragraphs"
+            widget: "list"
+            min: 1
+            max: 3
+            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
+          - label: "What You Get (exactly 6 items)"
+            name: "includes"
+            widget: "list"
+            allow_add: false
+            min: 6
+            max: 6
+            field: { label: "Item", name: "item", widget: "string" }
+
+  - name: "service_tax_vat"
+    label: "SERVICES — Body Copy: Tax & VAT Compliance"
+    icon: "gavel"
+    files:
+      - file: "content/pages/service-tax-vat.json"
+        label: "Tax & VAT Compliance"
+        name: "service_tax_vat"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Paragraphs (1–3)"
+            name: "paragraphs"
+            widget: "list"
+            min: 1
+            max: 3
+            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
+          - label: "What You Get (exactly 6 items)"
+            name: "includes"
+            widget: "list"
+            allow_add: false
+            min: 6
+            max: 6
+            field: { label: "Item", name: "item", widget: "string" }
+
   - name: "services"
-    label: "Services"
+    label: "SERVICES — Service List (Grid, Hero, Home Teaser, Footer)"
     icon: "design_services"
     files:
       - file: "content/collections/services.json"
@@ -231,7 +374,7 @@ collections:
                 pattern: ['^.{1,55}$', "Keep it to 55 characters or fewer"]
 
   - name: "trusted_by"
-    label: "Trusted By (Client Logos, Services page)"
+    label: "SERVICES — Trusted-By Client Logos"
     icon: "verified"
     files:
       - file: "content/collections/trusted-by.json"
@@ -264,149 +407,11 @@ collections:
                 name: "label"
                 widget: "string"
 
-  - name: "service_bookkeeping"
-    label: "Service Body — Bookkeeping & Accounting"
-    icon: "receipt_long"
-    files:
-      - file: "content/pages/service-bookkeeping.json"
-        label: "Bookkeeping & Accounting"
-        name: "service_bookkeeping"
-        fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs (1–3 — real flow layout, no clipping risk)"
-            name: "paragraphs"
-            widget: "list"
-            min: 1
-            max: 3
-            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
-          - label: "What You Get (exactly 6 items)"
-            name: "includes"
-            widget: "list"
-            allow_add: false
-            min: 6
-            max: 6
-            field: { label: "Item", name: "item", widget: "string" }
-
-  - name: "service_cashflow"
-    label: "Service Body — Cash Flow & Forecasting"
-    icon: "payments"
-    files:
-      - file: "content/pages/service-cashflow.json"
-        label: "Cash Flow & Forecasting"
-        name: "service_cashflow"
-        fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs (1–3)"
-            name: "paragraphs"
-            widget: "list"
-            min: 1
-            max: 3
-            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
-          - label: "What You Get (exactly 6 items)"
-            name: "includes"
-            widget: "list"
-            allow_add: false
-            min: 6
-            max: 6
-            field: { label: "Item", name: "item", widget: "string" }
-
-  - name: "service_cleanup"
-    label: "Service Body — Cleanup & Catch-Up Accounting"
-    icon: "cleaning_services"
-    files:
-      - file: "content/pages/service-cleanup.json"
-        label: "Cleanup & Catch-Up Accounting"
-        name: "service_cleanup"
-        fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs (1–3)"
-            name: "paragraphs"
-            widget: "list"
-            min: 1
-            max: 3
-            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
-          - label: "What You Get (exactly 6 items)"
-            name: "includes"
-            widget: "list"
-            allow_add: false
-            min: 6
-            max: 6
-            field: { label: "Item", name: "item", widget: "string" }
-
-  - name: "service_fpa"
-    label: "Service Body — FP&A / Business Finance"
-    icon: "insights"
-    files:
-      - file: "content/pages/service-fpa.json"
-        label: "FP&A / Business Finance"
-        name: "service_fpa"
-        fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs (1–3)"
-            name: "paragraphs"
-            widget: "list"
-            min: 1
-            max: 3
-            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
-          - label: "What You Get (exactly 6 items)"
-            name: "includes"
-            widget: "list"
-            allow_add: false
-            min: 6
-            max: 6
-            field: { label: "Item", name: "item", widget: "string" }
-
-  - name: "service_mgmt_reporting"
-    label: "Service Body — Management Reporting"
-    icon: "monitoring"
-    files:
-      - file: "content/pages/service-mgmt-reporting.json"
-        label: "Management Reporting"
-        name: "service_mgmt_reporting"
-        fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs (1–3)"
-            name: "paragraphs"
-            widget: "list"
-            min: 1
-            max: 3
-            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
-          - label: "What You Get (exactly 6 items)"
-            name: "includes"
-            widget: "list"
-            allow_add: false
-            min: 6
-            max: 6
-            field: { label: "Item", name: "item", widget: "string" }
-
-  - name: "service_tax_vat"
-    label: "Service Body — Tax & VAT Compliance"
-    icon: "gavel"
-    files:
-      - file: "content/pages/service-tax-vat.json"
-        label: "Tax & VAT Compliance"
-        name: "service_tax_vat"
-        fields:
-          - { label: "Heading", name: "heading", widget: "string" }
-          - label: "Paragraphs (1–3)"
-            name: "paragraphs"
-            widget: "list"
-            min: 1
-            max: 3
-            field: { label: "Paragraph", name: "paragraph", widget: "text", pattern: ['^.{1,620}$', "Keep each paragraph to 620 characters or fewer"] }
-          - label: "What You Get (exactly 6 items)"
-            name: "includes"
-            widget: "list"
-            allow_add: false
-            min: 6
-            max: 6
-            field: { label: "Item", name: "item", widget: "string" }
-
   - divider: true
 
   # -------------------------------------------------------- HOW WE WORK
   - name: "process_steps"
-    label: "How We Work — Process"
+    label: "HOW WE WORK — Process Steps"
     icon: "linear_scale"
     files:
       - file: "content/collections/process-steps.json"
@@ -435,7 +440,7 @@ collections:
               - { label: "Desc Variant (locked)", name: "descVariant", widget: "hidden" }
 
   - name: "tool_logos"
-    label: "Toolkit Logos (How We Work)"
+    label: "HOW WE WORK — Toolkit Logos"
     icon: "construction"
     files:
       - file: "content/collections/tool-logos.json"
@@ -461,7 +466,7 @@ collections:
 
   # ---------------------------------------------------------- INDUSTRIES
   - name: "industries"
-    label: "Industries"
+    label: "INDUSTRIES — Industry List"
     icon: "factory"
     files:
       - file: "content/collections/industries.json"
@@ -537,7 +542,7 @@ collections:
 
   # -------------------------------------------------------- CASE STUDIES
   - name: "case_studies"
-    label: "Case Studies"
+    label: "CASE STUDIES — Case Study List"
     icon: "cases"
     files:
       - file: "content/collections/case-studies.json"
@@ -617,7 +622,7 @@ collections:
 
   # ------------------------------------------------------------ INSIGHTS
   - name: "insights_articles"
-    label: "Insights Articles"
+    label: "INSIGHTS — Articles"
     icon: "article"
     files:
       - file: "content/collections/insights-articles.json"
@@ -668,7 +673,7 @@ collections:
 
   # ------------------------------------------------------------- CONTACT
   - name: "faq_contact"
-    label: "FAQ — Contact"
+    label: "CONTACT — FAQ"
     icon: "help"
     files:
       - file: "content/pages/faq-contact.json"
@@ -689,8 +694,74 @@ collections:
   - divider: true
 
   # ----------------------------------------------------------- SITE-WIDE
+  - name: "footer_social_links"
+    label: "SITE-WIDE — Footer Social Links"
+    icon: "share"
+    files:
+      - file: "content/collections/footer-social-links.json"
+        label: "Footer Social Links"
+        name: "footer_social_links"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # Fixed-height footer column (css/footer.css: height:400px on
+            # .footer__inner, nowrap labels) -- count is locked, but unlike
+            # the internal nav/footer links below, these hrefs point to
+            # external social profiles with no build-time route to break,
+            # so both label and URL are editable.
+            allow_add: false
+            min: 3
+            max: 3
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Profile URL", name: "href", widget: "string" }
+
+  - name: "nav_links"
+    label: "SITE-WIDE — Top Navigation Links"
+    icon: "menu"
+    files:
+      - file: "content/collections/nav-links.json"
+        label: "Top Navigation Links"
+        name: "nav_links"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # css/navbar.css: nowrap labels, no wrap protection -- a 9th
+            # link has nowhere to go. Each href points to one of this
+            # site's own pages, so it's locked (an internal link this
+            # site doesn't actually have would 404); only the visible
+            # label text is editable.
+            allow_add: false
+            min: 8
+            max: 8
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Page URL (locked)", name: "href", widget: "hidden" }
+
+  - name: "footer_company_links"
+    label: "SITE-WIDE — Footer Company Links"
+    icon: "link"
+    files:
+      - file: "content/collections/footer-company-links.json"
+        label: "Footer Company Links"
+        name: "footer_company_links"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # Same fixed-height footer column and same locked-href
+            # reasoning as the top navigation links above.
+            allow_add: false
+            min: 5
+            max: 5
+            fields:
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "Page URL (locked)", name: "href", widget: "hidden" }
+
   - name: "images"
-    label: "Site Images (used across multiple pages)"
+    label: "SITE-WIDE — Site Images"
     icon: "image"
     files:
       - file: "content/images.json"
