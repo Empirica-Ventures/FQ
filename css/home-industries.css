@@ -109,6 +109,8 @@
 }
 
 .industries__card {
+  display: block;
+  text-decoration: none;
   position: relative;
   width: 203px;
   /* Extra 24px over the 210px content-derived minimum: .industries__desc

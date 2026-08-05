@@ -1,9 +1,13 @@
 var spell = require('../html').spell;
 var icons = require('../_fixtures/home-industries-icons');
 
-// Fixes a live bug caught during extraction: the "Explore all industries"
+// Fixes two live bugs. (1, extraction-time) The "Explore all industries"
 // link pointed at /services.html instead of /industries.html -- the same
 // class of mislabeled-href bug already fixed on the home services teaser.
+// (2, client feedback) each card itself was a plain <div> with no link at
+// all despite its hover affordance and trailing arrow glyph -- now an <a>
+// to /industries.html#<id>, the same in-page anchor the Industries page's
+// own quick-nav bar already uses for this exact section.
 // circleStyle is derived from homeAccent (cream cards get a dark circle
 // for contrast, every other accent gets light) rather than stored
 // separately -- it's a rendering consequence of the accent, not an
@@ -16,7 +20,7 @@ module.exports = function (content) {
     var icon = icons[ind.id];
     if (!icon) throw new Error('home industries: no icon fixture for id "' + ind.id + '"');
 
-    return '      <div class="industries__card industries__card--' + ind.homeAccent + '">\n' +
+    return '      <a href="/industries.html#' + ind.id + '" class="industries__card industries__card--' + ind.homeAccent + '">\n' +
       '        <div class="industries__icon-circle industries__icon-circle--' + circleStyle + '">\n' +
       '          ' + icon + '\n' +
       '        </div>\n' +
@@ -24,7 +28,7 @@ module.exports = function (content) {
       '        <div class="industries__rule animate-on-scroll"></div>\n' +
       '        <p class="industries__desc animate-on-scroll">' + spell(ind.homeDesc) + '</p>\n' +
       '        <p class="industries__arrow">' + spell('→') + '</p>\n' +
-      '      </div>';
+      '      </a>';
   }).join('\n\n');
 
   return '<section class="industries">\n' +
