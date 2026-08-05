@@ -681,6 +681,44 @@ collections:
 
   - divider: true
 
+  # ------------------------------------------------------------ PARTNERS
+  - name: "partners_intro"
+    label: "PARTNERS — Page Heading & Intro"
+    icon: "handshake"
+    files:
+      - file: "content/pages/partners.json"
+        label: "Partners Page Intro"
+        name: "partners_intro"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Intro Text", name: "intro", widget: "text" }
+
+  - name: "partners"
+    label: "PARTNERS — Partner List"
+    icon: "handshake"
+    files:
+      - file: "content/collections/partners.json"
+        label: "Partners"
+        name: "partners"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # The one collection in this CMS that's unlocked from the
+            # start: css/partners-grid.css uses grid-template-columns:
+            # repeat(auto-fill, ...) with no fixed row count and no
+            # overflow:hidden, so adding a partner can't silently clip.
+            # Ships with zero seed items -- add the first one here.
+            min: 0
+            fields:
+              - { label: "Partner Name", name: "name", widget: "string" }
+              - { label: "Logo", name: "logoSrc", widget: "image" }
+              - { label: "Logo Alt Text", name: "logoAlt", widget: "string" }
+              - { label: "Short Description", name: "blurb", widget: "text", pattern: ['^.{1,160}$', "Keep it to 160 characters or fewer"] }
+              - { label: "Website URL (optional)", name: "websiteUrl", widget: "string", required: false }
+
+  - divider: true
+
   # ------------------------------------------------------------- CONTACT
   - name: "faq_contact"
     label: "CONTACT — FAQ"
@@ -762,10 +800,13 @@ collections:
             name: "items"
             widget: "list"
             # Same fixed-height footer column and same locked-href
-            # reasoning as the top navigation links above.
+            # reasoning as the top navigation links above. Bumped to 6 for
+            # the new Partners page -- confirmed via the mobile-clipping
+            # audit that the "Follow" column's fixed-height footer has
+            # enough headroom for stacked list items to grow.
             allow_add: false
-            min: 5
-            max: 5
+            min: 6
+            max: 6
             fields:
               - { label: "Label", name: "label", widget: "string" }
               - { label: "Page URL (locked)", name: "href", widget: "hidden" }

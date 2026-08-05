@@ -1,0 +1,16 @@
+{
+  "title": "Partners | Frontier Quotient",
+  "description": "The technology and service partners Frontier Quotient works with to deliver stronger outcomes for GCC businesses.",
+  "priority": 0.5,
+  "sections": [
+    "partners/01-hero.js",
+    "partners/02-grid.js",
+    "partners/03-final-cta.html"
+  ],
+  "css": [
+    "partners-hero.css",
+    "partners-grid.css",
+    "partners-final-cta.css"
+  ],
+  "outputFile": "partners.html"
+}

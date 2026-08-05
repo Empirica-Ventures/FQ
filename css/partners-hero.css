@@ -1,0 +1,49 @@
+/* Partners page — new page, no Figma trace to follow (first page built
+   after the CMS project began with no legacy fixed-height container to
+   inherit). Flow/max-width layout throughout, matching the approach
+   already used for the Insights article-detail pages, instead of this
+   site's usual absolute-positioned-to-1440px pattern. */
+.partners-hero {
+  background: var(--color-cream);
+}
+
+.partners-hero__inner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 96px 80px 64px;
+}
+
+.partners-hero__heading {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1.15;
+  color: var(--color-navy);
+  margin: 0 0 16px;
+}
+
+.partners-hero__intro {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 28px;
+  color: var(--color-text-body);
+  max-width: 620px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .partners-hero__inner {
+    padding: 64px 24px 40px;
+  }
+
+  .partners-hero__heading {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .partners-hero__heading {
+    font-size: 28px;
+  }
+}
