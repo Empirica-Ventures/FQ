@@ -2,16 +2,7 @@
   position: relative;
   height: 400px;
   background: var(--color-cream);
-  /* overflow-x: auto, not hidden — the fixed-1440px-wide grid (13 columns)
-     doesn't reflow between 900-1440px viewports (the site's only two
-     responsive tiers are a fixed 1440px desktop design and a separate
-     mobile fallback below 900px), so on common laptop widths like
-     1024/1280px several logo columns render past the visible edge.
-     overflow-x:auto lets that content scroll into view instead of being
-     silently clipped; overflow-y stays hidden since nothing in this
-     section needs vertical clipping removed. */
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 /* Hairline divider color (var(--color-border-soft)) doesn't match any existing variable
@@ -68,32 +59,62 @@
   background: var(--color-green);
 }
 
-/* 13 columns x 2 rows of client logo tiles. Row pitch (112px) already
-   includes the card + label + vertical gap, so no additional row-gap is
-   needed on the grid itself. */
-/* grid-auto-rows, not the original grid-template-rows: repeat(2, 112px) —
-   that hardcoded exactly 2 rows for exactly 26 logos (13 columns x 2). A
-   27th logo would have opened an implicit 3rd row sized by the grid's
-   default row-sizing instead of the intended 112px, and — since
-   `.trusted-by` fixes its own height at 400px and clips overflow-y — that
-   3rd row would render entirely invisible, no error, no scrollbar.
-   grid-auto-rows fixes the row height for however many rows the grid
-   actually needs, so it stays correct at any logo count. (The container's
-   own fixed height is a separate, larger constraint — deliberately left
-   for the CMS phase, which caps this collection at today's count until the
-   container itself is made auto-height as its own reviewed change.) */
-.trusted-by__grid {
+/* Two independently-animated marquee rows, replacing the old static
+   13-column grid + manual horizontal scroll. Each row's track duplicates
+   its own logo set once, back to back (same technique as
+   css/hww-tools.css's toolkit ticker) so js/main.js can measure the exact
+   seamless-loop distance regardless of how many logos end up in each row.
+   Row 2 reuses the identical @keyframes via `animation-direction: reverse`
+   rather than a second, mirrored keyframe -- reversing playback of
+   `from translateX(0) to translateX(-distance)` produces exactly the
+   opposite visual motion (content flows left-to-right instead of
+   right-to-left) with no extra CSS. */
+.trusted-by__band {
   position: absolute;
-  left: 36px;
-  top: 160px;
-  display: grid;
-  grid-template-columns: repeat(13, 96px);
-  grid-auto-rows: 112px;
-  column-gap: 10px;
+  left: 0;
+  width: 100%;
+  height: 112px;
+  overflow: hidden;
+}
+
+.trusted-by__band--row1 { top: 160px; }
+.trusted-by__band--row2 { top: 272px; }
+
+.trusted-by__track {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  height: 100%;
+  padding-left: 36px;
+  width: max-content;
+  /* Fallback for the current 13-logos-per-row split (13 x 106px pitch =
+     1378px), used only if JS never runs -- js/main.js measures the actual
+     rendered set width for each row independently at load and overrides
+     this custom property, so the real distance always matches however
+     many logos actually end up in that row. Not a measured playback speed;
+     40s is a reasonable default matching the toolkit ticker's pace. */
+  --trusted-by-scroll-distance: -1378px;
+  animation: trusted-by-scroll 40s linear infinite;
+}
+
+.trusted-by__track--row2 {
+  animation-direction: reverse;
+}
+
+@keyframes trusted-by-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--trusted-by-scroll-distance)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trusted-by__track {
+    animation: none;
+  }
 }
 
 .trusted-by__tile {
   position: relative;
+  flex-shrink: 0;
   width: 96px;
   height: 112px;
 }
@@ -132,14 +153,34 @@
   color: var(--color-navy);
 }
 
+.trusted-by__fade {
+  position: absolute;
+  top: 0;
+  width: 140px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.trusted-by__fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--color-cream), rgba(248, 246, 242, 0));
+}
+
+.trusted-by__fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--color-cream), rgba(248, 246, 242, 0));
+}
+
 /* Stacked mobile/tablet fallback — no mobile Figma frame exists for this
-   section. The 13x2 grid of blank logo-placeholder tiles can't fit 13
-   columns on a phone, so it collapses to a narrower grid (4 columns down to
-   900px, 3 columns down to 480px) rather than a horizontal scroll strip —
-   there's no real logo content yet to justify preserving the exact
-   13-across layout, and a narrower grid keeps everything readable without
-   introducing a second horizontally-scrolling region on the page (the
-   How We Work tools ticker already owns that pattern). */
+   section. Both marquee rows keep scrolling at every width, same principle
+   as the toolkit ticker: only the surrounding layout reflows (eyebrow/
+   heading/accent to static stacking, bands from absolute to normal flow
+   stacking one under the other). `.trusted-by__band` stays `position:
+   relative` rather than `static` — same containing-block reason documented
+   on `.hww-tools__band`'s mobile fallback: it's what keeps each band's own
+   `.trusted-by__fade` children correctly anchored to that band instead of
+   re-anchoring to `.trusted-by__inner`. */
 @media (max-width: 900px) {
   .trusted-by,
   .trusted-by__inner {
@@ -169,41 +210,19 @@
     margin: 16px auto 0;
   }
 
-  .trusted-by__grid {
-    position: static;
-    left: auto;
-    top: auto;
-    width: 100%;
-    margin-top: 32px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: none;
-    grid-auto-rows: auto;
-    column-gap: 12px;
-    row-gap: 24px;
-  }
-
-  .trusted-by__tile {
-    position: static;
-    width: auto;
-    height: auto;
-  }
-
-  .trusted-by__card {
+  .trusted-by__band {
     position: relative;
-    width: 100%;
-  }
-
-  .trusted-by__label {
-    position: static;
-    top: auto;
     left: auto;
     width: 100%;
-    margin-top: 8px;
+    margin-top: 16px;
   }
-}
 
-@media (max-width: 480px) {
-  .trusted-by__grid {
-    grid-template-columns: repeat(3, 1fr);
+  .trusted-by__band--row1,
+  .trusted-by__band--row2 {
+    top: auto;
+  }
+
+  .trusted-by__fade {
+    width: 15%;
   }
 }

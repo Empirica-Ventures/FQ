@@ -122,23 +122,28 @@
   });
 })();
 
-// Toolkit logo marquee — the track duplicates its logo set once so a
+// Seamless marquee distance measurement — shared by the toolkit ticker and
+// both Trusted-By rows. Each track duplicates its own item set once so a
 // translateX by exactly one set's width loops seamlessly (see
-// css/hww-tools.css). That distance depends on how many logos exist, so it
-// previously lived as a hand-kept px value in the @keyframes rule that
-// silently desynced (a visible jump once per cycle) whenever a logo was
-// added or removed. Measured here instead, directly from the DOM: the gap
-// between the first real chip and the first duplicate chip is exactly the
-// seamless-loop distance, whatever the chip width/gap/padding happen to be.
-(function () {
-  var track = document.querySelector('.hww-tools__track');
+// css/hww-tools.css and css/services-trusted-by.css). That distance
+// depends on how many items exist, so it previously lived as a hand-kept
+// px value in the @keyframes rule that silently desynced (a visible jump
+// once per cycle) whenever an item was added or removed. Measured here
+// instead, directly from the DOM: the gap between the first real item and
+// the first duplicate item is exactly the seamless-loop distance, whatever
+// the item width/gap/padding happen to be.
+function measureMarquee(selector, cssVar) {
+  var track = document.querySelector(selector);
   if (!track) return;
-  var chips = track.children;
-  var half = chips.length / 2;
+  var items = track.children;
+  var half = items.length / 2;
   if (!half || half !== Math.floor(half)) return;
-  var distance = chips[half].offsetLeft - chips[0].offsetLeft;
-  if (distance > 0) track.style.setProperty('--hww-tools-scroll-distance', -distance + 'px');
-})();
+  var distance = items[half].offsetLeft - items[0].offsetLeft;
+  if (distance > 0) track.style.setProperty(cssVar, -distance + 'px');
+}
+measureMarquee('.hww-tools__track', '--hww-tools-scroll-distance');
+measureMarquee('.trusted-by__track--row1', '--trusted-by-scroll-distance');
+measureMarquee('.trusted-by__track--row2', '--trusted-by-scroll-distance');
 
 // --- Scroll Animations ---
 // Uses IntersectionObserver to trigger fade-up animations as elements enter the viewport.

@@ -37,12 +37,17 @@ const WIDTHS = (process.argv[3] || '375,414').split(',').map(Number);
 const BASE = process.argv[4] || 'http://127.0.0.1:8843';
 const DESKTOP = 1440;
 
-// The toolkit logo strip is an infinite horizontal marquee (see
-// css/hww-tools.css) — by construction, most of its duplicated chip set sits
-// outside the visible band at every viewport width, and narrower viewports
-// simply fit fewer chips before the cutoff. That's not a regression, so it's
-// excluded from the pass/fail signal (still printed below, for visibility).
-const KNOWN_CLIPPING_VIA = ['div.hww-tools__band'];
+// The toolkit logo strip and both Trusted-By rows are infinite horizontal
+// marquees (see css/hww-tools.css, css/services-trusted-by.css) — by
+// construction, most of each duplicated tile set sits outside the visible
+// band at every viewport width, and narrower viewports simply fit fewer
+// tiles before the cutoff. That's not a regression, so it's excluded from
+// the pass/fail signal (still printed below, for visibility).
+const KNOWN_CLIPPING_VIA = [
+  'div.hww-tools__band',
+  'div.trusted-by__band.trusted-by__band--row1',
+  'div.trusted-by__band.trusted-by__band--row2',
+];
 
 const MEASURE = (vw) => {
   const label = el => {
