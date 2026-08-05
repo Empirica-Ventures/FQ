@@ -5,6 +5,11 @@ var spell = require('../html').spell;
 // different categories for the same article, because each was hand-typed
 // separately. Deriving both from the same article.category makes that
 // drift impossible.
+//
+// Deliberately NOT wired into the category filter (js/main.js's
+// [data-filter-group] handler) -- the featured pick is a pinned editorial
+// spotlight, independent of whichever topic tab is active below it.
+// Confirmed with the client during the first feedback round.
 module.exports = function (content) {
   var articles = content.insightsArticles.items;
   var categories = content.insightsCategories.items;
