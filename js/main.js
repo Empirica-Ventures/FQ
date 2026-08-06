@@ -169,3 +169,21 @@ measureMarquee('.trusted-by__track--row2', '--trusted-by-scroll-distance');
     observer.observe(el);
   });
 })();
+
+// Contact form result — api/contact.js (a Vercel serverless function, not
+// a third-party form service) redirects back here with ?sent=1 or
+// ?error=1 after handling the POST. Swaps in the matching notice from
+// src/partials/contact/01-main.html and hides the form via an inline
+// style (wins regardless of any stylesheet specificity) rather than
+// relying on the `hidden` attribute, which an author display:flex rule
+// would otherwise override -- see the CSS comment on .contact-main__notice.
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  var params = new URLSearchParams(location.search);
+  var state = params.get('sent') === '1' ? 'success' : params.get('error') === '1' ? 'error' : null;
+  if (!state) return;
+  form.style.display = 'none';
+  var notice = document.getElementById('contact-notice-' + state);
+  if (notice) notice.classList.add('is-visible');
+})();

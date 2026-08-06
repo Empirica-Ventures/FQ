@@ -41,15 +41,39 @@
   </div>
 
   <div class="contact-main__inner">
-    <!-- Static site, no backend: form has no real submission endpoint.
-         action="#" is a placeholder; wire up to a form service or
-         mailto: fallback when a backend/integration is chosen. -->
-    <form class="contact-main__form" action="#" method="post">
+    <!-- Submits to api/contact.js, a Vercel serverless function that
+         sends straight to the client's own inbox over SMTP -- no
+         third-party form service ever handles the submission. JS below
+         (js/main.js) swaps in one of these two notices based on the
+         redirect's ?sent=1 / ?error=1 query param; both start hidden via
+         .is-visible (not the `hidden` attribute, whose UA-stylesheet
+         display:none an author `display:flex` rule would otherwise beat). -->
+    <div class="contact-main__notice contact-main__notice--success" id="contact-notice-success">
+      <p class="contact-main__notice-heading">Thanks — message sent.</p>
+      <p class="contact-main__notice-body">We&rsquo;ve received your request and will be in touch within 1 business day.</p>
+    </div>
+
+    <div class="contact-main__notice contact-main__notice--error" id="contact-notice-error">
+      <p class="contact-main__notice-heading">Something went wrong.</p>
+      <p class="contact-main__notice-body">Your message wasn&rsquo;t sent. Please try again, or email us directly at <a href="mailto:info@frontierquotient.com">info@frontierquotient.com</a>.</p>
+      <a href="/contact.html" class="btn btn-primary contact-main__notice-retry">TRY AGAIN</a>
+    </div>
+
+    <form class="contact-main__form" id="contact-form" action="/api/contact" method="post">
       <p class="contact-main__form-eyebrow">CONSULTATION REQUEST</p>
       <h2 class="contact-main__form-heading">
         <span>Tell us about</span>
         <span>your business.</span>
       </h2>
+
+      <!-- Honeypot: invisible to real visitors (off-screen, tabindex -1,
+           not `type="hidden"` since some bots specifically skip that).
+           api/contact.js silently no-ops the send if this is filled in,
+           without telling the bot it was caught. -->
+      <div class="contact-main__honeypot" aria-hidden="true">
+        <label for="contact-website">Website</label>
+        <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
 
       <div class="contact-main__field" style="top:218px;">
         <label for="contact-name">Full Name *</label>
