@@ -1,0 +1,14 @@
+{
+  "title": "Terms of Service | Frontier Quotient",
+  "description": "The terms governing your use of frontierquotient.com.",
+  "priority": 0.3,
+  "sections": [
+    "legal/terms-hero.js",
+    "legal/terms-sections.js"
+  ],
+  "css": [
+    "legal-hero.css",
+    "legal-sections.css"
+  ],
+  "outputFile": "terms-of-service.html"
+}

@@ -935,3 +935,66 @@ collections:
                   - { label: "Alt Text (decorative — usually blank)", name: "alt", widget: "string", required: false }
                   - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
                   - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
+
+  - divider: true
+
+  # --------------------------------------------------------------- LEGAL
+  - name: "privacy_intro"
+    label: "LEGAL — Privacy Policy Heading & Intro"
+    icon: "gavel"
+    files:
+      - file: "content/pages/privacy-policy.json"
+        label: "Privacy Policy Intro"
+        name: "privacy_intro"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Last Updated", name: "updated", widget: "string" }
+          - { label: "Intro Text", name: "intro", widget: "text" }
+
+  - name: "privacy_sections"
+    label: "LEGAL — Privacy Policy Sections"
+    icon: "gavel"
+    files:
+      - file: "content/collections/privacy-policy-sections.json"
+        label: "Privacy Policy Sections"
+        name: "privacy_sections"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # Plain flow list, no fixed height/overflow:hidden anywhere in
+            # css/legal-sections.css -- unlocked from the start, same
+            # reasoning as the Partners collection.
+            min: 1
+            fields:
+              - { label: "Section Heading", name: "heading", widget: "string" }
+              - { label: "Section Body", name: "body", widget: "text" }
+
+  - name: "terms_intro"
+    label: "LEGAL — Terms of Service Heading & Intro"
+    icon: "gavel"
+    files:
+      - file: "content/pages/terms-of-service.json"
+        label: "Terms of Service Intro"
+        name: "terms_intro"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Last Updated", name: "updated", widget: "string" }
+          - { label: "Intro Text", name: "intro", widget: "text" }
+
+  - name: "terms_sections"
+    label: "LEGAL — Terms of Service Sections"
+    icon: "gavel"
+    files:
+      - file: "content/collections/terms-of-service-sections.json"
+        label: "Terms of Service Sections"
+        name: "terms_sections"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            # Same reasoning as privacy_sections above.
+            min: 1
+            fields:
+              - { label: "Section Heading", name: "heading", widget: "string" }
+              - { label: "Section Body", name: "body", widget: "text" }
