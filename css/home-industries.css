@@ -26,13 +26,21 @@
   max-width: var(--page-width);
   margin: 0 auto;
   position: relative;
-  /* Fallback only -- src/render/home/08-industries.js computes and injects
-     the real height inline, since how many card rows exist depends on
-     items.length (known at build time, not something a static CSS rule
-     can express). 524px matches today's exact 1-row count (top:210px +
-     234px card + 80px bottom breathing room) so nothing changes if the
-     inline style were ever missing. */
-  height: 524px;
+  /* src/render/home/08-industries.js computes and injects the real
+     height as a CSS custom property (--industries-inner-height), since
+     how many card rows exist depends on items.length (known at build
+     time). Deliberately NOT a plain inline `style="height:...px"` -- that
+     would have higher specificity than any stylesheet rule regardless of
+     media query, silently overriding the mobile fallback's
+     `height: auto` a few lines below and clipping the stacked mobile
+     layout (this exact mistake shipped briefly and was caught by manually
+     comparing computed styles at 375px, since the mobile-audit tool's
+     clip check only inspects one DOM level and missed it -- see the fix
+     noted in verify/mobile_audit.js). Referencing the variable here keeps
+     the mobile rule free to win normally at <=900px. 524px is today's
+     exact 1-row count (top:210px + 234px card + 80px bottom breathing
+     room). */
+  height: var(--industries-inner-height, 524px);
 }
 
 .industries__eyebrow {

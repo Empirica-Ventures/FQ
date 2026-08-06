@@ -94,10 +94,20 @@ const MEASURE = (vw) => {
     }
 
     // ---- vertical clipping, measured visually (respects transform:scale)
+    // Checks ALL descendants, not just direct children -- an intermediate
+    // wrapper between the overflow:hidden element and the real content can
+    // itself end up with a wrong-but-matching box size (e.g. a height bug
+    // on a wrapper two levels down that happens to equal its clipping
+    // ancestor's height, hiding the mismatch at that shallow level), while
+    // a deeper descendant's own true layout position still reveals it.
+    // Caught exactly this case once: an inline height override on an inner
+    // wrapper silently matched its overflow:hidden grandparent's auto-
+    // sized height, so direct-children-only comparison saw no gap, but the
+    // actual card grid two levels down was still being clipped by ~1300px.
     const oy = cs.overflowY;
     if (oy === 'hidden' || oy === 'clip') {
       let deepest = 0;
-      for (const c of el.children) {
+      for (const c of el.querySelectorAll('*')) {
         const ccs = getComputedStyle(c);
         if (ccs.display === 'none' || ccs.position === 'absolute' || ccs.position === 'fixed') continue;
         deepest = Math.max(deepest, c.getBoundingClientRect().bottom);

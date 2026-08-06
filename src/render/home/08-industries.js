@@ -51,7 +51,7 @@ module.exports = function (content) {
   }).join('\n\n');
 
   return '<section class="industries">\n' +
-    '  <div class="industries__inner" style="height:' + innerHeight + 'px;">\n' +
+    '  <div class="industries__inner" style="--industries-inner-height:' + innerHeight + 'px;">\n' +
     '    <p class="industries__eyebrow animate-on-scroll">INDUSTRIES WE SERVE</p>\n' +
     '    <h2 class="industries__heading animate-on-scroll">We know the numbers that move your industry.</h2>\n' +
     '    <p class="industries__subtext">Different sectors run on different numbers. We build finance around how yours actually works.</p>\n' +

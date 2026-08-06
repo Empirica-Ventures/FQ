@@ -1,7 +1,18 @@
 .trust-intro {
   position: relative;
   background: var(--color-white);
-  height: 420px;
+  /* src/render/home/03-trust-intro.js computes and injects the real
+     height as a CSS custom property (--trust-intro-height), since how
+     many card rows exist depends on items.length (known at build time).
+     Deliberately NOT a plain inline `style="height:...px"` -- that would
+     have higher specificity than any stylesheet rule regardless of media
+     query, silently overriding the mobile fallback's `height: auto`
+     below and clipping the stacked mobile layout. Referencing the
+     variable here keeps the mobile rule free to win normally at <=900px,
+     since both rules are still plain author-stylesheet rules with equal
+     specificity. The 420px fallback matches today's exact 1-row count.
+  */
+  height: var(--trust-intro-height, 420px);
   overflow: hidden;
 }
 
@@ -68,8 +79,16 @@
 .trust-intro__cards {
   position: absolute;
   left: 80px;
+  /* right, not a hardcoded width -- 3 cards at 410px + 2 gaps at 25px
+     (1280px) already fit inside 1440-80-80=1280px exactly. Without an
+     explicit width, this absolutely-positioned flex container would
+     shrink-to-fit its content and never actually wrap regardless of
+     flex-wrap; anchoring both edges gives it the same 1280px constraint
+     a 4th card needs to overflow before flex-wrap below kicks in. */
+  right: 80px;
   top: 205px;
   display: flex;
+  flex-wrap: wrap;
   gap: 25px;
 }
 
