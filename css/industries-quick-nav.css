@@ -3,7 +3,6 @@
   height: 80px;
   background: #f8f6f2;
   border-bottom: 1px solid var(--color-border-soft);
-  overflow: hidden;
 }
 
 .quick-nav__inner {
@@ -11,6 +10,15 @@
   margin: 0 auto;
   position: relative;
   height: 100%;
+  /* Was overflow:hidden on the parent .quick-nav above. 6 fixed-240px
+     items exactly fill the 1440px page width today (6 x 240 = 1440) --
+     a 7th tab would push the flex row past that width and clip
+     invisibly, no error, no scrollbar. overflow-x:auto here (the same
+     technique the mobile fallback below already uses) makes this safe
+     at any tab count instead: nothing to scroll until a tab actually
+     doesn't fit, so today's exact-fit 6 tabs are visually unchanged. */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .quick-nav__list {
@@ -19,6 +27,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  width: max-content;
 }
 
 .quick-nav__item {
@@ -96,22 +105,16 @@
    6 tabs (240px each = 1440px total) can't wrap sensibly without breaking
    the divider/active-underline math per item, so per the brief this becomes
    a horizontally-scrollable strip contained to its own inner element
-   (`overflow-x: auto`), never the page — width per item is trimmed so more
-   of the strip is visible before scrolling is needed. */
+   (`overflow-x: auto`, now the default at every width — see above), never
+   the page — width per item is trimmed so more of the strip is visible
+   before scrolling is needed. */
 @media (max-width: 900px) {
   .quick-nav {
     height: auto;
-    overflow: visible;
   }
 
   .quick-nav__inner {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     height: auto;
-  }
-
-  .quick-nav__list {
-    width: max-content;
   }
 
   .quick-nav__item {

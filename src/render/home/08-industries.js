@@ -12,8 +12,27 @@ var icons = require('../_fixtures/home-industries-icons');
 // for contrast, every other accent gets light) rather than stored
 // separately -- it's a rendering consequence of the accent, not an
 // independent editorial choice.
+// css/home-industries.css's .industries__grid wraps to additional rows
+// once more cards exist than fit in one (6 today, at a fixed 1280px row
+// width / 203px card width). .industries__inner's height has to grow to
+// match however many rows that produces, or a wrapped row is invisibly
+// clipped by the section's overflow:hidden -- computed here rather than
+// hardcoded, since row count depends on items.length, known at build
+// time. Height formula matches the CSS's own commented breakdown: a
+// 210px top offset, one 234px card row per row, 12px between rows
+// (matching the grid's own column gap), plus 80px of bottom breathing
+// room -- 6 items (1 row) computes to exactly 524px, the same value the
+// CSS fallback uses, so nothing changes until a 7th card actually exists.
+var CARDS_PER_ROW = 6;
+var CARD_HEIGHT = 234;
+var ROW_GAP = 12;
+var TOP_OFFSET = 210;
+var BOTTOM_BREATHING_ROOM = 80;
+
 module.exports = function (content) {
   var items = content.industries.items;
+  var rows = Math.ceil(items.length / CARDS_PER_ROW);
+  var innerHeight = TOP_OFFSET + rows * CARD_HEIGHT + (rows - 1) * ROW_GAP + BOTTOM_BREATHING_ROOM;
 
   var cards = items.map(function (ind) {
     var circleStyle = ind.homeAccent === 'cream' ? 'dark' : 'light';
@@ -32,7 +51,7 @@ module.exports = function (content) {
   }).join('\n\n');
 
   return '<section class="industries">\n' +
-    '  <div class="industries__inner">\n' +
+    '  <div class="industries__inner" style="height:' + innerHeight + 'px;">\n' +
     '    <p class="industries__eyebrow animate-on-scroll">INDUSTRIES WE SERVE</p>\n' +
     '    <h2 class="industries__heading animate-on-scroll">We know the numbers that move your industry.</h2>\n' +
     '    <p class="industries__subtext">Different sectors run on different numbers. We build finance around how yours actually works.</p>\n' +

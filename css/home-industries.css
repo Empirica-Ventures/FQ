@@ -26,6 +26,12 @@
   max-width: var(--page-width);
   margin: 0 auto;
   position: relative;
+  /* Fallback only -- src/render/home/08-industries.js computes and injects
+     the real height inline, since how many card rows exist depends on
+     items.length (known at build time, not something a static CSS rule
+     can express). 524px matches today's exact 1-row count (top:210px +
+     234px card + 80px bottom breathing room) so nothing changes if the
+     inline style were ever missing. */
   height: 524px;
 }
 
@@ -103,8 +109,16 @@
 .industries__grid {
   position: absolute;
   left: 80px;
+  /* right, not a hardcoded width -- 6 cards at 203px + 5 gaps at 12px
+     (1278px) already fit inside 1440-80-80=1280px almost exactly. Without
+     an explicit width, this absolutely-positioned flex container would
+     shrink-to-fit its content and never actually wrap regardless of
+     flex-wrap; anchoring both edges gives it the same 1280px constraint a
+     7th card needs to overflow before flex-wrap below kicks in. */
+  right: 80px;
   top: 210px;
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
