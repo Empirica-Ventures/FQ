@@ -34,3 +34,18 @@ module.exports = {
     '            <path d="M0.9 13.9H13.9M2.9 13.9V0.9H10.9V13.9M4.9 3.9H5.9M7.9 3.9H8.9M4.9 6.9H5.9M7.9 6.9H8.9M4.9 9.9H5.9M7.9 9.9H8.9" stroke="#2B6B25" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>\n' +
     '          </svg>',
 };
+
+// Fallback for any industry added through the CMS (unlocked -- see
+// admin/config.yml) that doesn't have a hand-drawn icon above: a generic
+// briefcase glyph, no id-specific artwork needed. Takes a color rather
+// than having one baked in, since (unlike the 6 above) it isn't matched
+// to one specific card -- src/render/home/08-industries.js derives the
+// right color the same way it already derives circleStyle, from the
+// card's own accent (red/green accent cards -> that accent's color,
+// cream cards -> white, matching the existing 6 icons' own red/white/
+// green pattern exactly).
+module.exports.DEFAULT_ICON = function (color) {
+  return '<svg viewBox="0 0 15.8 13.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">\n' +
+    '            <path d="M5.9 3.9V1.9C5.9 1.35 6.35 0.9 6.9 0.9H8.9C9.45 0.9 9.9 1.35 9.9 1.9V3.9M0.9 6.9H14.9M1.9 3.9H13.9L14.9 12.9H0.9L1.9 3.9Z" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>\n' +
+    '          </svg>';
+};

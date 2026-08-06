@@ -29,15 +29,34 @@ var ROW_GAP = 12;
 var TOP_OFFSET = 210;
 var BOTTOM_BREATHING_ROOM = 80;
 
+// Matches the existing 6 hand-drawn icons' own color convention exactly
+// (red-accent cards use brand-red, green-accent use green, cream-accent
+// use white against their dark-tinted circle) -- used only as the
+// DEFAULT_ICON fallback's color for an industry added through the CMS
+// with no matching fixture in home-industries-icons.js.
+var ACCENT_ICON_COLOR = { red: '#8B0A32', green: '#2B6B25', cream: '#FFFFFF' };
+
 module.exports = function (content) {
   var items = content.industries.items;
   var rows = Math.ceil(items.length / CARDS_PER_ROW);
   var innerHeight = TOP_OFFSET + rows * CARD_HEIGHT + (rows - 1) * ROW_GAP + BOTTOM_BREATHING_ROOM;
 
+  // id doubles as the /industries.html#<id> anchor and that page's own
+  // <section id="..."> (src/render/industries/_detail-template.js) -- now
+  // that it's CMS-editable (unlocked alongside allow_add), a typo'd
+  // duplicate would silently break anchor navigation for both industries
+  // sharing it, with no visible build error. Asserted here since this is
+  // the first render function to run against content.industries.items
+  // (src/pages/index.json builds alphabetically before industries.json).
+  var seenIds = {};
+  items.forEach(function (ind) {
+    if (seenIds[ind.id]) throw new Error('home industries: duplicate id "' + ind.id + '" -- each industry needs a unique id');
+    seenIds[ind.id] = true;
+  });
+
   var cards = items.map(function (ind) {
     var circleStyle = ind.homeAccent === 'cream' ? 'dark' : 'light';
-    var icon = icons[ind.id];
-    if (!icon) throw new Error('home industries: no icon fixture for id "' + ind.id + '"');
+    var icon = icons[ind.id] || icons.DEFAULT_ICON(ACCENT_ICON_COLOR[ind.homeAccent] || ACCENT_ICON_COLOR.red);
 
     return '      <a href="/industries.html#' + ind.id + '" class="industries__card industries__card--' + ind.homeAccent + '">\n' +
       '        <div class="industries__icon-circle industries__icon-circle--' + circleStyle + '">\n' +

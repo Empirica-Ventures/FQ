@@ -69,10 +69,18 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # css/home-trust-intro.css: fixed height/overflow:hidden.
-            allow_add: false
+            # Unlocked: css/home-trust-intro.css's .trust-intro__cards now
+            # wraps to additional rows (flex-wrap + a real width
+            # constraint) instead of clipping past a fixed-width single
+            # row, and the section's own height is computed in
+            # src/render/home/03-trust-intro.js from items.length rather
+            # than hardcoded -- verified by simulating a 4th testimonial
+            # through the real render function, which wrapped to a
+            # visible 2nd row instead of clipping. min:3 keeps the count
+            # from ever dropping below today's real quotes; no max, since
+            # the layout has no upper bound anymore.
+            allow_add: true
             min: 3
-            max: 3
             fields:
               - { label: "Quote", name: "quote", widget: "text", pattern: ['^.{1,156}$', "Keep it to 156 characters or fewer"] }
               - { label: "Attribution", name: "attribution", widget: "string" }
@@ -486,17 +494,22 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # Fixed 6-tab quick-nav bar (nowrap, css/industries-quick-nav.css)
-            # + 6 hand-built detail sections (css/industries-detail.css:
-            # 460px/overflow:hidden challenges+services panel) + the home
-            # teaser grid — count and id are both locked.
-            allow_add: false
+            # Unlocked: css/industries-quick-nav.css's quick-nav bar now
+            # scrolls instead of clipping past a fixed-width row, and the
+            # home teaser grid (css/home-industries.css) wraps to
+            # additional rows with a height computed from items.length --
+            # both verified by simulating a 7th industry through the real
+            # render functions. min:6 keeps the count from ever dropping
+            # below today's real industries; no max, since neither
+            # container has an upper bound anymore.
+            allow_add: true
             min: 6
-            max: 6
             fields:
-              - label: "ID (locked — used by quick-nav and icon lookup)"
+              - label: "ID (this industry's page anchor -- lowercase, hyphens only, must be unique)"
                 name: "id"
-                widget: "hidden"
+                widget: "string"
+                pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Lowercase letters, numbers, and hyphens only (e.g. renewable-energy)"]
+                hint: "Becomes /industries.html#<id> and that page's own anchor for this section. A duplicate or changed id breaks navigation for whichever industry already used it -- src/render/home/08-industries.js fails the build if two industries share one. New industries fall back to a generic icon (src/render/_fixtures/home-industries-icons.js) unless a developer adds a hand-drawn one for this id."
               - label: "Label"
                 name: "label"
                 widget: "string"
