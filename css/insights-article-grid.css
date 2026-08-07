@@ -1,6 +1,18 @@
+/* Auto-height, not the original `height: 920px; overflow: hidden`, so the
+   article count is no longer capped by the container: a 7th non-featured
+   article opens a 3rd grid row that grows the section instead of rendering
+   invisibly below the fold of an overflow-clipped box.
+   `.article-grid__grid` moves into normal flow (it was absolutely
+   positioned at left:80px/top:96px, which contributes nothing to the
+   parent's height) and its old offsets are reproduced as padding on
+   `.article-grid__inner`. The eyebrow stays absolute -- it sits in the
+   96px of top padding the grid no longer needs, so it costs no layout
+   height and its measured position is unchanged. 244px of bottom padding
+   is what the original fixed 920px left below 2 rows of cards
+   (920 - 96 top - 580 grid = 244), so the desktop rendering at today's
+   7 articles is pixel-identical to before. */
 .article-grid {
   position: relative;
-  height: 920px;
   background: #f8f6f2;
   overflow: hidden;
 }
@@ -9,7 +21,7 @@
   max-width: var(--page-width);
   margin: 0 auto;
   position: relative;
-  height: 100%;
+  padding: 96px 80px 244px;
 }
 
 .article-grid__eyebrow {
@@ -26,9 +38,6 @@
 }
 
 .article-grid__grid {
-  position: absolute;
-  left: 80px;
-  top: 96px;
   display: grid;
   grid-template-columns: repeat(3, 420px);
   gap: 20px;

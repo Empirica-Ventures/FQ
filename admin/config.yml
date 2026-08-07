@@ -572,14 +572,13 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # Exactly 6 today. css/cs-grid.css lays these out as 2 rows of
-            # 3 in a `height: 920px; overflow: hidden` section — a 7th
-            # item opens a third row that would render entirely invisible,
-            # no error, no scrollbar. Revisit only once that container is
-            # made auto-height as its own reviewed visual change.
-            allow_add: false
-            min: 6
-            max: 6
+            # Unlocked: css/cs-grid.css is auto-height now (it was a fixed
+            # `height: 920px; overflow: hidden` holding exactly 2 rows of 3,
+            # where a 7th study rendered entirely invisible -- no error, no
+            # scrollbar), so the grid grows a row at a time. Verified by
+            # rendering a 7th study through the real render function.
+            allow_add: true
+            min: 1
             fields:
               - label: "Category"
                 name: "category"
@@ -652,17 +651,23 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # 1 featured slot (css/insights-featured.css: fixed 440px,
-            # overflow:hidden) + 6 grid slots (css/insights-article-grid.css:
-            # fixed 920px 2x3 grid, overflow:hidden) — an 8th item or a 2nd
-            # featured article opens an invisible extra slot/row.
-            allow_add: false
-            min: 7
-            max: 7
+            # Unlocked: css/insights-article-grid.css is auto-height now
+            # (was a fixed 920px 2x3 grid with overflow:hidden, where a 7th
+            # non-featured article opened an invisible 3rd row), so the
+            # listing grows a row at a time. The single featured slot
+            # (css/insights-featured.css) still holds exactly one article --
+            # build.js's validateInsightsArticles() fails the build if the
+            # Featured box is checked on more than one item, or on none.
+            # It also fails on a duplicate or missing URL slug, since two
+            # articles sharing a slug would overwrite each other's page.
+            allow_add: true
+            min: 1
             fields:
-              - label: "URL Slug (locked — this is the page's address)"
+              - label: "URL Slug (this article's web address — lowercase, hyphens only, must be unique)"
                 name: "slug"
-                widget: "hidden"
+                widget: "string"
+                pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Lowercase letters, numbers, and hyphens only (e.g. uae-corporate-tax-guide)"]
+                hint: "Becomes /insights/<slug>.html. Changing it on a published article breaks any existing link to it, so treat it as permanent once live."
               - label: "Category"
                 name: "category"
                 widget: "select"
@@ -688,6 +693,44 @@ collections:
                 name: "readTime"
                 widget: "string"
                 pattern: ['^\d{1,2} min read$', 'Format: "N min read"']
+              # The article's actual page copy. Typed blocks rather than one
+              # rich-text/markdown field on purpose: build.js carries no
+              # markdown parser (it's dependency-free by design), and a
+              # block list means the CMS can never put raw HTML on the page
+              # -- every block's text is escaped like any other content
+              # string. An article with an empty body still publishes: its
+              # excerpt renders as the lead paragraph, exactly as all 7
+              # articles do today, until the real copy is written here.
+              - label: "Article Body"
+                name: "body"
+                widget: "list"
+                required: false
+                hint: "Add blocks in the order they should read. Leave empty and the excerpt shows as a one-paragraph placeholder."
+                types:
+                  - label: "Paragraph"
+                    name: "paragraph"
+                    widget: "object"
+                    fields:
+                      - { label: "Text", name: "text", widget: "text" }
+                  - label: "Section Heading"
+                    name: "heading"
+                    widget: "object"
+                    fields:
+                      - { label: "Heading", name: "text", widget: "string" }
+                  - label: "Bulleted List"
+                    name: "list"
+                    widget: "object"
+                    fields:
+                      - label: "Bullets"
+                        name: "items"
+                        widget: "list"
+                        min: 1
+                        field: { label: "Bullet", name: "item", widget: "string" }
+                  - label: "Pull Quote"
+                    name: "quote"
+                    widget: "object"
+                    fields:
+                      - { label: "Quote", name: "text", widget: "text" }
 
   - divider: true
 

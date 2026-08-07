@@ -189,9 +189,43 @@ function buildPage(config) {
 // per article so buildSitemap() picks them up the same way it does real pages.
 const insightsArticleDetail = require('./src/render/insights/article-detail');
 
+// Two invariants the CMS can't enforce on its own, now that the article
+// count is unlocked and the slug is editable (both were previously
+// guaranteed by the collection being frozen at exactly 7 hand-authored
+// items with hidden slugs). A hard build failure is the right response to
+// either: both silently destroy a page rather than merely mis-styling one,
+// and editorial_workflow means this runs on the preview deploy before an
+// editor's change can reach production.
+function validateInsightsArticles(articles) {
+  const seen = new Map();
+  articles.forEach((article, i) => {
+    if (!article.slug) {
+      throw new Error('insights article #' + (i + 1) + ' ("' + article.title + '") has no URL slug');
+    }
+    if (seen.has(article.slug)) {
+      throw new Error(
+        'two insights articles share the slug "' + article.slug + '" ("' +
+        seen.get(article.slug) + '" and "' + article.title + '") -- they would ' +
+        'overwrite each other at /insights/' + article.slug + '.html'
+      );
+    }
+    seen.set(article.slug, article.title);
+  });
+
+  const featured = articles.filter(a => a.featured);
+  if (featured.length !== 1) {
+    throw new Error(
+      'exactly one insights article must be marked Featured, found ' + featured.length +
+      (featured.length ? ' ("' + featured.map(a => a.title).join('", "') + '")' : '') +
+      ' -- the Insights page has a single featured slot'
+    );
+  }
+}
+
 function buildInsightsArticles(content) {
   const categories = content.insightsCategories.items;
   const articles = content.insightsArticles.items;
+  validateInsightsArticles(articles);
   const articleCss = minifyCss(read(path.join(ROOT, 'css', 'insights-article-detail.css')));
   const allCss = baseCss + '\n' + articleCss;
   const outDir = path.join(DIST, 'insights');
