@@ -402,14 +402,15 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # css/services-trusted-by.css is a fixed 13-column logo strip.
-            # Each logo's left/top/width/height is a hand-measured crop
-            # offset with no relation to the source file, so those stay
-            # locked — adding new logos needs that offset work done outside
-            # the CMS first (see the Phase 5 extraction commit).
-            allow_add: false
-            min: 26
-            max: 26
+            # Unlocked: css/services-trusted-by.css now renders every logo
+            # through object-fit: contain inside a fixed-size card (same
+            # technique as the How-We-Work toolkit logos below) instead of
+            # a hand-measured left/top/width/height crop per logo, so a new
+            # logo needs no offset math -- just upload, alt text, and a
+            # name. Splits evenly across the two marquee rows by position
+            # (src/render/services/02-trusted-by.js), so any count works.
+            allow_add: true
+            min: 1
             fields:
               - label: "Logo Image"
                 name: "src"
@@ -417,10 +418,6 @@ collections:
               - label: "Alt Text"
                 name: "alt"
                 widget: "string"
-              - { label: "Left Offset (locked)", name: "left", widget: "hidden" }
-              - { label: "Top Offset (locked)", name: "top", widget: "hidden" }
-              - { label: "Width (locked)", name: "width", widget: "hidden" }
-              - { label: "Height (locked)", name: "height", widget: "hidden" }
               - label: "Client Name"
                 name: "label"
                 widget: "string"

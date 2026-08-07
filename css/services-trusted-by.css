@@ -129,14 +129,19 @@
   border: 1px solid var(--color-border);
   border-radius: 6px;
   box-shadow: 0px 3px 9px 0px rgba(3, 13, 69, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Logo images intentionally bleed past the card edges in several cases
-   (e.g. NIS, Neo Essentials, Nolma) — reproduced from the exact Figma
-   offsets rather than clamped to the card box. */
+/* object-fit: contain scales any source image to fit the card without
+   distortion or manual per-logo crop math -- same technique as
+   .hww-tools__chip img. A new logo just needs a reasonably square-ish
+   source file; no left/top/width/height tuning required. */
 .trusted-by__logo {
-  position: absolute;
   display: block;
+  max-width: 72px;
+  max-height: 40px;
   object-fit: contain;
 }
 
