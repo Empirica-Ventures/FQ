@@ -28,6 +28,12 @@
 // label text for KSA/Qatar/Bahrain (SAUDI ARABIA / QATAR / BAHRAIN) is
 // inferred to match the exact "UNITED ARAB EMIRATES" full-name pattern
 // already confirmed for the UAE slide's label.
+//
+// Those four region labels are read off each dot's data-slide-label rather
+// than kept in an array here. They used to be hardcoded in both places at
+// once — the UAE one in the partial's visible label and all four in this
+// file — so editing the labels through the CMS would have changed the
+// initial one and left the other three saying whatever this array said.
 (function () {
   var slider = document.querySelector('.hero__slider');
   var controls = document.querySelector('.hero__controls');
@@ -36,7 +42,9 @@
   var slides = slider.querySelectorAll('.hero__slide');
   var dots = controls.querySelectorAll('.hero__dot');
   var label = controls.querySelector('[data-hero-label]');
-  var labels = ['UNITED ARAB EMIRATES', 'SAUDI ARABIA', 'QATAR', 'BAHRAIN'];
+  var labels = Array.prototype.map.call(dots, function (dot) {
+    return dot.getAttribute('data-slide-label');
+  });
   var current = 0;
   var timer = null;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

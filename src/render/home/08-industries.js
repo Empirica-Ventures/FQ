@@ -37,6 +37,7 @@ var BOTTOM_BREATHING_ROOM = 80;
 var ACCENT_ICON_COLOR = { red: '#8B0A32', green: '#2B6B25', cream: '#FFFFFF' };
 
 module.exports = function (content) {
+  var copy = content.copy.home.industries;
   var items = content.industries.items;
   var rows = Math.ceil(items.length / CARDS_PER_ROW);
   var innerHeight = TOP_OFFSET + rows * CARD_HEIGHT + (rows - 1) * ROW_GAP + BOTTOM_BREATHING_ROOM;
@@ -71,11 +72,11 @@ module.exports = function (content) {
 
   return '<section class="industries">\n' +
     '  <div class="industries__inner" style="--industries-inner-height:' + innerHeight + 'px;">\n' +
-    '    <p class="industries__eyebrow animate-on-scroll">INDUSTRIES WE SERVE</p>\n' +
-    '    <h2 class="industries__heading animate-on-scroll">We know the numbers that move your industry.</h2>\n' +
-    '    <p class="industries__subtext">Different sectors run on different numbers. We build finance around how yours actually works.</p>\n' +
+    '    <p class="industries__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="industries__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
+    '    <p class="industries__subtext">' + spell(copy.subtext) + '</p>\n' +
     '\n' +
-    '    <a href="/industries.html" class="industries__cta animate-on-scroll">Explore all industries &rarr;</a>\n' +
+    '    <a href="/industries.html" class="industries__cta animate-on-scroll">' + spell(copy.ctaLabel) + '</a>\n' +
     '    <div class="industries__cta-rule"></div>\n' +
     '\n' +
     '    <div class="industries__grid">\n' +

@@ -9,8 +9,17 @@ var spell = require('../html').spell;
 var ACCENTS = ['red', 'green'];
 
 module.exports = function (content) {
+  var copy = content.copy.insights.topics;
   var categories = content.insightsCategories.items;
   var articles = content.insightsArticles.items;
+
+  // The heading is hard-wrapped into one .topics__heading-line span per
+  // line (the CSS gives each its own baseline), so its copy is a list of
+  // lines rather than a single string -- one more or one fewer line is an
+  // editorial choice the markup follows.
+  var headingLines = copy.heading.map(function (line) {
+    return '      <span class="topics__heading-line">' + spell(line) + '</span>';
+  }).join('\n');
 
   var cards = categories.map(function (cat, i) {
     var count = articles.filter(function (a) { return a.category === cat.slug; }).length;
@@ -25,10 +34,9 @@ module.exports = function (content) {
 
   return '<section class="topics">\n' +
     '  <div class="topics__inner">\n' +
-    '    <p class="topics__eyebrow animate-on-scroll">EXPLORE BY TOPIC</p>\n' +
+    '    <p class="topics__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
     '    <h2 class="topics__heading animate-on-scroll">\n' +
-    '      <span class="topics__heading-line">Finance clarity,</span>\n' +
-    '      <span class="topics__heading-line">by category.</span>\n' +
+    headingLines + '\n' +
     '    </h2>\n' +
     '\n' +
     '    <div class="topics__grid">\n' +

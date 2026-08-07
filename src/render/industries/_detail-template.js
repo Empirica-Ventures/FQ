@@ -1,4 +1,5 @@
 var spell = require('../html').spell;
+var attr = require('../html').attr;
 
 var ACCENTS = ['red', 'navy', 'green'];
 
@@ -20,6 +21,10 @@ function serviceName(services, slug) {
 // industry-detail--single-line is just headingLines.length === 1.
 module.exports = function (id) {
   return function (content) {
+    // Section labels ("KEY CHALLENGES" etc.) are the same on every one of the
+    // six industries, so they live once under industries.json's detailLabels
+    // rather than being repeated per-industry in the collection.
+    var copy = content.copy.industries.detailLabels;
     var items = content.industries.items;
     var services = content.services.items;
     var i = items.map(function (x) { return x.id; }).indexOf(id);
@@ -49,12 +54,12 @@ module.exports = function (id) {
       '  <p class="industry-detail__watermark">' + num + '</p>\n' +
       '\n' +
       '  <div class="industry-detail__panel">\n' +
-      '    <p class="industry-detail__panel-label">KEY CHALLENGES</p>\n' +
+      '    <p class="industry-detail__panel-label">' + spell(copy.challengesLabel) + '</p>\n' +
       '    <ul class="industry-detail__challenges">\n' +
       challenges + '\n' +
       '    </ul>\n' +
       '    <div class="industry-detail__divider"></div>\n' +
-      '    <p class="industry-detail__services-label">SERVICES WE PROVIDE</p>\n' +
+      '    <p class="industry-detail__services-label">' + spell(copy.servicesLabel) + '</p>\n' +
       '    <ul class="industry-detail__services">\n' +
       serviceItems + '\n' +
       '    </ul>\n' +
@@ -63,7 +68,7 @@ module.exports = function (id) {
       '  <div class="industry-detail__vdivider"></div>\n' +
       '\n' +
       '  <div class="industry-detail__content">\n' +
-      '    <p class="industry-detail__eyebrow animate-on-scroll">INDUSTRY &middot; ' + num + '</p>\n' +
+      '    <p class="industry-detail__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + ' &middot; ' + num + '</p>\n' +
       '    <h2 class="industry-detail__heading animate-on-scroll">\n' +
       headingLines + '\n' +
       '    </h2>\n' +
@@ -71,9 +76,9 @@ module.exports = function (id) {
       '    <p class="industry-detail__description">' + spell(ind.description) + '</p>\n' +
       '\n' +
       '    <div class="industry-detail__case-study">\n' +
-      '      <p class="industry-detail__case-study-label">CASE STUDY</p>\n' +
+      '      <p class="industry-detail__case-study-label">' + spell(copy.caseStudyLabel) + '</p>\n' +
       '      <a class="industry-detail__case-study-link" href="/case-studies.html">' + spell(ind.caseStudyText) + '</a>\n' +
-      '      <a class="industry-detail__case-study-arrow" href="/case-studies.html" aria-label="Read the case study">' + spell('→') + '</a>\n' +
+      '      <a class="industry-detail__case-study-arrow" href="/case-studies.html" aria-label="' + attr(copy.caseStudyArrowLabel) + '">' + spell('→') + '</a>\n' +
       '    </div>\n' +
       '  </div>\n' +
       '</section>\n';

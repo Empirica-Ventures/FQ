@@ -17,6 +17,7 @@ var spell = require('../html').spell;
 // so any number of logos of any source aspect ratio can be added through
 // the CMS with no code changes.
 module.exports = function (content) {
+  var copy = content.copy.services.trustedBy;
   var items = content.trustedBy.items;
   var half = Math.ceil(items.length / 2);
   var rows = [items.slice(0, half), items.slice(half)];
@@ -46,8 +47,8 @@ module.exports = function (content) {
 
   return '<section class="trusted-by">\n' +
     '  <div class="trusted-by__inner">\n' +
-    '    <p class="trusted-by__eyebrow animate-on-scroll">TRUSTED ACROSS THE GCC</p>\n' +
-    '    <h2 class="trusted-by__heading animate-on-scroll">Businesses that trust us with their numbers</h2>\n' +
+    '    <p class="trusted-by__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="trusted-by__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
     '    <div class="trusted-by__accent"></div>\n' +
     '\n' +
     band(rows[0], 1) + '\n' +

@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "eyebrow": "ABOUT FRONTIER QUOTIENT",
+    "headlineLine1": "Finance support built",
+    "headlineLine2Lead": "for",
+    "headlineLine2Outlined": "growing businesses",
+    "body": "Frontier Quotient combines accounting expertise with practical finance strategy to help companies operate with clarity and confidence."
+  },
+  "whoWeAre": {
+    "eyebrow": "WHO WE ARE",
+    "heading": "Who We Are",
+    "body": {
+      "para1": "Serious business finance has always been a luxury of scale. The FP&A talent that turns numbers into strategy usually sits inside large multinationals, the Unilevers and P&Gs of the world because only they can afford to keep it in-house. Smaller businesses go without it, not for lack of need, but because that talent is priced out of reach.",
+      "para2": "Frontier Quotient changes that. We democratize high-end FP&A and business finance giving growing companies the same financial muscle the biggest players run on, sized and priced for where you are today."
+    }
+  },
+  "mission": {
+    "eyebrow": "OUR MISSION",
+    "first": {
+      "label": "01 · FOR OUR CLIENTS",
+      "statement": "To give every growing business the financial clarity and foresight once reserved for the world's largest companies, so they can make sharper decisions and grow with confidence."
+    },
+    "second": {
+      "label": "02 · FOR OURSELVES",
+      "statement": "And to build a finance partner worth keeping one held to the standard of the firms we benchmark against, that gets measurably sharper with every engagement."
+    }
+  },
+  "values": {
+    "eyebrow": "OUR VALUES",
+    "heading": "Our Values"
+  },
+  "cta": {
+    "heading": "Ready to simplify your finance operations?",
+    "subtext": "Let's discuss how Frontier Quotient can support your business growth.",
+    "buttonLabel": "Book a Consultation"
+  }
+}

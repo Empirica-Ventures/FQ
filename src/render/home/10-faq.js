@@ -4,6 +4,7 @@ var spell = require('../html').spell;
 // ...) in the original markup -- derived from index rather than stored,
 // since it's a fixed visual rhythm, not a per-item editorial choice.
 module.exports = function (content) {
+  var copy = content.copy.home.faq;
   var data = content.pages['faq-home'];
 
   var items = data.items.map(function (item, i) {
@@ -23,7 +24,7 @@ module.exports = function (content) {
 
   return '<section class="faq">\n' +
     '  <div class="faq__inner">\n' +
-    '    <p class="faq__eyebrow animate-on-scroll">FREQUENTLY ASKED</p>\n' +
+    '    <p class="faq__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
     '    <div class="faq__heading animate-on-scroll">\n' +
     headingLines + '\n' +
     '    </div>\n' +

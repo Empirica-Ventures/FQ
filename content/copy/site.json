@@ -1,0 +1,26 @@
+{
+  "navbar": {
+    "logoAlt": "Frontier Quotient, home",
+    "ctaLabel": "Book a Consultation",
+    "menuToggleLabel": "Open menu"
+  },
+  "footer": {
+    "logoAlt": "Frontier Quotient, home",
+    "tagline": "Strategic finance for the Gulf's operators.",
+    "taglineAr": "طموحٌ يُقاس",
+    "servicesTitle": "Services",
+    "companyTitle": "Company",
+    "contactTitle": "Contact",
+    "followTitle": "Follow",
+    "contactEmail": "info@frontierquotient.com",
+    "contactRegions": "UAE · KSA · Qatar · Bahrain",
+    "contactHours": "Mon to Fri, 9am to 6pm",
+    "copyright": "© 2026 Frontier Quotient. All rights reserved."
+  },
+  "error404": {
+    "eyebrow": "ERROR 404",
+    "heading": "This page took a wrong turn.",
+    "body": "The page you're looking for doesn't exist or may have moved. Let's get you back on track.",
+    "buttonLabel": "Back to Home"
+  }
+}

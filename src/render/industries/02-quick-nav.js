@@ -1,8 +1,10 @@
 var spell = require('../html').spell;
+var attr = require('../html').attr;
 
 var ACCENTS = ['red', 'navy', 'green'];
 
 module.exports = function (content) {
+  var copy = content.copy.industries.quickNav;
   var items = content.industries.items;
 
   var listItems = items.map(function (ind, i) {
@@ -15,7 +17,7 @@ module.exports = function (content) {
       '      </li>';
   }).join('\n');
 
-  return '<nav class="quick-nav" aria-label="Jump to industry">\n' +
+  return '<nav class="quick-nav" aria-label="' + attr(copy.ariaLabel) + '">\n' +
     '  <div class="quick-nav__inner">\n' +
     '    <ul class="quick-nav__list">\n' +
     listItems + '\n' +

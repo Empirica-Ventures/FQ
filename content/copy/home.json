@@ -1,0 +1,109 @@
+{
+  "hero": {
+    "headlineOutlined": "Strategic finance",
+    "headlineRest": "for the Gulf's most ambitious operators.",
+    "body": "We pair clean accounting with the FP&A founders actually run on forecasts, scenarios, unit economics. Never bookkeeping for its own sake.",
+    "meta": "GCC operators · AED 2M to AED 18M revenue · D2C, Manufacturing, Healthcare & Logistics.",
+    "primaryCtaLabel": "Book a Consultation",
+    "secondaryCtaLabel": "Explore Services →",
+    "slides": {
+      "uae": {
+        "regionLabel": "UNITED ARAB EMIRATES",
+        "dotLabel": "Show United Arab Emirates slide"
+      },
+      "ksa": {
+        "regionLabel": "SAUDI ARABIA",
+        "dotLabel": "Show Saudi Arabia slide"
+      },
+      "qatar": {
+        "regionLabel": "QATAR",
+        "dotLabel": "Show Qatar slide"
+      },
+      "bahrain": {
+        "regionLabel": "BAHRAIN",
+        "dotLabel": "Show Bahrain slide"
+      }
+    }
+  },
+  "problemSolution": {
+    "eyebrow": "THE PROBLEM & OUR SOLUTION",
+    "heading": [
+      "The gaps that stall growth",
+      "and how we close them."
+    ],
+    "challengeLabel": "THE CHALLENGE",
+    "solutionLabel": "HOW FQ HELPS",
+    "row1": {
+      "challenge": "Financial data is disorganized",
+      "solution": "Structure and accurate reporting"
+    },
+    "row2": {
+      "challenge": "No visibility on cash flow",
+      "solution": "Forecasting and financial insights"
+    },
+    "row3": {
+      "challenge": "Finance feels reactive",
+      "solution": "Proactive business planning"
+    },
+    "row4": {
+      "challenge": "Leadership lacks financial clarity",
+      "solution": "Simplified reporting for better decisions"
+    }
+  },
+  "trustIntro": {
+    "eyebrow": "WHO WE ARE",
+    "heading": "More than accounting. A finance partner for growth."
+  },
+  "statement": {
+    "caption": "FRONTIER  QUOTIENT",
+    "headline": "طموحٌ يُقاس",
+    "tagline": "AMBITION MEASURED"
+  },
+  "services": {
+    "eyebrow": "WHAT WE DO",
+    "heading": "Built to work as one.",
+    "cardLinkLabel": "LEARN MORE →",
+    "viewAllLabel": "VIEW ALL SERVICES →"
+  },
+  "industries": {
+    "eyebrow": "INDUSTRIES WE SERVE",
+    "heading": "We know the numbers that move your industry.",
+    "subtext": "Different sectors run on different numbers. We build finance around how yours actually works.",
+    "ctaLabel": "Explore all industries →"
+  },
+  "whyFq": {
+    "eyebrow": "WHY FRONTIER QUOTIENT",
+    "heading": [
+      "Built for the way",
+      "you actually run things."
+    ]
+  },
+  "founders": {
+    "eyebrow": "THE TEAM",
+    "heading": "We built the FP&A partner we wished we'd had.",
+    "ctaLabel": "Meet the Partners →",
+    "first": {
+      "name": "Mudassir Khan",
+      "role": "Co-Founder"
+    },
+    "second": {
+      "name": "Muzammil Khan",
+      "role": "Co-Founder"
+    }
+  },
+  "howItWorks": {
+    "eyebrow": "HOW WE WORK",
+    "heading": [
+      "A simple, structured",
+      "way to get started."
+    ]
+  },
+  "faq": {
+    "eyebrow": "FREQUENTLY ASKED"
+  },
+  "finalCta": {
+    "heading": "Ready to simplify your finance operations?",
+    "subtext": "Let's discuss how Frontier Quotient can support your business growth.",
+    "buttonLabel": "Book a Consultation"
+  }
+}

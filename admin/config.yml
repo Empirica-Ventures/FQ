@@ -58,9 +58,227 @@ public_folder: "/assets"
 # appear on the page.
 collections:
   # ---------------------------------------------------------------- HOME
+  - name: "copy_home"
+    label: "HOME — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/home.json"
+        label: "Home Page Text"
+        name: "copy_home"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Headline (outlined words)", name: "headlineOutlined", widget: "string" }
+              - { label: "Headline (rest of the sentence)", name: "headlineRest", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - { label: "Audience Line (small print under the body)", name: "meta", widget: "text" }
+              - { label: "Primary Button Label", name: "primaryCtaLabel", widget: "string" }
+              - { label: "Secondary Button Label", name: "secondaryCtaLabel", widget: "string" }
+              - label: "Carousel Slides"
+                name: "slides"
+                widget: "object"
+                collapsed: true
+                # Four fixed slides, one per hero background image (see
+                # SITE-WIDE — Site Images: "Home Hero — UAE/KSA/Qatar/Bahrain").
+                # The slide keys are locked to those image slots; only the two
+                # labels below are editable.
+                fields:
+                  - label: "UAE Slide"
+                    name: "uae"
+                    widget: "object"
+                    fields:
+                      - label: "Region Caption"
+                        name: "regionLabel"
+                        widget: "string"
+                        hint: "One value, two places: the visible caption beside the carousel dots, and the label stored on this slide's dot that js/main.js swaps into that caption when the slide changes. Keep the screen-reader label below naming the same region."
+                      - label: "Carousel Dot Screen-Reader Label"
+                        name: "dotLabel"
+                        widget: "string"
+                        hint: "Heard only by screen readers, never shown on screen. Update it whenever the region caption above changes, or the two will disagree."
+                  - label: "KSA Slide"
+                    name: "ksa"
+                    widget: "object"
+                    fields:
+                      - label: "Region Caption"
+                        name: "regionLabel"
+                        widget: "string"
+                        hint: "One value, two places: the visible caption beside the carousel dots, and the label stored on this slide's dot that js/main.js swaps into that caption when the slide changes. Keep the screen-reader label below naming the same region."
+                      - label: "Carousel Dot Screen-Reader Label"
+                        name: "dotLabel"
+                        widget: "string"
+                        hint: "Heard only by screen readers, never shown on screen. Update it whenever the region caption above changes, or the two will disagree."
+                  - label: "Qatar Slide"
+                    name: "qatar"
+                    widget: "object"
+                    fields:
+                      - label: "Region Caption"
+                        name: "regionLabel"
+                        widget: "string"
+                        hint: "One value, two places: the visible caption beside the carousel dots, and the label stored on this slide's dot that js/main.js swaps into that caption when the slide changes. Keep the screen-reader label below naming the same region."
+                      - label: "Carousel Dot Screen-Reader Label"
+                        name: "dotLabel"
+                        widget: "string"
+                        hint: "Heard only by screen readers, never shown on screen. Update it whenever the region caption above changes, or the two will disagree."
+                  - label: "Bahrain Slide"
+                    name: "bahrain"
+                    widget: "object"
+                    fields:
+                      - label: "Region Caption"
+                        name: "regionLabel"
+                        widget: "string"
+                        hint: "One value, two places: the visible caption beside the carousel dots, and the label stored on this slide's dot that js/main.js swaps into that caption when the slide changes. Keep the screen-reader label below naming the same region."
+                      - label: "Carousel Dot Screen-Reader Label"
+                        name: "dotLabel"
+                        widget: "string"
+                        hint: "Heard only by screen readers, never shown on screen. Update it whenever the region caption above changes, or the two will disagree."
+          - label: "Problem & Solution Table"
+            name: "problemSolution"
+            widget: "object"
+            collapsed: true
+            # The four rows are a fixed 4-row table in the markup, so there are
+            # exactly four challenge/solution pairs to fill in — no more, no
+            # fewer.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Heading (2 lines)"
+                name: "heading"
+                widget: "list"
+                field: { label: "Line", name: "line", widget: "string" }
+                min: 2
+                max: 2
+              - { label: "Left Column Label (the challenge)", name: "challengeLabel", widget: "string" }
+              - { label: "Right Column Label (how FQ helps)", name: "solutionLabel", widget: "string" }
+              - label: "Row 1"
+                name: "row1"
+                widget: "object"
+                fields:
+                  - { label: "Challenge", name: "challenge", widget: "string" }
+                  - { label: "How FQ Helps", name: "solution", widget: "string" }
+              - label: "Row 2"
+                name: "row2"
+                widget: "object"
+                fields:
+                  - { label: "Challenge", name: "challenge", widget: "string" }
+                  - { label: "How FQ Helps", name: "solution", widget: "string" }
+              - label: "Row 3"
+                name: "row3"
+                widget: "object"
+                fields:
+                  - { label: "Challenge", name: "challenge", widget: "string" }
+                  - { label: "How FQ Helps", name: "solution", widget: "string" }
+              - label: "Row 4"
+                name: "row4"
+                widget: "object"
+                fields:
+                  - { label: "Challenge", name: "challenge", widget: "string" }
+                  - { label: "How FQ Helps", name: "solution", widget: "string" }
+          - label: "Trust-Intro Section"
+            name: "trustIntro"
+            widget: "object"
+            collapsed: true
+            # The quote cards in this section are edited in HOME — Testimonials.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Arabic Statement Band"
+            name: "statement"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Caption (letter-spaced wordmark)", name: "caption", widget: "string" }
+              - { label: "Arabic Headline", name: "headline", widget: "string" }
+              - { label: "English Tagline (under the Arabic)", name: "tagline", widget: "string" }
+          - label: "Services Teaser Section"
+            name: "services"
+            widget: "object"
+            collapsed: true
+            # The service cards themselves come from SERVICES — Service List.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Service Card Link Label", name: "cardLinkLabel", widget: "string" }
+              - { label: "View-All Button Label", name: "viewAllLabel", widget: "string" }
+          - label: "Industries Teaser Section"
+            name: "industries"
+            widget: "object"
+            collapsed: true
+            # The industry cards themselves come from INDUSTRIES — Industry List.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Sub-text", name: "subtext", widget: "text" }
+              - { label: "Button Label", name: "ctaLabel", widget: "string" }
+          - label: "Why FQ Section"
+            name: "whyFq"
+            widget: "object"
+            collapsed: true
+            # The five cards under this heading are in HOME — Why FQ Cards.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Heading (2 lines)"
+                name: "heading"
+                widget: "list"
+                field: { label: "Line", name: "line", widget: "string" }
+                min: 2
+                max: 2
+          - label: "Founders Section"
+            name: "founders"
+            widget: "object"
+            collapsed: true
+            # The two portraits are image slots — see SITE-WIDE — Site Images
+            # ("Founder Portrait — Mudassir" / "— Muzammil").
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Button Label", name: "ctaLabel", widget: "string" }
+              - label: "First Founder"
+                name: "first"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Role", name: "role", widget: "string" }
+              - label: "Second Founder"
+                name: "second"
+                widget: "object"
+                fields:
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Role", name: "role", widget: "string" }
+          - label: "How It Works Section"
+            name: "howItWorks"
+            widget: "object"
+            collapsed: true
+            # The four numbered steps are in HOME — How It Works.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Heading (2 lines)"
+                name: "heading"
+                widget: "list"
+                field: { label: "Line", name: "line", widget: "string" }
+                min: 2
+                max: 2
+          - label: "FAQ Section"
+            name: "faq"
+            widget: "object"
+            collapsed: true
+            # The questions and answers themselves are in HOME — FAQ.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+          - label: "Closing Call-to-Action"
+            name: "finalCta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Sub-text", name: "subtext", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
   - name: "testimonials"
     label: "HOME — Testimonials"
     icon: "format_quote"
+    # This section's own eyebrow and heading are text — see "HOME — Page Text".
     files:
       - file: "content/collections/testimonials.json"
         label: "Testimonials"
@@ -88,6 +306,7 @@ collections:
   - name: "trust_stats"
     label: "HOME — Trust Strip Stats"
     icon: "bar_chart"
+    # The rest of the home page's section text is in "HOME — Page Text".
     files:
       - file: "content/collections/trust-stats.json"
         label: "Trust Strip Stats"
@@ -108,6 +327,7 @@ collections:
   - name: "faq_home"
     label: "HOME — FAQ"
     icon: "help"
+    # This section's eyebrow is text — see "HOME — Page Text".
     files:
       - file: "content/pages/faq-home.json"
         label: "Home FAQ"
@@ -133,6 +353,7 @@ collections:
   - name: "why_fq"
     label: "HOME — Why FQ Cards"
     icon: "star"
+    # This section's eyebrow and heading are text — see "HOME — Page Text".
     files:
       - file: "content/collections/why-fq.json"
         label: "Why FQ"
@@ -154,6 +375,7 @@ collections:
   - name: "how_it_works"
     label: "HOME — How It Works"
     icon: "route"
+    # This section's eyebrow and heading are text — see "HOME — Page Text".
     files:
       - file: "content/collections/how-it-works.json"
         label: "How It Works"
@@ -173,9 +395,77 @@ collections:
   - divider: true
 
   # --------------------------------------------------------------- ABOUT
+  - name: "copy_about"
+    label: "ABOUT — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/about.json"
+        label: "About Page Text"
+        name: "copy_about"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Headline Line 1", name: "headlineLine1", widget: "string" }
+              - { label: "Headline Line 2 (lead-in word)", name: "headlineLine2Lead", widget: "string" }
+              - { label: "Headline Line 2 (outlined words)", name: "headlineLine2Outlined", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+          - label: "Who We Are Section"
+            name: "whoWeAre"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - label: "Body Paragraphs"
+                name: "body"
+                widget: "object"
+                # Two fixed paragraph slots in the markup, not a growable list.
+                fields:
+                  - { label: "First Paragraph", name: "para1", widget: "text" }
+                  - { label: "Second Paragraph", name: "para2", widget: "text" }
+          - label: "Mission Section"
+            name: "mission"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "First Mission Statement"
+                name: "first"
+                widget: "object"
+                fields:
+                  - { label: "Numbered Label", name: "label", widget: "string" }
+                  - { label: "Statement", name: "statement", widget: "text" }
+              - label: "Second Mission Statement"
+                name: "second"
+                widget: "object"
+                fields:
+                  - { label: "Numbered Label", name: "label", widget: "string" }
+                  - { label: "Statement", name: "statement", widget: "text" }
+          - label: "Values Section"
+            name: "values"
+            widget: "object"
+            collapsed: true
+            # The five value cards under this heading are in ABOUT — Values.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Closing Call-to-Action"
+            name: "cta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Sub-text", name: "subtext", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
   - name: "values"
     label: "ABOUT — Values"
     icon: "diversity_3"
+    # This section's eyebrow and heading are text — see "ABOUT — Page Text".
     files:
       - file: "content/collections/values.json"
         label: "Values"
@@ -195,9 +485,209 @@ collections:
   - divider: true
 
   # ------------------------------------------------------------ SERVICES
+  - name: "copy_services"
+    label: "SERVICES — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/services.json"
+        label: "Services Page Text"
+        name: "copy_services"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Title"
+                name: "title"
+                widget: "object"
+                fields:
+                  - { label: "Title (lead line)", name: "lead", widget: "string" }
+                  - label: "Title (outlined words)"
+                    name: "outlined"
+                    widget: "object"
+                    # Two separate outlined spans on two separate lines.
+                    fields:
+                      - { label: "First Outlined Words", name: "first", widget: "string" }
+                      - { label: "Second Outlined Words", name: "second", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - { label: "Hero Card Label", name: "cardLabel", widget: "string" }
+          - label: "Trusted-By Section"
+            name: "trustedBy"
+            widget: "object"
+            collapsed: true
+            # The client logos under this heading are in SERVICES — Trusted-By
+            # Client Logos.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+          - label: "Services Grid Section"
+            name: "servicesGrid"
+            widget: "object"
+            collapsed: true
+            # The six service cards in this grid come from SERVICES — Service
+            # List; only the section's own eyebrow and heading live here.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Heading"
+                name: "heading"
+                widget: "string"
+                hint: "This heading states a count (\"Six core services\") that is NOT computed from the service list — it is plain text. If a service is ever added or removed, edit this heading by hand or the page will contradict the grid below it."
+          - label: "Closing Call-to-Action"
+            name: "finalCta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Sub-text", name: "subtext", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
+  - name: "copy_service_details"
+    label: "SERVICES — Service Page Text (6 pages)"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/service-details.json"
+        label: "Service Page Text"
+        name: "copy_service_details"
+        # One section per service page, holding that page's hero and closing
+        # call-to-action. The page's own body copy and "What you get" list are
+        # edited in the matching "SERVICES — Body Copy: ..." collection below.
+        # The six section keys are locked to the six service slugs in
+        # content/collections/services.json — there is no 7th service page.
+        fields:
+          - label: "Shared Section Labels (all six pages)"
+            name: "bodyLabels"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: 'Body Section Eyebrow ("What we do")', name: "whatWeDo", widget: "string" }
+              - { label: 'Includes-List Heading ("What you get")', name: "whatYouGet", widget: "string" }
+          - label: "Bookkeeping & Accounting Page"
+            name: "bookkeeping"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+                  - { label: "Heading (lead words)", name: "headingLead", widget: "string" }
+                  - { label: "Heading (outlined words)", name: "headingOutlined", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Closing Call-to-Action"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Sub-text", name: "subtext", widget: "text" }
+                  - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "Cash Flow & Forecasting Page"
+            name: "cashflow"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+                  - { label: "Heading (lead words)", name: "headingLead", widget: "string" }
+                  - { label: "Heading (outlined words)", name: "headingOutlined", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Closing Call-to-Action"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Sub-text", name: "subtext", widget: "text" }
+                  - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "Cleanup & Catch-Up Accounting Page"
+            name: "cleanup"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+                  - { label: "Heading (lead words)", name: "headingLead", widget: "string" }
+                  - { label: "Heading (outlined words)", name: "headingOutlined", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Closing Call-to-Action"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Sub-text", name: "subtext", widget: "text" }
+                  - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "FP&A / Business Finance Page"
+            name: "fpa"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+                  - { label: "Heading (lead words)", name: "headingLead", widget: "string" }
+                  - { label: "Heading (outlined words)", name: "headingOutlined", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Closing Call-to-Action"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Sub-text", name: "subtext", widget: "text" }
+                  - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "Management Reporting Page"
+            name: "mgmt-reporting"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+                  - { label: "Heading (lead words)", name: "headingLead", widget: "string" }
+                  - { label: "Heading (outlined words)", name: "headingOutlined", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Closing Call-to-Action"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Sub-text", name: "subtext", widget: "text" }
+                  - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "Tax & VAT Compliance Page"
+            name: "tax-vat"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Hero"
+                name: "hero"
+                widget: "object"
+                fields:
+                  - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+                  - { label: "Heading (lead words)", name: "headingLead", widget: "string" }
+                  - { label: "Heading (outlined words)", name: "headingOutlined", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Closing Call-to-Action"
+                name: "cta"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Sub-text", name: "subtext", widget: "text" }
+                  - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
   - name: "service_bookkeeping"
     label: "SERVICES — Body Copy: Bookkeeping & Accounting"
     icon: "receipt_long"
+    # This page's hero and closing CTA are in "SERVICES — Service Page Text (6 pages)".
     files:
       - file: "content/pages/service-bookkeeping.json"
         label: "Bookkeeping & Accounting"
@@ -221,6 +711,7 @@ collections:
   - name: "service_cashflow"
     label: "SERVICES — Body Copy: Cash Flow & Forecasting"
     icon: "payments"
+    # This page's hero and closing CTA are in "SERVICES — Service Page Text (6 pages)".
     files:
       - file: "content/pages/service-cashflow.json"
         label: "Cash Flow & Forecasting"
@@ -244,6 +735,7 @@ collections:
   - name: "service_cleanup"
     label: "SERVICES — Body Copy: Cleanup & Catch-Up Accounting"
     icon: "cleaning_services"
+    # This page's hero and closing CTA are in "SERVICES — Service Page Text (6 pages)".
     files:
       - file: "content/pages/service-cleanup.json"
         label: "Cleanup & Catch-Up Accounting"
@@ -267,6 +759,7 @@ collections:
   - name: "service_fpa"
     label: "SERVICES — Body Copy: FP&A / Business Finance"
     icon: "insights"
+    # This page's hero and closing CTA are in "SERVICES — Service Page Text (6 pages)".
     files:
       - file: "content/pages/service-fpa.json"
         label: "FP&A / Business Finance"
@@ -290,6 +783,7 @@ collections:
   - name: "service_mgmt_reporting"
     label: "SERVICES — Body Copy: Management Reporting"
     icon: "monitoring"
+    # This page's hero and closing CTA are in "SERVICES — Service Page Text (6 pages)".
     files:
       - file: "content/pages/service-mgmt-reporting.json"
         label: "Management Reporting"
@@ -313,6 +807,7 @@ collections:
   - name: "service_tax_vat"
     label: "SERVICES — Body Copy: Tax & VAT Compliance"
     icon: "gavel"
+    # This page's hero and closing CTA are in "SERVICES — Service Page Text (6 pages)".
     files:
       - file: "content/pages/service-tax-vat.json"
         label: "Tax & VAT Compliance"
@@ -336,6 +831,7 @@ collections:
   - name: "services"
     label: "SERVICES — Service List (Grid, Hero, Home Teaser, Footer)"
     icon: "design_services"
+    # The grid section's own eyebrow and heading are in "SERVICES — Page Text".
     files:
       - file: "content/collections/services.json"
         label: "Services"
@@ -394,6 +890,7 @@ collections:
   - name: "trusted_by"
     label: "SERVICES — Trusted-By Client Logos"
     icon: "verified"
+    # This section's eyebrow and heading are in "SERVICES — Page Text".
     files:
       - file: "content/collections/trusted-by.json"
         label: "Trusted By"
@@ -425,9 +922,64 @@ collections:
   - divider: true
 
   # -------------------------------------------------------- HOW WE WORK
+  - name: "copy_how_we_work"
+    label: "HOW WE WORK — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/how-we-work.json"
+        label: "How We Work Page Text"
+        name: "copy_how_we_work"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Heading (3 lines)"
+                name: "heading"
+                widget: "object"
+                # Three fixed line slots; line 2 is split into an outlined word
+                # and a plain remainder, each its own span.
+                fields:
+                  - { label: "Line 1", name: "line1", widget: "string" }
+                  - { label: "Line 2 (outlined word)", name: "line2Outlined", widget: "string" }
+                  - { label: "Line 2 (rest of the line)", name: "line2Rest", widget: "string" }
+                  - { label: "Line 3", name: "line3", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+          - label: "Process Section"
+            name: "process"
+            widget: "object"
+            collapsed: true
+            # The five numbered steps themselves are in HOW WE WORK — Process
+            # Steps.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Step Badge Label (prefix before each number)", name: "stepLabel", widget: "string" }
+          - label: "Toolkit Section"
+            name: "tools"
+            widget: "object"
+            collapsed: true
+            # The platform logos in this marquee are in HOW WE WORK — Toolkit
+            # Logos.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Corner Tag", name: "tag", widget: "string" }
+          - label: "Closing Call-to-Action"
+            name: "cta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Sub-text", name: "subtext", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
   - name: "process_steps"
     label: "HOW WE WORK — Process Steps"
     icon: "linear_scale"
+    # This section's eyebrow, heading and step label are in "HOW WE WORK — Page Text".
     files:
       - file: "content/collections/process-steps.json"
         label: "Process Steps"
@@ -457,6 +1009,7 @@ collections:
   - name: "tool_logos"
     label: "HOW WE WORK — Toolkit Logos"
     icon: "construction"
+    # This section's eyebrow, heading and tag are in "HOW WE WORK — Page Text".
     files:
       - file: "content/collections/tool-logos.json"
         label: "Toolkit Logos"
@@ -480,9 +1033,60 @@ collections:
   - divider: true
 
   # ---------------------------------------------------------- INDUSTRIES
+  - name: "copy_industries"
+    label: "INDUSTRIES — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/industries.json"
+        label: "Industries Page Text"
+        name: "copy_industries"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Sub-text", name: "subtext", widget: "text" }
+          - label: "Per-Industry Section Labels"
+            name: "detailLabels"
+            widget: "object"
+            collapsed: true
+            # These four labels are printed once per industry section, so an
+            # edit here changes every industry block on the page at once. The
+            # industries themselves are in INDUSTRIES — Industry List.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: '"Key Challenges" Label', name: "challengesLabel", widget: "string" }
+              - { label: '"Services We Provide" Label', name: "servicesLabel", widget: "string" }
+              - { label: '"Case Study" Label', name: "caseStudyLabel", widget: "string" }
+              - label: "Case Study Link Screen-Reader Label"
+                name: "caseStudyArrowLabel"
+                widget: "string"
+                hint: "Heard only by screen readers, on the arrow link out of each case-study teaser."
+          - label: "Closing Call-to-Action"
+            name: "finalCta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "Quick-Nav Bar"
+            name: "quickNav"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Screen-Reader Label"
+                name: "ariaLabel"
+                widget: "string"
+                hint: "Names the jump-links bar for screen readers; never shown on screen. The link text comes from each industry's own Label."
+
   - name: "industries"
     label: "INDUSTRIES — Industry List"
     icon: "factory"
+    # The page hero and the repeated per-industry labels are in "INDUSTRIES — Page Text".
     files:
       - file: "content/collections/industries.json"
         label: "Industries"
@@ -561,9 +1165,68 @@ collections:
   - divider: true
 
   # -------------------------------------------------------- CASE STUDIES
+  - name: "copy_case_studies"
+    label: "CASE STUDIES — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/case-studies.json"
+        label: "Case Studies Page Text"
+        name: "copy_case_studies"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Headline (lead word)", name: "headlineLead", widget: "string" }
+              - { label: "Headline (outlined words)", name: "headlineOutlined", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Hero Stats"
+                name: "stats"
+                widget: "object"
+                # Three fixed stat slots in the hero, hand-sized — these are
+                # typed here, not counted from the case-study list below.
+                fields:
+                  - label: "First Stat"
+                    name: "first"
+                    widget: "object"
+                    fields:
+                      - { label: "Value", name: "value", widget: "string" }
+                      - { label: "Label", name: "label", widget: "string" }
+                  - label: "Second Stat"
+                    name: "second"
+                    widget: "object"
+                    fields:
+                      - { label: "Value", name: "value", widget: "string" }
+                      - { label: "Label", name: "label", widget: "string" }
+                  - label: "Third Stat"
+                    name: "third"
+                    widget: "object"
+                    fields:
+                      - { label: "Value", name: "value", widget: "string" }
+                      - { label: "Label", name: "label", widget: "string" }
+          - label: "Filter Tabs"
+            name: "filters"
+            widget: "object"
+            collapsed: true
+            # Only the "everything" tab is typed here; the other tab labels come
+            # from each case study's Category.
+            fields:
+              - { label: '"All Work" Tab Label', name: "allTabLabel", widget: "string" }
+          - label: "Closing Call-to-Action"
+            name: "finalCta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
   - name: "case_studies"
     label: "CASE STUDIES — Case Study List"
     icon: "cases"
+    # The page hero, filter tab and closing CTA text are in "CASE STUDIES — Page Text".
     files:
       - file: "content/collections/case-studies.json"
         label: "Case Studies"
@@ -640,9 +1303,88 @@ collections:
   - divider: true
 
   # ------------------------------------------------------------ INSIGHTS
+  - name: "copy_insights"
+    label: "INSIGHTS — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/insights.json"
+        label: "Insights Page Text"
+        name: "copy_insights"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Title (lead words)", name: "titleLead", widget: "string" }
+              - { label: "Title (outlined words)", name: "titleOutlined", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Newsletter Signup Box"
+                name: "newsletter"
+                widget: "object"
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Sub-title", name: "subtitle", widget: "string" }
+                  - { label: "Email Field Placeholder", name: "emailPlaceholder", widget: "string" }
+                  - label: "Email Field Screen-Reader Label"
+                    name: "emailLabel"
+                    widget: "string"
+                    hint: "The field has no visible label — this is what a screen reader announces, so it must stay meaningful on its own."
+                  - { label: "Subscribe Button Label", name: "submitLabel", widget: "string" }
+          - label: "Featured Article Section"
+            name: "featured"
+            widget: "object"
+            collapsed: true
+            # Which article fills this slot is set by the Featured checkbox in
+            # INSIGHTS — Articles; only the section's labels live here.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Image Placeholder Caption", name: "imageCaption", widget: "string" }
+              - { label: "Link Label", name: "linkLabel", widget: "string" }
+          - label: "Article Grid Section"
+            name: "articleGrid"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Article Card Link Label", name: "cardLinkLabel", widget: "string" }
+          - label: "Explore by Topic Section"
+            name: "topics"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - label: "Heading (2 lines)"
+                name: "heading"
+                widget: "list"
+                field: { label: "Line", name: "line", widget: "string" }
+                min: 2
+                max: 2
+          - label: "Article Page"
+            name: "articleDetail"
+            widget: "object"
+            collapsed: true
+            # Shown on every individual article page, not on the listing.
+            fields:
+              - { label: "Back Link Label", name: "backLabel", widget: "string" }
+          - label: "Category Filter"
+            name: "categories"
+            widget: "object"
+            collapsed: true
+            # The individual category tab labels are hardcoded options on each
+            # article's Category field — only these two strings are text.
+            fields:
+              - { label: '"All" Tab Label', name: "allTabLabel", widget: "string" }
+              - label: "Filter Bar Screen-Reader Label"
+                name: "filterAriaLabel"
+                widget: "string"
+                hint: "Names the category filter bar for screen readers; never shown on screen."
+
   - name: "insights_articles"
     label: "INSIGHTS — Articles"
     icon: "article"
+    # The listing page's own section text is in "INSIGHTS — Page Text".
     files:
       - file: "content/collections/insights-articles.json"
         label: "Insights Articles"
@@ -738,6 +1480,7 @@ collections:
   - name: "partners_intro"
     label: "PARTNERS — Page Heading & Intro"
     icon: "handshake"
+    # The rest of this page's text (the closing CTA) is in "PARTNERS — Page Text".
     files:
       - file: "content/pages/partners.json"
         label: "Partners Page Intro"
@@ -746,9 +1489,29 @@ collections:
           - { label: "Heading", name: "heading", widget: "string" }
           - { label: "Intro Text", name: "intro", widget: "text" }
 
+  - name: "copy_partners"
+    label: "PARTNERS — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/partners.json"
+        label: "Partners Page Text"
+        name: "copy_partners"
+        # The page's heading and intro paragraph are in PARTNERS — Page Heading
+        # & Intro above; this collection holds the rest of the page's text.
+        fields:
+          - label: "Closing Call-to-Action"
+            name: "finalCta"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
   - name: "partners"
     label: "PARTNERS — Partner List"
     icon: "handshake"
+    # The page's heading, intro and closing CTA text are the two collections above.
     files:
       - file: "content/collections/partners.json"
         label: "Partners"
@@ -773,9 +1536,223 @@ collections:
   - divider: true
 
   # ------------------------------------------------------------- CONTACT
+  - name: "copy_contact"
+    label: "CONTACT — Page Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/contact.json"
+        label: "Contact Page Text"
+        name: "copy_contact"
+        fields:
+          - label: "Page Heading"
+            name: "main"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading Line 1 (lead word)", name: "headingLine1Lead", widget: "string" }
+              - { label: "Heading Line 1 (outlined word)", name: "headingLine1Outlined", widget: "string" }
+              - { label: "Heading Line 2", name: "headingLine2", widget: "string" }
+              - { label: "Heading Line 3", name: "headingLine3", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+          - label: "Contact Details"
+            name: "details"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Email"
+                name: "email"
+                widget: "object"
+                fields:
+                  - { label: "Row Label", name: "label", widget: "string" }
+                  - { label: "Email Address", name: "value", widget: "string" }
+              - label: "Office Location"
+                name: "office"
+                widget: "object"
+                fields:
+                  - { label: "Row Label", name: "label", widget: "string" }
+                  - { label: "Address", name: "value", widget: "string" }
+              - label: "Phone"
+                name: "phone"
+                widget: "object"
+                fields:
+                  - { label: "Row Label", name: "label", widget: "string" }
+                  - label: "Displayed Number"
+                    name: "value"
+                    widget: "string"
+                    hint: "What visitors read, spaces and all (e.g. +971 50 473 4860). It is NOT used for dialling — change the dial link below to match, or the number shown and the number that actually dials will disagree."
+                  - label: "Dial Link (digits only)"
+                    name: "tel"
+                    widget: "string"
+                    hint: "The tel: link behind the number — country code and digits only, no spaces (e.g. +971504734860). Must be edited together with the displayed number above."
+              - label: "Business Hours"
+                name: "hours"
+                widget: "object"
+                fields:
+                  - { label: "Row Label", name: "label", widget: "string" }
+                  - { label: "Hours", name: "value", widget: "string" }
+          - label: "Form Result Messages"
+            name: "notices"
+            widget: "object"
+            collapsed: true
+            # Shown in place of the form after a submit succeeds or fails.
+            fields:
+              - label: "Success Message"
+                name: "success"
+                widget: "object"
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - { label: "Body Text", name: "body", widget: "text" }
+              - label: "Error Message"
+                name: "error"
+                widget: "object"
+                # The body is printed in two halves with the clickable email
+                # address dropped in between them.
+                fields:
+                  - { label: "Heading", name: "heading", widget: "string" }
+                  - label: "Body Text (before the email address)"
+                    name: "bodyBeforeEmail"
+                    widget: "text"
+                    hint: "The linked email address is inserted straight after this text, so end it without punctuation."
+                  - label: "Body Text (after the email address)"
+                    name: "bodyAfterEmail"
+                    widget: "string"
+                    hint: "Continues the sentence immediately after the linked email address — today just the full stop that closes it."
+                  - { label: "Try-Again Button Label", name: "retryLabel", widget: "string" }
+          - label: "Consultation Form"
+            name: "form"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading Line 1", name: "headingLine1", widget: "string" }
+              - { label: "Heading Line 2", name: "headingLine2", widget: "string" }
+              - label: "Field Labels & Placeholders"
+                name: "fields"
+                widget: "object"
+                # Six fixed form fields — adding a seventh needs markup and the
+                # /api handler, not a CMS edit. Keep the asterisk on the labels
+                # that are actually required by the form's validation.
+                fields:
+                  - label: "Full Name"
+                    name: "name"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Placeholder", name: "placeholder", widget: "string" }
+                  - label: "Company Name"
+                    name: "company"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Placeholder", name: "placeholder", widget: "string" }
+                  - label: "Email Address"
+                    name: "email"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Placeholder", name: "placeholder", widget: "string" }
+                  - label: "Phone Number"
+                    name: "phone"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Placeholder", name: "placeholder", widget: "string" }
+                  - label: "Services Interested In"
+                    name: "service"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Placeholder", name: "placeholder", widget: "text" }
+                  - label: "Message"
+                    name: "message"
+                    widget: "object"
+                    fields:
+                      - { label: "Label", name: "label", widget: "string" }
+                      - { label: "Placeholder", name: "placeholder", widget: "text" }
+              - label: "Service Dropdown Options"
+                name: "serviceOptions"
+                widget: "object"
+                # Only each option's visible text is editable: the option keys
+                # are the values actually submitted with the form, so they stay
+                # locked to what the /api handler and the inbox expect.
+                fields:
+                  - { label: "Bookkeeping Option", name: "bookkeeping", widget: "string" }
+                  - { label: "Management Reporting Option", name: "reporting", widget: "string" }
+                  - { label: "Cash Flow Option", name: "cashFlow", widget: "string" }
+                  - { label: "Fractional CFO Option", name: "fractionalCfo", widget: "string" }
+                  - { label: "Tax & VAT Option", name: "vat", widget: "string" }
+                  - { label: '"Other" Option', name: "other", widget: "string" }
+              - { label: "Submit Button Label", name: "submitLabel", widget: "string" }
+          - label: "Where We Operate Section"
+            name: "locations"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - label: "Sub-text (2 lines)"
+                name: "subtext"
+                widget: "list"
+                field: { label: "Line", name: "line", widget: "string" }
+                min: 2
+                max: 2
+              - { label: '"Core Markets" Label', name: "coreMarketsLabel", widget: "string" }
+              - { label: '"Also Serving" Label', name: "alsoServingLabel", widget: "string" }
+              - label: "Core Markets"
+                name: "markets"
+                widget: "object"
+                # Two fixed market cards.
+                fields:
+                  - label: "First Market"
+                    name: "uae"
+                    widget: "object"
+                    fields:
+                      - label: "Short Name"
+                        name: "name"
+                        widget: "string"
+                        hint: "This short name is ALSO drawn onto the decorative region map, which is not CMS-editable — renaming it here leaves the map's own label saying the old name until a developer redraws it."
+                      - { label: "Full Country Name", name: "country", widget: "string" }
+                      - { label: "Note", name: "note", widget: "string" }
+                  - label: "Second Market"
+                    name: "ksa"
+                    widget: "object"
+                    fields:
+                      - label: "Short Name"
+                        name: "name"
+                        widget: "string"
+                        hint: "This short name is ALSO drawn onto the decorative region map, which is not CMS-editable — renaming it here leaves the map's own label saying the old name until a developer redraws it."
+                      - { label: "Full Country Name", name: "country", widget: "string" }
+                      - { label: "Note", name: "note", widget: "string" }
+              - label: "Also-Serving Chips"
+                name: "chips"
+                widget: "object"
+                # Three fixed chips.
+                fields:
+                  - label: "First Chip"
+                    name: "first"
+                    widget: "string"
+                    hint: "Sits in a box with a hand-fitted pixel width — a noticeably longer place name will not fit inside it."
+                  - label: "Second Chip"
+                    name: "second"
+                    widget: "string"
+                    hint: "Sits in a box with a hand-fitted pixel width — a noticeably longer place name will not fit inside it."
+                  - label: "Third Chip"
+                    name: "third"
+                    widget: "string"
+                    hint: "Sits in a box with a hand-fitted pixel width — a noticeably longer place name will not fit inside it."
+          - label: "Quick FAQ Section"
+            name: "quickFaq"
+            widget: "object"
+            collapsed: true
+            # The heading and the questions themselves are in CONTACT — FAQ.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+
   - name: "faq_contact"
     label: "CONTACT — FAQ"
     icon: "help"
+    # This section's eyebrow is text — see "CONTACT — Page Text".
     files:
       - file: "content/pages/faq-contact.json"
         label: "Contact FAQ"
@@ -795,9 +1772,214 @@ collections:
   - divider: true
 
   # ----------------------------------------------------------- SITE-WIDE
+  - name: "copy_site"
+    label: "SITE-WIDE — Navbar, Footer & 404 Text"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/site.json"
+        label: "Site-Wide Text"
+        name: "copy_site"
+        # Every string here appears on every page of the site, so an edit is
+        # site-wide by definition — the navbar and footer are rendered from one
+        # partial into all pages.
+        fields:
+          - label: "Navbar"
+            name: "navbar"
+            widget: "object"
+            collapsed: true
+            # The nav link labels themselves are in SITE-WIDE — Top Navigation
+            # Links.
+            fields:
+              - { label: "Logo Alt Text", name: "logoAlt", widget: "string" }
+              - { label: "Button Label", name: "ctaLabel", widget: "string" }
+              - label: "Mobile Menu Button Screen-Reader Label"
+                name: "menuToggleLabel"
+                widget: "string"
+                hint: "The hamburger button has no visible text — this is what a screen reader announces for it."
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            collapsed: true
+            # The footer's link lists are separate collections (SITE-WIDE —
+            # Footer Company Links / Footer Social Links); the services column
+            # is generated from SERVICES — Service List.
+            fields:
+              - { label: "Logo Alt Text", name: "logoAlt", widget: "string" }
+              - { label: "Tagline", name: "tagline", widget: "string" }
+              - { label: "Arabic Tagline", name: "taglineAr", widget: "string" }
+              - { label: '"Services" Column Title', name: "servicesTitle", widget: "string" }
+              - { label: '"Company" Column Title', name: "companyTitle", widget: "string" }
+              - { label: '"Contact" Column Title', name: "contactTitle", widget: "string" }
+              - { label: '"Follow" Column Title', name: "followTitle", widget: "string" }
+              - { label: "Contact Email", name: "contactEmail", widget: "string" }
+              - { label: "Regions Line", name: "contactRegions", widget: "string" }
+              - { label: "Business Hours Line", name: "contactHours", widget: "string" }
+              - label: "Copyright Line"
+                name: "copyright"
+                widget: "string"
+                hint: "The year here is plain text, not generated at build time — it goes stale on 1 January unless someone edits it."
+          - label: "404 Page"
+            name: "error404"
+            widget: "object"
+            collapsed: true
+            # Shown by 404.html when a visitor hits a URL this site doesn't
+            # have; its page title and description are in SITE-WIDE — Page
+            # Titles & Search Descriptions.
+            fields:
+              - { label: "Eyebrow", name: "eyebrow", widget: "string" }
+              - { label: "Heading", name: "heading", widget: "string" }
+              - { label: "Body Text", name: "body", widget: "text" }
+              - { label: "Button Label", name: "buttonLabel", widget: "string" }
+
+  - name: "seo_pages"
+    label: "SITE-WIDE — Page Titles & Search Descriptions"
+    icon: "search"
+    files:
+      - file: "content/seo.json"
+        label: "Page Titles & Search Descriptions"
+        name: "seo_pages"
+        fields:
+          - label: "Pages"
+            name: "pages"
+            widget: "object"
+            # One entry per built page, keyed by that page's file name (build.js
+            # looks up seo.pages[<output file without .html>]), so the keys are
+            # locked -- a renamed key silently falls back to the developer
+            # default in src/pages/*.json instead of erroring. Individual
+            # insights articles are not listed here: their title and description
+            # are derived from the article's own Title and Excerpt.
+            fields:
+              - label: "404 Page"
+                name: "404"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "About"
+                name: "about"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Service — Bookkeeping & Accounting"
+                name: "bookkeeping"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Case Studies"
+                name: "case-studies"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Service — Cash Flow & Forecasting"
+                name: "cashflow"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Service — Cleanup & Catch-Up Accounting"
+                name: "cleanup"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Contact"
+                name: "contact"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Service — FP&A / Business Finance"
+                name: "fpa"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "How We Work"
+                name: "how-we-work"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Home"
+                name: "index"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Industries"
+                name: "industries"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Insights"
+                name: "insights"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Service — Management Reporting"
+                name: "mgmt-reporting"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Partners"
+                name: "partners"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Privacy Policy"
+                name: "privacy-policy"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Services"
+                name: "services"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Service — Tax & VAT Compliance"
+                name: "tax-vat"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+              - label: "Terms of Service"
+                name: "terms-of-service"
+                widget: "object"
+                collapsed: true
+                fields:
+                  - { label: "Page Title", name: "title", widget: "string", hint: "The clickable headline in Google results — aim for ~60 characters so it isn't cut off." }
+                  - { label: "Search Description", name: "description", widget: "text", hint: "The grey snippet under the title in Google results — aim for ~155 characters so it isn't cut off." }
+
   - name: "footer_social_links"
     label: "SITE-WIDE — Footer Social Links"
     icon: "share"
+    # The footer's column titles and taglines are in "SITE-WIDE — Navbar, Footer & 404 Text".
     files:
       - file: "content/collections/footer-social-links.json"
         label: "Footer Social Links"
@@ -821,6 +2003,7 @@ collections:
   - name: "nav_links"
     label: "SITE-WIDE — Top Navigation Links"
     icon: "menu"
+    # The navbar's logo alt text and button label are in "SITE-WIDE — Navbar, Footer & 404 Text".
     files:
       - file: "content/collections/nav-links.json"
         label: "Top Navigation Links"
@@ -844,6 +2027,7 @@ collections:
   - name: "footer_company_links"
     label: "SITE-WIDE — Footer Company Links"
     icon: "link"
+    # The footer's column titles and taglines are in "SITE-WIDE — Navbar, Footer & 404 Text".
     files:
       - file: "content/collections/footer-company-links.json"
         label: "Footer Company Links"
@@ -995,6 +2179,7 @@ collections:
   - name: "privacy_intro"
     label: "LEGAL — Privacy Policy Heading & Intro"
     icon: "gavel"
+    # The "Last updated:" prefix in front of the date is in "LEGAL — Shared Labels".
     files:
       - file: "content/pages/privacy-policy.json"
         label: "Privacy Policy Intro"
@@ -1026,6 +2211,7 @@ collections:
   - name: "terms_intro"
     label: "LEGAL — Terms of Service Heading & Intro"
     icon: "gavel"
+    # The "Last updated:" prefix in front of the date is in "LEGAL — Shared Labels".
     files:
       - file: "content/pages/terms-of-service.json"
         label: "Terms of Service Intro"
@@ -1051,3 +2237,24 @@ collections:
             fields:
               - { label: "Section Heading", name: "heading", widget: "string" }
               - { label: "Section Body", name: "body", widget: "text" }
+
+  # Last in this group because it's the one entry that isn't a page: a single
+  # label printed on BOTH legal pages above, so it lives here once instead of
+  # being duplicated into each page's own collection.
+  - name: "copy_legal"
+    label: "LEGAL — Shared Labels"
+    icon: "text_fields"
+    files:
+      - file: "content/copy/legal.json"
+        label: "Legal Page Shared Labels"
+        name: "copy_legal"
+        fields:
+          - label: "Legal Page Hero"
+            name: "hero"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: '"Last updated:" Label'
+                name: "lastUpdatedLabel"
+                widget: "string"
+                hint: "Prefix only — the date itself is each page's own \"Last Updated\" field in LEGAL — Privacy Policy / Terms of Service Heading & Intro. Shown on both legal pages."

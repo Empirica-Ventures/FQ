@@ -5,10 +5,11 @@ var attr = html.attr;
 // Row/divider top offsets are arithmetic (66 + 46*i, 96 + 46*i) -- six
 // hand-written px values in the original partial collapse to one
 // expression here, and it now works for any item count instead of exactly
-// 6. Only the eyebrow/title/accent/body copy around this mini-list is
-// genuine page-chrome text (not per-service data), so it stays hardcoded
-// in this render function rather than living in content/collections/services.json.
+// 6. The eyebrow/title/body/card-label copy around this mini-list is
+// page-chrome text rather than per-service data, so it lives in
+// content/copy/services.json, not content/collections/services.json.
 module.exports = function (content) {
+  var copy = content.copy.services.hero;
   var items = content.services.items;
   // Render functions receive `content` directly and aren't run back through
   // build.js's {{IMG_...}} token pass (that only applies to .html partials
@@ -41,17 +42,22 @@ module.exports = function (content) {
     '      <circle cx="180" cy="180" r="179.25" opacity="0.08" stroke="#8B0A32" stroke-width="1.5" />\n' +
     '    </svg>\n' +
     '\n' +
-    '    <p class="services-hero__eyebrow animate-on-scroll">OUR SERVICES</p>\n' +
+    '    <p class="services-hero__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
     '\n' +
-    '    <h1 class="services-hero__title animate-on-scroll">Finance &amp; accounting services <span class="text-outline">designed for</span> <span class="text-outline">growth</span></h1>\n' +
+    // Two separate .text-outline spans, not one around "designed for growth"
+    // -- the outline is applied per line as the heading wraps, so each line's
+    // words are their own editable string.
+    '    <h1 class="services-hero__title animate-on-scroll">' + spell(copy.title.lead) +
+    ' <span class="text-outline">' + spell(copy.title.outlined.first) + '</span>' +
+    ' <span class="text-outline">' + spell(copy.title.outlined.second) + '</span></h1>\n' +
     '\n' +
     '    <div class="services-hero__accent"></div>\n' +
     '\n' +
-    '    <p class="services-hero__body animate-on-scroll">Flexible finance support tailored to your business needs.</p>\n' +
+    '    <p class="services-hero__body animate-on-scroll">' + spell(copy.body) + '</p>\n' +
     '\n' +
     '    <div class="services-hero__card animate-on-scroll" aria-hidden="true">\n' +
     '      <div class="services-hero__card-bar"></div>\n' +
-    '      <p class="services-hero__card-label">THE FULL SUITE</p>\n' +
+    '      <p class="services-hero__card-label">' + spell(copy.cardLabel) + '</p>\n' +
     '\n' +
     rows + '\n' +
     '    </div>\n' +

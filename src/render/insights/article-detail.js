@@ -37,7 +37,11 @@ function renderBlocks(blocks) {
   }).join('\n');
 }
 
-module.exports = function (article, categories) {
+// Takes its section copy as a third argument rather than reading content.copy
+// itself: this is the one render module build.js never hands the whole content
+// object to -- buildInsightsArticles() fans one config out to N pages and calls
+// this once per article. build.js passes content.copy.insights.articleDetail.
+module.exports = function (article, categories, copy) {
   var cat = categories.filter(function (c) { return c.slug === article.category; })[0];
   if (!cat) throw new Error('article detail: unknown category "' + article.category + '"');
 
@@ -49,7 +53,7 @@ module.exports = function (article, categories) {
 
   return '<section class="insights-article">\n' +
     '  <div class="insights-article__inner">\n' +
-    '    <a href="/insights.html" class="insights-article__back">&larr; Back to Insights</a>\n' +
+    '    <a href="/insights.html" class="insights-article__back">' + spell(copy.backLabel) + '</a>\n' +
     '    <span class="insights-article__category insights-article__category--' + cat.gridAccent + '">' + spell(cat.label) + '</span>\n' +
     '    <h1 class="insights-article__title">' + spell(article.title) + '</h1>\n' +
     '    <p class="insights-article__meta">' + spell(article.readTime) + ' &middot; ' + spell(cat.topicTitle) + '</p>\n' +

@@ -23,6 +23,17 @@ jobs:
       - name: Image dimension check
         run: node verify/check_image_dims.js
 
+      # Both guard the content/copy/ system. build.js already fails on a copy
+      # token that survives into a built page; these two catch the failures it
+      # can't see — a token whose key was never defined, and a key that exists
+      # but has no field in admin/config.yml (silently un-editable, which
+      # defeats the point of extracting it).
+      - name: Copy token check
+        run: node verify/check_copy_tokens.js
+
+      - name: CMS coverage check
+        run: node verify/check_cms_coverage.js
+
       - name: Serve dist/
         run: |
           node verify/serve.js dist 8843 &

@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "eyebrow": "INSIGHTS & RESOURCES",
+    "titleLead": "Finance tips,",
+    "titleOutlined": "no fluff.",
+    "body": "Practical finance and accounting insights for GCC business owners, founders, and finance leads.",
+    "newsletter": {
+      "title": "Get insights in your inbox.",
+      "subtitle": "Monthly. No spam. Unsubscribe anytime.",
+      "emailPlaceholder": "your@email.com",
+      "emailLabel": "Email address",
+      "submitLabel": "SUBSCRIBE →"
+    }
+  },
+  "featured": {
+    "eyebrow": "FEATURED ARTICLE",
+    "imageCaption": "FEATURED ARTICLE IMAGE",
+    "linkLabel": "READ ARTICLE"
+  },
+  "articleGrid": {
+    "eyebrow": "LATEST INSIGHTS",
+    "cardLinkLabel": "READ →"
+  },
+  "topics": {
+    "eyebrow": "EXPLORE BY TOPIC",
+    "heading": [
+      "Finance clarity,",
+      "by category."
+    ]
+  },
+  "articleDetail": {
+    "backLabel": "← Back to Insights"
+  },
+  "categories": {
+    "allTabLabel": "ALL",
+    "filterAriaLabel": "Filter articles by category"
+  }
+}
