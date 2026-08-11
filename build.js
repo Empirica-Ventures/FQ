@@ -244,10 +244,12 @@ const navbar = injectTokens(read(path.join(ROOT, 'src/partials/navbar.html')), O
 const footerServicesList = require('./src/render/footer/services-list');
 const footerCompanyList = require('./src/render/footer/company-list');
 const footerSocialList = require('./src/render/footer/social-list');
+const footerInnerStyle = require('./src/render/footer/inner-style');
 const footer = injectTokens(read(path.join(ROOT, 'src/partials/footer.html')), Object.assign({
   '{{FOOTER_SERVICES_LIST}}': footerServicesList(content),
   '{{FOOTER_COMPANY_LIST}}': footerCompanyList(content),
   '{{FOOTER_SOCIAL_LIST}}': footerSocialList(content),
+  '{{FOOTER_INNER_STYLE}}': footerInnerStyle(content),
 }, PARTIAL_TOKENS));
 
 function buildSection(rel) {

@@ -1988,14 +1988,17 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # Fixed-height footer column (css/footer.css: height:400px on
-            # .footer__inner, nowrap labels) -- count is locked, but unlike
-            # the internal nav/footer links below, these hrefs point to
-            # external social profiles with no build-time route to break,
-            # so both label and URL are editable.
-            allow_add: false
+            # Unlocked: css/footer.css's .footer__inner height (and the
+            # divider/bottom-row positions below it) are now computed in
+            # src/render/footer/inner-style.js from the tallest of the
+            # footer's four columns, instead of a hardcoded 400px sized to
+            # exactly 3 of these -- verified by rendering 6 social links
+            # through the real footer and confirming the divider/bottom row
+            # move down to match rather than getting clipped. These hrefs
+            # point to external social profiles with no build-time route to
+            # break, so both label and URL are editable, same as before.
+            allow_add: true
             min: 3
-            max: 3
             fields:
               - { label: "Label", name: "label", widget: "string" }
               - { label: "Profile URL", name: "href", widget: "string" }
@@ -2036,17 +2039,37 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # Same fixed-height footer column and same locked-href
-            # reasoning as the top navigation links above. Bumped to 6 for
-            # the new Partners page -- confirmed via the mobile-clipping
-            # audit that the "Follow" column's fixed-height footer has
-            # enough headroom for stacked list items to grow.
-            allow_add: false
+            # Unlocked, same height fix as Footer Social Links above (see
+            # src/render/footer/inner-style.js) -- verified by rendering 9
+            # company links through the real footer.
+            #
+            # href stays off free text, unlike the social links: this list
+            # points at this site's own pages, and a hand-typed path here has
+            # no build-time check the way a slug/category select elsewhere on
+            # this site does, so a typo would be a silent 404 rather than a
+            # build failure. A select of the site's real pages makes every
+            # value valid by construction instead -- same reasoning as the
+            # Industries "Service We Provide" select. The Top Navigation
+            # Links below stay fully locked regardless: css/navbar.css has no
+            # spare room for a 9th nowrap link, so that one has no safe
+            # "add" to offer.
+            allow_add: true
             min: 6
-            max: 6
             fields:
               - { label: "Label", name: "label", widget: "string" }
-              - { label: "Page URL (locked)", name: "href", widget: "hidden" }
+              - label: "Links To"
+                name: "href"
+                widget: "select"
+                options:
+                  - { label: "Home", value: "/index.html" }
+                  - { label: "About", value: "/about.html" }
+                  - { label: "Services", value: "/services.html" }
+                  - { label: "How We Work", value: "/how-we-work.html" }
+                  - { label: "Industries", value: "/industries.html" }
+                  - { label: "Case Studies", value: "/case-studies.html" }
+                  - { label: "Insights", value: "/insights.html" }
+                  - { label: "Partners", value: "/partners.html" }
+                  - { label: "Contact", value: "/contact.html" }
 
   - name: "images"
     label: "SITE-WIDE — Site Images"
