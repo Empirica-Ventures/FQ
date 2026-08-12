@@ -106,10 +106,11 @@
   margin: 4px 0 0;
 }
 
-.cs-detail__cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+/* Problem, Steps, and Outcome are each one of these, stacked in reading
+   order rather than the old Challenge/Outcome side-by-side pair -- a Steps
+   list reads as a sequence, which doesn't fit two columns the way a single
+   paragraph did. */
+.cs-detail__section {
   margin-bottom: 40px;
 }
 
@@ -138,6 +139,61 @@
   margin: 0;
 }
 
+/* Steps starts empty on every case study -- the CMS field has no content
+   yet, just the field itself (see admin/config.yml's "Steps" field on the
+   Case Study List). Nothing here renders until an editor adds at least one
+   step (src/render/case-studies/detail-template.js skips the whole section
+   when the list is empty), so there's no numbering or layout to design
+   around a placeholder state. */
+.cs-detail__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cs-detail__step {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.cs-detail__step:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.cs-detail__step-num {
+  flex: 0 0 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cs-detail__step-title {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-navy);
+  margin: 0 0 4px;
+}
+
+.cs-detail__step-desc {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--color-text-body);
+  margin: 0;
+}
+
 .cs-detail__tags {
   display: flex;
   flex-wrap: wrap;
@@ -157,59 +213,6 @@
   padding: 6px 14px;
 }
 
-/* Same typed-block prose styling as .insights-article__body -- both pages
-   render the same 4 CMS block types (see src/render/_shared/rich-text-
-   blocks.js), so they should read as the same "written content" treatment
-   sitewide. Duplicated rather than shared via a common class: the two
-   pages' surrounding layouts differ enough (this one always has the stat/
-   cols/tags block above it) that a shared class would need its own set of
-   overrides anyway. */
-.cs-detail__body {
-  font-family: var(--font-primary);
-  font-weight: 400;
-  font-size: 17px;
-  line-height: 30px;
-  color: var(--color-text-body);
-}
-
-.cs-detail__body p {
-  margin: 0 0 24px;
-}
-
-.cs-detail__body h2 {
-  font-weight: 800;
-  font-size: 24px;
-  line-height: 1.3;
-  color: var(--color-navy);
-  margin: 40px 0 16px;
-}
-
-.cs-detail__body ul {
-  margin: 0 0 24px;
-  padding-left: 24px;
-}
-
-.cs-detail__body li {
-  margin-bottom: 10px;
-}
-
-.cs-detail__body blockquote {
-  margin: 32px 0;
-  padding: 4px 0 4px 24px;
-  border-left: 3px solid var(--color-green);
-  font-size: 19px;
-  line-height: 32px;
-  color: var(--color-navy);
-}
-
-.cs-detail__body > :first-child {
-  margin-top: 0;
-}
-
-.cs-detail__body > :last-child {
-  margin-bottom: 0;
-}
-
 @media (max-width: 640px) {
   .cs-detail__title {
     font-size: 28px;
@@ -217,10 +220,5 @@
 
   .cs-detail__stat-value {
     font-size: 40px;
-  }
-
-  .cs-detail__cols {
-    grid-template-columns: 1fr;
-    gap: 24px;
   }
 }

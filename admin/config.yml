@@ -1230,7 +1230,7 @@ collections:
             # own detail page, so an editor changes the wording once instead
             # of once per study.
             fields:
-              - { label: '"Challenge" Label', name: "challengeLabel", widget: "string" }
+              - { label: '"Problem" Label', name: "problemLabel", widget: "string" }
               - { label: '"Outcome" Label', name: "outcomeLabel", widget: "string" }
               - { label: '"Featured" Badge Text', name: "featuredBadge", widget: "string" }
           - label: "Detail Page Labels"
@@ -1239,6 +1239,7 @@ collections:
             collapsed: true
             fields:
               - { label: '"Back to Case Studies" Link Text', name: "backLabel", widget: "string" }
+              - { label: '"Steps" Section Label', name: "stepsLabel", widget: "string" }
 
   - name: "case_studies"
     label: "CASE STUDIES — Case Study List"
@@ -1309,10 +1310,31 @@ collections:
                 name: "statSub"
                 widget: "string"
                 pattern: ['^.{1,45}$', "Keep it to 45 characters or fewer"]
-              - label: "Challenge"
+              # "Problem" on the card and on the case study's own page; the
+              # underlying field is still named "challenge" (renaming it
+              # would mean rewriting every one of today's already-published
+              # entries for no behavior change) -- only the label an editor
+              # sees changed.
+              - label: "Problem"
                 name: "challenge"
                 widget: "text"
                 pattern: ['^.{1,160}$', "Keep it to 160 characters or fewer"]
+              # Starts empty on every case study today -- this is the
+              # section itself, not written content. The case study's own
+              # page (/case-studies/<slug>.html) still shows a complete
+              # Problem/Outcome/stat/tags story with zero steps (this
+              # section is simply skipped, same rule every optional section
+              # on this site follows), so there's no rush to fill it in
+              # before publishing new studies.
+              - label: "Steps (optional)"
+                name: "steps"
+                widget: "list"
+                required: false
+                min: 0
+                hint: "What Frontier Quotient actually did, in order. Add as many or as few as this case study needs -- leave empty and the Steps section is simply skipped on the page."
+                fields:
+                  - { label: "Step Title", name: "title", widget: "string" }
+                  - { label: "Step Description", name: "description", widget: "text" }
               - label: "Outcome"
                 name: "outcome"
                 widget: "text"
@@ -1325,44 +1347,6 @@ collections:
                 # 440px card horizontally past 3 at today's typical lengths.
                 min: 2
                 max: 3
-              # The case study's own page (/case-studies/<slug>.html) always
-              # shows the Challenge/Outcome/stat/tags above in full size, so a
-              # study with an empty body is still a complete page, not a
-              # placeholder -- unlike an Insights article, which has only its
-              # one-sentence excerpt with nothing else. This field is purely
-              # additive depth for a fuller written account. Same 4 block
-              # types as Insights Articles' body, sharing render logic in
-              # src/render/_shared/rich-text-blocks.js.
-              - label: "Full Write-Up (optional)"
-                name: "body"
-                widget: "list"
-                required: false
-                hint: "Add blocks in the order they should read. Leave empty and the page still shows the Challenge, Outcome, and Tags above in full."
-                types:
-                  - label: "Paragraph"
-                    name: "paragraph"
-                    widget: "object"
-                    fields:
-                      - { label: "Text", name: "text", widget: "text" }
-                  - label: "Section Heading"
-                    name: "heading"
-                    widget: "object"
-                    fields:
-                      - { label: "Heading", name: "text", widget: "string" }
-                  - label: "Bulleted List"
-                    name: "list"
-                    widget: "object"
-                    fields:
-                      - label: "Bullets"
-                        name: "items"
-                        widget: "list"
-                        min: 1
-                        field: { label: "Bullet", name: "item", widget: "string" }
-                  - label: "Pull Quote"
-                    name: "quote"
-                    widget: "object"
-                    fields:
-                      - { label: "Quote", name: "text", widget: "text" }
 
   - divider: true
 

@@ -23,12 +23,13 @@
     "allTabLabel": "ALL WORK"
   },
   "grid": {
-    "challengeLabel": "CHALLENGE",
+    "problemLabel": "PROBLEM",
     "outcomeLabel": "OUTCOME",
     "featuredBadge": "FEATURED"
   },
   "detail": {
-    "backLabel": "← Back to Case Studies"
+    "backLabel": "← Back to Case Studies",
+    "stepsLabel": "STEPS"
   },
   "finalCta": {
     "heading": "Ready to write your own outcome?",

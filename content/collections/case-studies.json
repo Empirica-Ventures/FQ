@@ -17,7 +17,7 @@
       ],
       "slug": "uae-d2c-reporting-time",
       "title": "A UAE D2C Retailer Cuts Reporting Time From 18 Days to 5",
-      "body": []
+      "steps": []
     },
     {
       "category": "construction",
@@ -36,7 +36,7 @@
       ],
       "slug": "ksa-construction-margin-recovery",
       "title": "KSA Construction Firm Recovers AED 8.4M in Gross Margin",
-      "body": []
+      "steps": []
     },
     {
       "category": "startups",
@@ -55,7 +55,7 @@
       ],
       "slug": "healthtech-seed-round-runway",
       "title": "Health-Tech Startup Models 18 Months of Runway Ahead of Its Seed Round",
-      "body": []
+      "steps": []
     },
     {
       "category": "logistics",
@@ -74,7 +74,7 @@
       ],
       "slug": "bahrain-logistics-working-capital",
       "title": "Bahrain Logistics Company Frees Up AED 2.9M in Working Capital",
-      "body": []
+      "steps": []
     },
     {
       "category": "professional-services",
@@ -92,7 +92,7 @@
       ],
       "slug": "dubai-consultancy-utilization",
       "title": "Dubai Consultancy Lifts Profit per Head by 32% With Utilization Tracking",
-      "body": []
+      "steps": []
     },
     {
       "category": "retail-ecommerce",
@@ -111,7 +111,7 @@
       ],
       "slug": "uae-ecommerce-vat-readiness",
       "title": "UAE E-Commerce Business Reaches Full VAT Compliance in 6 Weeks",
-      "body": []
+      "steps": []
     }
   ]
 }

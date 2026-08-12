@@ -1,20 +1,17 @@
 var spell = require('../html').spell;
-var renderBlocks = require('../_shared/rich-text-blocks');
 
-// Case Study detail page. Same fan-out shape as Insights article-detail.js
-// (build.js calls this once per item with just that item's own data, not the
-// whole content object) and the same typed-block body field, but the two
-// pages differ in one real way: an Insights article with no body is nearly
-// empty (a single excerpt sentence), while a Case Study with no body still
-// carries its full Challenge/Outcome/stat/tags -- the card's own content,
-// repeated here at readable size rather than card-cropped. Body blocks are
-// purely additive depth, not what keeps the page from being hollow.
+// Case Study detail page, restructured around a Problem -> Steps -> Outcome
+// reading order (previously a Challenge/Outcome side-by-side pair with an
+// optional freeform "Full Write-Up" block below it -- replaced entirely by
+// Steps, which gives every case study the same clean shape instead of an
+// open-ended one). Steps is the one section that starts empty on every
+// existing case study: no content is written here, just the section itself,
+// ready for an editor to fill in through the CMS. It renders nothing at all
+// until at least one step exists, the same "don't show a hollow section"
+// rule the rest of this site's optional content follows.
 module.exports = function (cs, categories, copy) {
   var cat = categories.filter(function (c) { return c.slug === cs.category; })[0];
   if (!cat) throw new Error('case study detail: unknown category "' + cs.category + '"');
-
-  var blocks = cs.body || [];
-  var body = blocks.length ? '    <div class="cs-detail__body">\n' + renderBlocks(blocks) + '\n    </div>\n' : '';
 
   var badge = cs.featured
     ? '      <span class="cs-detail__badge">' + spell(copy.featuredBadge) + '</span>\n'
@@ -23,6 +20,27 @@ module.exports = function (cs, categories, copy) {
   var tags = cs.tags.map(function (tag) {
     return '        <span class="cs-detail__tag">' + spell(tag) + '</span>';
   }).join('\n');
+
+  var steps = cs.steps || [];
+  var stepsSection = '';
+  if (steps.length) {
+    var stepItems = steps.map(function (step, i) {
+      return '        <li class="cs-detail__step">\n' +
+        '          <span class="cs-detail__step-num">' + (i + 1) + '</span>\n' +
+        '          <div class="cs-detail__step-body">\n' +
+        '            <p class="cs-detail__step-title">' + spell(step.title) + '</p>\n' +
+        '            <p class="cs-detail__step-desc">' + spell(step.description) + '</p>\n' +
+        '          </div>\n' +
+        '        </li>';
+    }).join('\n');
+    stepsSection = '    <div class="cs-detail__section">\n' +
+      '      <p class="cs-detail__label">' + spell(copy.stepsLabel) + '</p>\n' +
+      '      <ol class="cs-detail__steps">\n' +
+      stepItems + '\n' +
+      '      </ol>\n' +
+      '    </div>\n' +
+      '\n';
+  }
 
   return '<section class="cs-detail cs-detail--' + cs.accent + '">\n' +
     '  <div class="cs-detail__inner">\n' +
@@ -39,22 +57,20 @@ module.exports = function (cs, categories, copy) {
     '      <p class="cs-detail__stat-sub">' + spell(cs.statSub) + '</p>\n' +
     '    </div>\n' +
     '\n' +
-    '    <div class="cs-detail__cols">\n' +
-    '      <div class="cs-detail__col">\n' +
-    '        <p class="cs-detail__label">' + spell(copy.challengeLabel) + '</p>\n' +
-    '        <p class="cs-detail__text">' + spell(cs.challenge) + '</p>\n' +
-    '      </div>\n' +
-    '      <div class="cs-detail__col">\n' +
-    '        <p class="cs-detail__label cs-detail__label--outcome">' + spell(copy.outcomeLabel) + '</p>\n' +
-    '        <p class="cs-detail__text">' + spell(cs.outcome) + '</p>\n' +
-    '      </div>\n' +
+    '    <div class="cs-detail__section">\n' +
+    '      <p class="cs-detail__label">' + spell(copy.problemLabel) + '</p>\n' +
+    '      <p class="cs-detail__text">' + spell(cs.challenge) + '</p>\n' +
+    '    </div>\n' +
+    '\n' +
+    stepsSection +
+    '    <div class="cs-detail__section">\n' +
+    '      <p class="cs-detail__label cs-detail__label--outcome">' + spell(copy.outcomeLabel) + '</p>\n' +
+    '      <p class="cs-detail__text">' + spell(cs.outcome) + '</p>\n' +
     '    </div>\n' +
     '\n' +
     '    <div class="cs-detail__tags">\n' +
     tags + '\n' +
     '    </div>\n' +
-    '\n' +
-    body +
     '  </div>\n' +
     '</section>\n';
 };
