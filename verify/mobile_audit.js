@@ -65,11 +65,24 @@ const MEASURE = (vw) => {
     return parts.join('>');
   };
 
+  // Chromium's <details> implementation lays out closed accordion content
+  // internally (getComputedStyle(el).display stays 'block', not 'none', and
+  // getBoundingClientRect() returns real, nonzero geometry) even though
+  // nothing is actually painted -- checkVisibility() is the one API that
+  // reports the true on-screen state. Without this, every closed <details>
+  // answer on the page (home FAQ, contact quick-FAQ) reads as content that
+  // "overflows" its collapsed accordion section, which a user never sees
+  // regardless of viewport width. Falls back to the plain display/visibility
+  // check on a browser old enough not to have checkVisibility.
+  const isRendered = el => (typeof el.checkVisibility === 'function')
+    ? el.checkVisibility()
+    : getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden';
+
   const clipped = {}, scrolled = {}, vclip = {}, animconf = [];
 
   for (const el of document.querySelectorAll('body *')) {
     const cs = getComputedStyle(el);
-    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    if (cs.display === 'none' || cs.visibility === 'hidden' || !isRendered(el)) continue;
     const r = el.getBoundingClientRect();
     if (r.width === 0 && r.height === 0) continue;
     const key = path(el);
@@ -110,6 +123,7 @@ const MEASURE = (vw) => {
       for (const c of el.querySelectorAll('*')) {
         const ccs = getComputedStyle(c);
         if (ccs.display === 'none' || ccs.position === 'absolute' || ccs.position === 'fixed') continue;
+        if (!isRendered(c)) continue;
         deepest = Math.max(deepest, c.getBoundingClientRect().bottom);
       }
       const lost = Math.round(deepest - r.bottom);
