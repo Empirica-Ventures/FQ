@@ -1222,6 +1222,23 @@ collections:
               - { label: "Heading", name: "heading", widget: "string" }
               - { label: "Body Text", name: "body", widget: "text" }
               - { label: "Button Label", name: "buttonLabel", widget: "string" }
+          - label: "Card & Detail Page Labels"
+            name: "grid"
+            widget: "object"
+            collapsed: true
+            # Shared by every case study card below AND every case study's
+            # own detail page, so an editor changes the wording once instead
+            # of once per study.
+            fields:
+              - { label: '"Challenge" Label', name: "challengeLabel", widget: "string" }
+              - { label: '"Outcome" Label', name: "outcomeLabel", widget: "string" }
+              - { label: '"Featured" Badge Text', name: "featuredBadge", widget: "string" }
+          - label: "Detail Page Labels"
+            name: "detail"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: '"Back to Case Studies" Link Text', name: "backLabel", widget: "string" }
 
   - name: "case_studies"
     label: "CASE STUDIES — Case Study List"
@@ -1243,6 +1260,15 @@ collections:
             allow_add: true
             min: 1
             fields:
+              - label: "URL Slug (this case study's web address — lowercase, hyphens only, must be unique)"
+                name: "slug"
+                widget: "string"
+                pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', "Lowercase letters, numbers, and hyphens only (e.g. uae-d2c-reporting-time)"]
+                hint: "Becomes /case-studies/<slug>.html. Changing it on a published case study breaks any existing link to it, so treat it as permanent once live."
+              - label: "Detail Page Headline"
+                name: "title"
+                widget: "string"
+                hint: "The full headline shown at the top of this case study's own page (e.g. \"A UAE D2C Retailer Cuts Reporting Time From 18 Days to 5\") — separate from the short Stat Label used on the card."
               - label: "Category"
                 name: "category"
                 widget: "select"
@@ -1299,6 +1325,44 @@ collections:
                 # 440px card horizontally past 3 at today's typical lengths.
                 min: 2
                 max: 3
+              # The case study's own page (/case-studies/<slug>.html) always
+              # shows the Challenge/Outcome/stat/tags above in full size, so a
+              # study with an empty body is still a complete page, not a
+              # placeholder -- unlike an Insights article, which has only its
+              # one-sentence excerpt with nothing else. This field is purely
+              # additive depth for a fuller written account. Same 4 block
+              # types as Insights Articles' body, sharing render logic in
+              # src/render/_shared/rich-text-blocks.js.
+              - label: "Full Write-Up (optional)"
+                name: "body"
+                widget: "list"
+                required: false
+                hint: "Add blocks in the order they should read. Leave empty and the page still shows the Challenge, Outcome, and Tags above in full."
+                types:
+                  - label: "Paragraph"
+                    name: "paragraph"
+                    widget: "object"
+                    fields:
+                      - { label: "Text", name: "text", widget: "text" }
+                  - label: "Section Heading"
+                    name: "heading"
+                    widget: "object"
+                    fields:
+                      - { label: "Heading", name: "text", widget: "string" }
+                  - label: "Bulleted List"
+                    name: "list"
+                    widget: "object"
+                    fields:
+                      - label: "Bullets"
+                        name: "items"
+                        widget: "list"
+                        min: 1
+                        field: { label: "Bullet", name: "item", widget: "string" }
+                  - label: "Pull Quote"
+                    name: "quote"
+                    widget: "object"
+                    fields:
+                      - { label: "Quote", name: "text", widget: "text" }
 
   - divider: true
 

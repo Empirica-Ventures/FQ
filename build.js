@@ -367,6 +367,63 @@ function buildInsightsArticles(content) {
   });
 }
 
+// Same fan-out as Insights articles, one build later: every case study card
+// on /case-studies.html now links to its own dist/case-studies/<slug>.html
+// (src/render/case-studies/detail-template.js), with its own CSS bundle
+// (case-study-detail.css is deliberately NOT in src/pages/case-studies.json's
+// css list, since it must not apply to the /case-studies.html listing page).
+const caseStudyDetail = require('./src/render/case-studies/detail-template');
+
+// Only the slug-uniqueness half of validateInsightsArticles applies here --
+// case studies have no single "featured slot" to protect; today's data
+// already has two studies marked Featured at once and that's fine, it's
+// just a badge on the card.
+function validateCaseStudies(items) {
+  const seen = new Map();
+  items.forEach((cs, i) => {
+    if (!cs.slug) {
+      throw new Error('case study #' + (i + 1) + ' ("' + (cs.title || cs.statLabel) + '") has no URL slug');
+    }
+    if (seen.has(cs.slug)) {
+      throw new Error(
+        'two case studies share the slug "' + cs.slug + '" ("' +
+        seen.get(cs.slug) + '" and "' + (cs.title || cs.statLabel) + '") -- they would ' +
+        'overwrite each other at /case-studies/' + cs.slug + '.html'
+      );
+    }
+    seen.set(cs.slug, cs.title || cs.statLabel);
+  });
+}
+
+function buildCaseStudyDetails(content) {
+  const categories = content.caseStudyCategories.items;
+  const items = content.caseStudies.items;
+  validateCaseStudies(items);
+  const detailCss = minifyCss(read(path.join(ROOT, 'css', 'case-study-detail.css')));
+  const allCss = baseCss + '\n' + detailCss;
+  const outDir = path.join(DIST, 'case-studies');
+  fs.mkdirSync(outDir, { recursive: true });
+  const copy = Object.assign({}, content.copy['case-studies'].grid, content.copy['case-studies'].detail);
+
+  return items.map(cs => {
+    const outputFile = 'case-studies/' + cs.slug + '.html';
+    const html = injectTokens(shellTemplate, {
+      '{{TITLE}}': escapeAttr(cs.title + ' | Frontier Quotient Case Studies'),
+      '{{DESCRIPTION}}': escapeAttr(cs.outcome),
+      '{{CANONICAL_URL}}': SITE_ORIGIN + '/' + outputFile,
+      '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
+      '{{ALL_CSS}}': allCss,
+      '{{NAVBAR}}': navbar,
+      '{{CONTENT}}': caseStudyDetail(cs, categories, copy),
+      '{{FOOTER}}': footer,
+    });
+    assertNoUnresolvedCopyTokens(html, outputFile);
+    fs.writeFileSync(path.join(DIST, outputFile), html, 'utf-8');
+    console.log('built', outputFile);
+    return { outputFile, priority: 0.5 };
+  });
+}
+
 function buildErrorPage() {
   const template = read(path.join(ROOT, 'src/404.html'));
   const pageCss = minifyCss(read(path.join(ROOT, 'css', 'error-404.css')));
@@ -422,12 +479,13 @@ function main() {
   for (const config of pageConfigs) buildPage(config);
   buildErrorPage();
   const insightsArticleConfigs = buildInsightsArticles(content);
+  const caseStudyConfigs = buildCaseStudyDetails(content);
 
   copyDir(path.join(ROOT, 'js'), path.join(DIST, 'js'));
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
   if (fs.existsSync(path.join(ROOT, 'admin'))) copyDir(path.join(ROOT, 'admin'), path.join(DIST, 'admin'));
   buildRobotsTxt();
-  buildSitemap(pageConfigs.concat(insightsArticleConfigs));
+  buildSitemap(pageConfigs.concat(insightsArticleConfigs, caseStudyConfigs));
   console.log('done. dist/ is ready.');
 }
 

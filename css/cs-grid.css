@@ -36,7 +36,15 @@
    drop shadow is missing from the extracted classes (a Figma "effects" style
    that Tailwind arbitrary-value export commonly drops) — added here so cream
    cards remain visually separated from the identically-colored section bg. */
+/* display:block + text-decoration:none is the only CSS an <article>-to-<a>
+   conversion needs: an anchor is inline by default (which would collapse
+   this card to the width of its text and underline every text node inside
+   it), everything else -- position, size, the absolutely-positioned
+   children -- behaves identically once it's block-level. Same conversion
+   already made for .industries__card. */
 .cs-grid__card {
+  display: block;
+  text-decoration: none;
   position: relative;
   width: 440px;
   height: 400px;

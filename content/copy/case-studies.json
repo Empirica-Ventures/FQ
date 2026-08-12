@@ -22,6 +22,14 @@
   "filters": {
     "allTabLabel": "ALL WORK"
   },
+  "grid": {
+    "challengeLabel": "CHALLENGE",
+    "outcomeLabel": "OUTCOME",
+    "featuredBadge": "FEATURED"
+  },
+  "detail": {
+    "backLabel": "← Back to Case Studies"
+  },
   "finalCta": {
     "heading": "Ready to write your own outcome?",
     "body": "Let’s discuss how Frontier Quotient can support your business growth.",

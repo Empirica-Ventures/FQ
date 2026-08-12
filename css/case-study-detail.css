@@ -1,0 +1,226 @@
+/* Case Study detail page — new UI with no Figma trace to follow, same
+   situation and same approach as css/insights-article-detail.css: normal
+   flow / max-width instead of this site's usual absolute-positioned-to-a-
+   1440px-canvas pattern, since there's no fixed design to trace and a
+   reading page benefits from being naturally responsive. The stat callout,
+   category pill and tag styling are pulled from css/cs-grid.css's card so
+   the detail page reads as a larger version of the card an editor clicked,
+   not an unrelated layout. */
+.cs-detail {
+  background: var(--color-white);
+}
+
+.cs-detail--green { --accent: var(--color-green); }
+.cs-detail--navy { --accent: var(--color-navy); }
+
+.cs-detail__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+.cs-detail__back {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  margin-bottom: 32px;
+}
+
+.cs-detail__back:hover {
+  color: var(--color-navy);
+}
+
+.cs-detail__meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cs-detail__category {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(2, 12, 69, 0.08);
+  color: var(--accent);
+}
+
+.cs-detail__badge {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--color-white);
+}
+
+.cs-detail__title {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 1.25;
+  color: var(--color-navy);
+  margin: 0 0 32px;
+}
+
+.cs-detail__stat {
+  background: var(--color-cream);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+}
+
+.cs-detail__stat-value {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  font-size: 48px;
+  color: var(--accent);
+  margin: 0;
+}
+
+.cs-detail__stat-label {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-navy);
+  opacity: 0.75;
+  margin: 4px 0 0;
+}
+
+.cs-detail__stat-sub {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 13px;
+  color: var(--color-navy);
+  opacity: 0.5;
+  margin: 4px 0 0;
+}
+
+.cs-detail__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+.cs-detail__label {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  opacity: 0.4;
+  margin: 0 0 10px;
+}
+
+.cs-detail__label--outcome {
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+.cs-detail__text {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--color-text-body);
+  margin: 0;
+}
+
+.cs-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cs-detail__tag {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--color-navy);
+  background: rgba(2, 12, 69, 0.06);
+  border-radius: 4px;
+  padding: 6px 14px;
+}
+
+/* Same typed-block prose styling as .insights-article__body -- both pages
+   render the same 4 CMS block types (see src/render/_shared/rich-text-
+   blocks.js), so they should read as the same "written content" treatment
+   sitewide. Duplicated rather than shared via a common class: the two
+   pages' surrounding layouts differ enough (this one always has the stat/
+   cols/tags block above it) that a shared class would need its own set of
+   overrides anyway. */
+.cs-detail__body {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 30px;
+  color: var(--color-text-body);
+}
+
+.cs-detail__body p {
+  margin: 0 0 24px;
+}
+
+.cs-detail__body h2 {
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--color-navy);
+  margin: 40px 0 16px;
+}
+
+.cs-detail__body ul {
+  margin: 0 0 24px;
+  padding-left: 24px;
+}
+
+.cs-detail__body li {
+  margin-bottom: 10px;
+}
+
+.cs-detail__body blockquote {
+  margin: 32px 0;
+  padding: 4px 0 4px 24px;
+  border-left: 3px solid var(--color-green);
+  font-size: 19px;
+  line-height: 32px;
+  color: var(--color-navy);
+}
+
+.cs-detail__body > :first-child {
+  margin-top: 0;
+}
+
+.cs-detail__body > :last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 640px) {
+  .cs-detail__title {
+    font-size: 28px;
+  }
+
+  .cs-detail__stat-value {
+    font-size: 40px;
+  }
+
+  .cs-detail__cols {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
