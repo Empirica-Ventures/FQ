@@ -123,6 +123,25 @@
   }
 })();
 
+// Amiri (Arabic display font, ~100KB) has no @font-face in css/fonts.css --
+// see the comment there. Injecting the rule after idle means the browser
+// only starts that fetch once the page's critical resources (hero image,
+// core Latin fonts) already have it, instead of competing with them for
+// bandwidth from navigation start. Font-matching is lazy: on pages with no
+// text set in 'Amiri', this rule sits unused and nothing is ever fetched.
+(function () {
+  function loadAmiriFont() {
+    var style = document.createElement('style');
+    style.textContent = "@font-face { font-family: 'Amiri'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/fonts/Amiri-Bold.woff2') format('woff2'); }";
+    document.head.appendChild(style);
+  }
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(loadAmiriFont, { timeout: 4000 });
+  } else {
+    window.setTimeout(loadAmiriFont, 1500);
+  }
+})();
+
 // Generic category-filter wiring for any [data-filter-group] — currently
 // used by Case Studies' filter tabs and Insights' category pills. Both had
 // real active-state styling (implying a working filter) with no click

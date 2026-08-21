@@ -33,10 +33,9 @@
   font-display: swap;
   src: url('../assets/fonts/Montserrat-ExtraBold.woff2') format('woff2');
 }
-@font-face {
-  font-family: 'Amiri';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('../assets/fonts/Amiri-Bold.woff2') format('woff2');
-}
+/* Amiri (Arabic display font) is used for one decorative word in the home
+   page's statement section, well below the hero -- declaring it here would
+   make Chrome fetch this 100KB font at the same eager, very-high priority
+   as the LCP hero image and core Latin fonts on every page load, for text
+   that's never part of first paint. Its @font-face is injected by js/main.js
+   after idle instead; see the loadAmiriFont() comment there. */
