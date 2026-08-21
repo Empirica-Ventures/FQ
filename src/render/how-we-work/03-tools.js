@@ -7,6 +7,7 @@ var spell = require('../html').spell;
 // mechanism already works for any item count, so this render function
 // just needs to emit both sets from the same data.
 module.exports = function (content) {
+  var copy = content.copy['how-we-work'].tools;
   var items = content.toolLogos.items;
 
   function chip(logo, hidden) {
@@ -20,10 +21,10 @@ module.exports = function (content) {
 
   return '<section class="hww-tools">\n' +
     '  <div class="hww-tools__inner">\n' +
-    '    <p class="hww-tools__eyebrow animate-on-scroll">OUR TOOLKIT</p>\n' +
-    '    <h2 class="hww-tools__heading animate-on-scroll">The platforms behind every number</h2>\n' +
+    '    <p class="hww-tools__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="hww-tools__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
     '    <div class="hww-tools__rule animate-on-scroll"></div>\n' +
-    '    <p class="hww-tools__tag">TECH STACK</p>\n' +
+    '    <p class="hww-tools__tag">' + spell(copy.tag) + '</p>\n' +
     '\n' +
     '    <div class="hww-tools__band">\n' +
     '      <div class="hww-tools__track">\n' +

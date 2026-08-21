@@ -5,6 +5,7 @@ var icons = require('../_fixtures/how-it-works-icons');
 var COLORS = ['navy', 'red', 'green'];
 
 module.exports = function (content) {
+  var copy = content.copy.home.howItWorks;
   var items = content.howItWorks.items;
 
   var steps = items.map(function (step, i) {
@@ -27,8 +28,8 @@ module.exports = function (content) {
 
   return '<section class="how-it-works">\n' +
     '  <div class="how-it-works__inner">\n' +
-    '    <p class="how-it-works__eyebrow animate-on-scroll">HOW WE WORK</p>\n' +
-    '    <h2 class="how-it-works__heading animate-on-scroll">A simple, structured<br>way to get started.</h2>\n' +
+    '    <p class="how-it-works__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="how-it-works__heading animate-on-scroll">' + copy.heading.map(spell).join('<br />') + '</h2>\n' +
     '\n' +
     '    <div class="how-it-works__connector" aria-hidden="true"></div>\n' +
     '\n' +

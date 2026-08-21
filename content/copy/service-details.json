@@ -1,0 +1,84 @@
+{
+  "bodyLabels": {
+    "whatWeDo": "WHAT WE DO",
+    "whatYouGet": "What you get"
+  },
+  "bookkeeping": {
+    "hero": {
+      "eyebrow": "BOOKKEEPING & ACCOUNTING",
+      "headingLead": "Accurate books,",
+      "headingOutlined": "clear picture",
+      "body": "Organized, up-to-date financial records that give you confidence in every number."
+    },
+    "cta": {
+      "heading": "Ready to get your books in order?",
+      "subtext": "Let’s discuss how Frontier Quotient can take bookkeeping off your plate.",
+      "buttonLabel": "Book a Consultation"
+    }
+  },
+  "cashflow": {
+    "hero": {
+      "eyebrow": "CASH FLOW & FORECASTING",
+      "headingLead": "Better planning,",
+      "headingOutlined": "financial visibility",
+      "body": "See further ahead. Plan smarter. Stop reacting to cash surprises."
+    },
+    "cta": {
+      "heading": "Ready to see further ahead?",
+      "subtext": "Let’s build a cash flow model that gives you real financial visibility.",
+      "buttonLabel": "Book a Consultation"
+    }
+  },
+  "cleanup": {
+    "hero": {
+      "eyebrow": "CLEANUP & CATCH-UP ACCOUNTING",
+      "headingLead": "Get your books",
+      "headingOutlined": "back on track",
+      "body": "Resolve accounting backlogs and make your financial records reliable again."
+    },
+    "cta": {
+      "heading": "Ready to get your books back on track?",
+      "subtext": "Let’s clean up the backlog and get your financials reliable again.",
+      "buttonLabel": "Book a Consultation"
+    }
+  },
+  "fpa": {
+    "hero": {
+      "eyebrow": "FP&A / BUSINESS FINANCE",
+      "headingLead": "Strategic finance",
+      "headingOutlined": "without the overhead",
+      "body": "Finance leadership and strategic guidance sized for growing businesses."
+    },
+    "cta": {
+      "heading": "Ready to think more strategically about finance?",
+      "subtext": "Let’s discuss how FP&A support can sharpen your business decisions.",
+      "buttonLabel": "Book a Consultation"
+    }
+  },
+  "mgmt-reporting": {
+    "hero": {
+      "eyebrow": "MANAGEMENT REPORTING",
+      "headingLead": "Numbers that",
+      "headingOutlined": "tell you something",
+      "body": "Monthly reporting that helps leadership understand business performance."
+    },
+    "cta": {
+      "heading": "Ready to see your numbers clearly?",
+      "subtext": "Let’s build reporting that gives your leadership real visibility.",
+      "buttonLabel": "Book a Consultation"
+    }
+  },
+  "tax-vat": {
+    "hero": {
+      "eyebrow": "TAX & VAT COMPLIANCE",
+      "headingLead": "Stay compliant,",
+      "headingOutlined": "stay focused",
+      "body": "Accurate filings, up-to-date compliance, and the confidence to focus on growth."
+    },
+    "cta": {
+      "heading": "Ready to simplify your compliance?",
+      "subtext": "Let’s make sure your filings are accurate, on time, and off your mind.",
+      "buttonLabel": "Book a Consultation"
+    }
+  }
+}

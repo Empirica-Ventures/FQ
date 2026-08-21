@@ -1,21 +1,28 @@
+/* Auto-height, not the original fixed `height: 920px` on both the section
+   and its inner wrapper, so the case-study count is no longer capped: a 7th
+   study opens a 3rd row that grows the section instead of rendering
+   invisibly inside an overflow-clipped box.
+   `.cs-grid__grid` (the inner's only child) moves from absolute
+   left:40px/top:40px into normal flow, and those offsets are reproduced as
+   padding on `.cs-grid__inner` -- an absolutely-positioned child
+   contributes no height to its parent, which is what forced the hardcoded
+   920px in the first place. 60px of bottom padding is what the original
+   920px left below 2 rows of cards (920 - 40 top - 820 grid = 60), so the
+   desktop rendering at today's 6 studies is pixel-identical to before. */
 .cs-grid {
   position: relative;
   background: var(--color-cream);
   overflow: hidden;
-  height: 920px;
 }
 
 .cs-grid__inner {
   max-width: var(--page-width);
   margin: 0 auto;
   position: relative;
-  height: 920px;
+  padding: 40px 40px 60px;
 }
 
 .cs-grid__grid {
-  position: absolute;
-  left: 40px;
-  top: 40px;
   display: grid;
   grid-template-columns: repeat(3, 440px);
   grid-auto-rows: 400px;
@@ -29,7 +36,15 @@
    drop shadow is missing from the extracted classes (a Figma "effects" style
    that Tailwind arbitrary-value export commonly drops) — added here so cream
    cards remain visually separated from the identically-colored section bg. */
+/* display:block + text-decoration:none is the only CSS an <article>-to-<a>
+   conversion needs: an anchor is inline by default (which would collapse
+   this card to the width of its text and underline every text node inside
+   it), everything else -- position, size, the absolutely-positioned
+   children -- behaves identically once it's block-level. Same conversion
+   already made for .industries__card. */
 .cs-grid__card {
+  display: block;
+  text-decoration: none;
   position: relative;
   width: 440px;
   height: 400px;
@@ -216,18 +231,18 @@
    width are overridden since the card height/width are no longer fixed. */
 @media (max-width: 900px) {
   .cs-grid {
-    height: auto;
     padding: 48px 0;
   }
 
+  /* Reset the desktop 40/40/60 padding that reproduces the old absolute
+     grid offsets -- here the section supplies the vertical padding and
+     `.cs-grid__grid` below supplies the 24px horizontal gutter, so leaving
+     it in place would double the side inset to 64px. */
   .cs-grid__inner {
-    height: auto;
+    padding: 0;
   }
 
   .cs-grid__grid {
-    position: static;
-    left: auto;
-    top: auto;
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 20px;

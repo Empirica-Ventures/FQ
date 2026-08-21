@@ -52,6 +52,16 @@ function loadContent() {
   const imagesPath = path.join(ROOT, 'content/images.json');
   if (fs.existsSync(imagesPath)) out.images = JSON.parse(read(imagesPath));
 
+  // Per-page <title> and meta description. These used to live in
+  // src/pages/*.json alongside that page's `sections` and `css` lists —
+  // editorial copy sitting in the same file as the build's structural wiring,
+  // which is why they weren't CMS-editable: exposing those files to an editor
+  // would put the section manifest one mis-click away from breaking the page.
+  // Keyed by output filename minus .html, so buildPage() can look its own
+  // entry up without src/pages/*.json needing to name it.
+  const seoPath = path.join(ROOT, 'content/seo.json');
+  if (fs.existsSync(seoPath)) out.seo = JSON.parse(read(seoPath));
+
   // Page-scoped singleton content (one file per page, kept under its own
   // kebab-case filename as the key rather than flattened to the top level —
   // unlike collections/taxonomies, these aren't meant to be a stable public
@@ -62,6 +72,20 @@ function loadContent() {
   if (fs.existsSync(pagesDir)) {
     for (const f of fs.readdirSync(pagesDir).filter(f => f.endsWith('.json'))) {
       out.pages[f.slice(0, -'.json'.length)] = JSON.parse(read(path.join(pagesDir, f)));
+    }
+  }
+
+  // Static section copy: the headings, eyebrows, body paragraphs and button
+  // labels that used to be typed directly into src/partials/*.html and into
+  // the render modules. One file per page, mirroring content/pages/ — read
+  // by render modules as content.copy['<page>'], and turned into
+  // {{TXT_*}}/{{TXTA_*}} tokens for the partials that are still plain HTML
+  // (see copyTokens()).
+  out.copy = {};
+  const copyDirPath = path.join(ROOT, 'content/copy');
+  if (fs.existsSync(copyDirPath)) {
+    for (const f of fs.readdirSync(copyDirPath).filter(f => f.endsWith('.json'))) {
+      out.copy[f.slice(0, -'.json'.length)] = JSON.parse(read(path.join(copyDirPath, f)));
     }
   }
   return out;
@@ -84,10 +108,35 @@ const SITE_ORIGIN = 'https://www.frontierquotient.com';
 // partials, but unsafe the moment page content comes from an editable
 // source (a case-study field containing the literal text "{{FOOTER}}"
 // would otherwise get the whole footer inlined into it).
+// [A-Z0-9_] rather than [A-Z_]: copy tokens are generated from content keys,
+// which may legitimately carry a digit (a "line1"/"line2" pair, a "col2"
+// heading). An unmatched token is still left verbatim, exactly as before.
 function injectTokens(str, map) {
-  return str.replace(/\{\{[A-Z_]+\}\}/g, (token) =>
+  return str.replace(/\{\{[A-Z0-9_]+\}\}/g, (token) =>
     Object.prototype.hasOwnProperty.call(map, token) ? map[token] : token
   );
+}
+
+// injectTokens() deliberately leaves an unmatched token verbatim, because the
+// structural tokens are substituted at several different levels and an
+// intermediate pass legitimately sees tokens it can't resolve yet. That
+// tolerance is wrong for copy tokens in *finished* output: a typo'd or
+// unreachable {{TXT_*}} would ship as literal braces on the live page.
+//
+// This is the check that catches the whole class, including the case
+// verify/check_copy_tokens.js structurally cannot see: a page whose builder
+// forgot to pass the copy map at all, where every key exists and every token
+// still renders broken (exactly what buildErrorPage() did before it was given
+// PARTIAL_TOKENS).
+function assertNoUnresolvedCopyTokens(html, label) {
+  const leftover = [...new Set((html.match(/\{\{TXTA?_[A-Z0-9_]*\}\}/g) || []))];
+  if (leftover.length) {
+    throw new Error(
+      label + ' still contains ' + leftover.length + ' unresolved copy token(s): ' +
+      leftover.join(', ') + ' -- either the key is missing from content/copy/, ' +
+      'or this page is built without the copy token map'
+    );
+  }
 }
 
 // Titles/descriptions come from plain-text JSON (e.g. "FP&A") and land
@@ -126,14 +175,66 @@ function imageTokens(images) {
 }
 const IMAGE_TOKENS = imageTokens(content.images);
 
+// One token per editable string in content/copy/, for the section partials
+// that are still hand-written HTML rather than render modules. Same idea as
+// imageTokens() above, extended to nested objects so a page's copy file can
+// be grouped by section (home.json's `finalCta.heading` becomes
+// {{TXT_HOME_FINAL_CTA_HEADING}}).
+//
+// Two tokens per string, because a partial may drop the same value into
+// either position and each needs its own escaping:
+//   {{TXT_...}}   HTML text node   (spell(): escapes, then re-spells the
+//                                   typographic characters these partials
+//                                   author as named entities)
+//   {{TXTA_...}}  attribute value  (attr(): the above plus quotes)
+// Only the token a partial actually references gets substituted; the other
+// is simply never looked up.
+//
+// An array of strings becomes one hard-wrapped block joined with <br />
+// (headings on this site are frequently split across hand-placed lines).
+// Every line is escaped individually -- the <br /> is the build's, never
+// the editor's, so a heading can't smuggle markup onto the page.
+const html = require('./src/render/html');
+
+function copyTokens(copy) {
+  const map = {};
+  const snake = (key) => key.replace(/([a-z0-9])([A-Z])/g, '$1_$2').replace(/-/g, '_').toUpperCase();
+
+  function walk(prefix, value) {
+    if (typeof value === 'string') {
+      map[`{{TXT_${prefix}}}`] = html.spell(value);
+      map[`{{TXTA_${prefix}}}`] = html.attr(value);
+      return;
+    }
+    if (Array.isArray(value)) {
+      if (value.every(v => typeof v === 'string')) {
+        map[`{{TXT_${prefix}}}`] = value.map(html.spell).join('<br />');
+      }
+      // A list of objects is repeating structure, not a single slot -- it has
+      // no sensible token form and is read by a render module instead.
+      return;
+    }
+    if (value && typeof value === 'object') {
+      for (const [k, v] of Object.entries(value)) {
+        walk(prefix ? prefix + '_' + snake(k) : snake(k), v);
+      }
+    }
+  }
+
+  for (const [file, value] of Object.entries(copy)) walk(snake(file), value);
+  return map;
+}
+const COPY_TOKENS = copyTokens(content.copy);
+const PARTIAL_TOKENS = Object.assign({}, IMAGE_TOKENS, COPY_TOKENS);
+
 // navbar.html stays a static partial (logo/CTA/menu-toggle aren't
 // extracted) except for its two nav-link lists, which used to be two
 // hand-typed 8-item lists kept in sync by hand.
 const navbarLinks = require('./src/render/navbar/links');
-const navbar = injectTokens(read(path.join(ROOT, 'src/partials/navbar.html')), {
+const navbar = injectTokens(read(path.join(ROOT, 'src/partials/navbar.html')), Object.assign({
   '{{NAVBAR_LINKS}}': navbarLinks(content, { mobile: false }),
   '{{NAVBAR_MOBILE_LINKS}}': navbarLinks(content, { mobile: true }),
-});
+}, PARTIAL_TOKENS));
 
 // footer.html stays a static partial (logo, tagline, contact column) except
 // for its services/company/social columns, each data-driven the same way
@@ -143,15 +244,17 @@ const navbar = injectTokens(read(path.join(ROOT, 'src/partials/navbar.html')), {
 const footerServicesList = require('./src/render/footer/services-list');
 const footerCompanyList = require('./src/render/footer/company-list');
 const footerSocialList = require('./src/render/footer/social-list');
-const footer = injectTokens(read(path.join(ROOT, 'src/partials/footer.html')), {
+const footerInnerStyle = require('./src/render/footer/inner-style');
+const footer = injectTokens(read(path.join(ROOT, 'src/partials/footer.html')), Object.assign({
   '{{FOOTER_SERVICES_LIST}}': footerServicesList(content),
   '{{FOOTER_COMPANY_LIST}}': footerCompanyList(content),
   '{{FOOTER_SOCIAL_LIST}}': footerSocialList(content),
-});
+  '{{FOOTER_INNER_STYLE}}': footerInnerStyle(content),
+}, PARTIAL_TOKENS));
 
 function buildSection(rel) {
   if (rel.endsWith('.js')) return require(path.join(ROOT, 'src/render', rel))(content);
-  return injectTokens(read(path.join(ROOT, 'src/partials', rel)), IMAGE_TOKENS);
+  return injectTokens(read(path.join(ROOT, 'src/partials', rel)), PARTIAL_TOKENS);
 }
 
 function buildPage(config) {
@@ -164,9 +267,22 @@ function buildPage(config) {
   const allCss = baseCss + '\n' + pageCss;
   const canonicalPath = config.outputFile === 'index.html' ? '/' : '/' + config.outputFile;
 
+  // content/seo.json is the only source for these — src/pages/*.json no longer
+  // carries a title/description at all. A fallback there would have meant the
+  // same string living in two files with a silent precedence order, so editing
+  // the one a developer would naturally reach for had no effect. Missing entry
+  // is a hard failure rather than a blank <title>.
+  const seoKey = config.outputFile.replace(/\.html$/, '');
+  const seo = (content.seo && content.seo.pages && content.seo.pages[seoKey]);
+  if (!seo || !seo.title || !seo.description) {
+    throw new Error(
+      'content/seo.json has no title/description for "' + seoKey + '" (' +
+      config.outputFile + ') -- every page needs one; add it under "pages"'
+    );
+  }
   const html = injectTokens(shellTemplate, {
-    '{{TITLE}}': escapeAttr(config.title),
-    '{{DESCRIPTION}}': escapeAttr(config.description),
+    '{{TITLE}}': escapeAttr(seo.title),
+    '{{DESCRIPTION}}': escapeAttr(seo.description),
     '{{CANONICAL_URL}}': SITE_ORIGIN + canonicalPath,
     '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
     '{{ALL_CSS}}': allCss,
@@ -176,6 +292,7 @@ function buildPage(config) {
   });
 
   fs.mkdirSync(DIST, { recursive: true });
+  assertNoUnresolvedCopyTokens(html, config.outputFile);
   fs.writeFileSync(path.join(DIST, config.outputFile), html, 'utf-8');
   console.log('built', config.outputFile);
 }
@@ -189,9 +306,43 @@ function buildPage(config) {
 // per article so buildSitemap() picks them up the same way it does real pages.
 const insightsArticleDetail = require('./src/render/insights/article-detail');
 
+// Two invariants the CMS can't enforce on its own, now that the article
+// count is unlocked and the slug is editable (both were previously
+// guaranteed by the collection being frozen at exactly 7 hand-authored
+// items with hidden slugs). A hard build failure is the right response to
+// either: both silently destroy a page rather than merely mis-styling one,
+// and editorial_workflow means this runs on the preview deploy before an
+// editor's change can reach production.
+function validateInsightsArticles(articles) {
+  const seen = new Map();
+  articles.forEach((article, i) => {
+    if (!article.slug) {
+      throw new Error('insights article #' + (i + 1) + ' ("' + article.title + '") has no URL slug');
+    }
+    if (seen.has(article.slug)) {
+      throw new Error(
+        'two insights articles share the slug "' + article.slug + '" ("' +
+        seen.get(article.slug) + '" and "' + article.title + '") -- they would ' +
+        'overwrite each other at /insights/' + article.slug + '.html'
+      );
+    }
+    seen.set(article.slug, article.title);
+  });
+
+  const featured = articles.filter(a => a.featured);
+  if (featured.length !== 1) {
+    throw new Error(
+      'exactly one insights article must be marked Featured, found ' + featured.length +
+      (featured.length ? ' ("' + featured.map(a => a.title).join('", "') + '")' : '') +
+      ' -- the Insights page has a single featured slot'
+    );
+  }
+}
+
 function buildInsightsArticles(content) {
   const categories = content.insightsCategories.items;
   const articles = content.insightsArticles.items;
+  validateInsightsArticles(articles);
   const articleCss = minifyCss(read(path.join(ROOT, 'css', 'insights-article-detail.css')));
   const allCss = baseCss + '\n' + articleCss;
   const outDir = path.join(DIST, 'insights');
@@ -206,9 +357,67 @@ function buildInsightsArticles(content) {
       '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
       '{{ALL_CSS}}': allCss,
       '{{NAVBAR}}': navbar,
-      '{{CONTENT}}': insightsArticleDetail(article, categories),
+      '{{CONTENT}}': insightsArticleDetail(article, categories, content.copy.insights.articleDetail),
       '{{FOOTER}}': footer,
     });
+    assertNoUnresolvedCopyTokens(html, outputFile);
+    fs.writeFileSync(path.join(DIST, outputFile), html, 'utf-8');
+    console.log('built', outputFile);
+    return { outputFile, priority: 0.5 };
+  });
+}
+
+// Same fan-out as Insights articles, one build later: every case study card
+// on /case-studies.html now links to its own dist/case-studies/<slug>.html
+// (src/render/case-studies/detail-template.js), with its own CSS bundle
+// (case-study-detail.css is deliberately NOT in src/pages/case-studies.json's
+// css list, since it must not apply to the /case-studies.html listing page).
+const caseStudyDetail = require('./src/render/case-studies/detail-template');
+
+// Only the slug-uniqueness half of validateInsightsArticles applies here --
+// case studies have no single "featured slot" to protect; today's data
+// already has two studies marked Featured at once and that's fine, it's
+// just a badge on the card.
+function validateCaseStudies(items) {
+  const seen = new Map();
+  items.forEach((cs, i) => {
+    if (!cs.slug) {
+      throw new Error('case study #' + (i + 1) + ' ("' + (cs.title || cs.statLabel) + '") has no URL slug');
+    }
+    if (seen.has(cs.slug)) {
+      throw new Error(
+        'two case studies share the slug "' + cs.slug + '" ("' +
+        seen.get(cs.slug) + '" and "' + (cs.title || cs.statLabel) + '") -- they would ' +
+        'overwrite each other at /case-studies/' + cs.slug + '.html'
+      );
+    }
+    seen.set(cs.slug, cs.title || cs.statLabel);
+  });
+}
+
+function buildCaseStudyDetails(content) {
+  const categories = content.caseStudyCategories.items;
+  const items = content.caseStudies.items;
+  validateCaseStudies(items);
+  const detailCss = minifyCss(read(path.join(ROOT, 'css', 'case-study-detail.css')));
+  const allCss = baseCss + '\n' + detailCss;
+  const outDir = path.join(DIST, 'case-studies');
+  fs.mkdirSync(outDir, { recursive: true });
+  const copy = Object.assign({}, content.copy['case-studies'].grid, content.copy['case-studies'].detail);
+
+  return items.map(cs => {
+    const outputFile = 'case-studies/' + cs.slug + '.html';
+    const html = injectTokens(shellTemplate, {
+      '{{TITLE}}': escapeAttr(cs.title + ' | Frontier Quotient Case Studies'),
+      '{{DESCRIPTION}}': escapeAttr(cs.outcome),
+      '{{CANONICAL_URL}}': SITE_ORIGIN + '/' + outputFile,
+      '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
+      '{{ALL_CSS}}': allCss,
+      '{{NAVBAR}}': navbar,
+      '{{CONTENT}}': caseStudyDetail(cs, categories, copy),
+      '{{FOOTER}}': footer,
+    });
+    assertNoUnresolvedCopyTokens(html, outputFile);
     fs.writeFileSync(path.join(DIST, outputFile), html, 'utf-8');
     console.log('built', outputFile);
     return { outputFile, priority: 0.5 };
@@ -218,15 +427,20 @@ function buildInsightsArticles(content) {
 function buildErrorPage() {
   const template = read(path.join(ROOT, 'src/404.html'));
   const pageCss = minifyCss(read(path.join(ROOT, 'css', 'error-404.css')));
-  const html = injectTokens(template, {
-    '{{TITLE}}': escapeAttr('404: Page Not Found | Frontier Quotient'),
-    '{{DESCRIPTION}}': escapeAttr('This page could not be found.'),
+  const seo = content.seo && content.seo.pages && content.seo.pages['404'];
+  if (!seo || !seo.title || !seo.description) {
+    throw new Error('content/seo.json has no title/description for "404" -- add it under "pages"');
+  }
+  const html = injectTokens(template, Object.assign({}, PARTIAL_TOKENS, {
+    '{{TITLE}}': escapeAttr(seo.title),
+    '{{DESCRIPTION}}': escapeAttr(seo.description),
     '{{CANONICAL_URL}}': SITE_ORIGIN + '/404.html',
     '{{OG_IMAGE_URL}}': SITE_ORIGIN + '/assets/images/og-default.jpg',
     '{{ALL_CSS}}': baseCss + '\n' + pageCss,
     '{{NAVBAR}}': navbar,
     '{{FOOTER}}': footer,
-  });
+  }));
+  assertNoUnresolvedCopyTokens(html, '404.html');
   fs.writeFileSync(path.join(DIST, '404.html'), html, 'utf-8');
   console.log('built 404.html');
 }
@@ -265,12 +479,13 @@ function main() {
   for (const config of pageConfigs) buildPage(config);
   buildErrorPage();
   const insightsArticleConfigs = buildInsightsArticles(content);
+  const caseStudyConfigs = buildCaseStudyDetails(content);
 
   copyDir(path.join(ROOT, 'js'), path.join(DIST, 'js'));
   copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
   if (fs.existsSync(path.join(ROOT, 'admin'))) copyDir(path.join(ROOT, 'admin'), path.join(DIST, 'admin'));
   buildRobotsTxt();
-  buildSitemap(pageConfigs.concat(insightsArticleConfigs));
+  buildSitemap(pageConfigs.concat(insightsArticleConfigs, caseStudyConfigs));
   console.log('done. dist/ is ready.');
 }
 

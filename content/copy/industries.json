@@ -1,0 +1,22 @@
+{
+  "hero": {
+    "eyebrow": "INDUSTRIES WE SERVE",
+    "heading": "Finance built for your type of business.",
+    "subtext": "We don't believe in generic finance support. Every industry has its own financial reality, and we work with yours."
+  },
+  "detailLabels": {
+    "eyebrow": "INDUSTRY",
+    "challengesLabel": "KEY CHALLENGES",
+    "servicesLabel": "SERVICES WE PROVIDE",
+    "caseStudyLabel": "CASE STUDY",
+    "caseStudyArrowLabel": "Read the case study"
+  },
+  "finalCta": {
+    "heading": "Don't see your industry?",
+    "body": "We work across many sectors. Tell us about your business and we'll let you know how we can help.",
+    "buttonLabel": "BOOK A CONSULTATION"
+  },
+  "quickNav": {
+    "ariaLabel": "Jump to industry"
+  }
+}

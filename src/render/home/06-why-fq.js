@@ -10,6 +10,7 @@ var LEFT_COLUMN_COUNT = 2;
 var ACCENTS = ['red', 'green'];
 
 module.exports = function (content) {
+  var copy = content.copy.home.whyFq;
   var items = content.whyFq.items;
 
   var cards = items.map(function (w, i) {
@@ -42,8 +43,8 @@ module.exports = function (content) {
     '    <div class="why-fq__pattern" aria-hidden="true"></div>\n' +
     '    <span class="why-fq__bignum" aria-hidden="true">' + items.length + '</span>\n' +
     '\n' +
-    '    <p class="why-fq__eyebrow animate-on-scroll">WHY FRONTIER QUOTIENT</p>\n' +
-    '    <h2 class="why-fq__heading animate-on-scroll">Built for the way<br>you actually run things.</h2>\n' +
+    '    <p class="why-fq__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="why-fq__heading animate-on-scroll">' + copy.heading.map(spell).join('<br />') + '</h2>\n' +
     '\n' +
     '    <!-- Left column: ' + LEFT_COLUMN_COUNT + ' cards -->\n' +
     leftCards + '\n' +

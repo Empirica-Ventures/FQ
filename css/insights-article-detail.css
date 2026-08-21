@@ -73,7 +73,41 @@
   margin: 0 0 24px;
 }
 
-.insights-article__body p:last-child {
+/* The four block types an editor can add through the CMS (see
+   src/render/insights/article-detail.js). Sized against the same 17px/30px
+   body scale rather than the site's absolute-positioned heading values,
+   since this is a reading page in normal flow. */
+.insights-article__body h2 {
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--color-navy);
+  margin: 40px 0 16px;
+}
+
+.insights-article__body ul {
+  margin: 0 0 24px;
+  padding-left: 24px;
+}
+
+.insights-article__body li {
+  margin-bottom: 10px;
+}
+
+.insights-article__body blockquote {
+  margin: 32px 0;
+  padding: 4px 0 4px 24px;
+  border-left: 3px solid var(--color-green);
+  font-size: 19px;
+  line-height: 32px;
+  color: var(--color-navy);
+}
+
+.insights-article__body > :first-child {
+  margin-top: 0;
+}
+
+.insights-article__body > :last-child {
   margin-bottom: 0;
 }
 

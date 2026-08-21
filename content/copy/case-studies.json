@@ -1,0 +1,39 @@
+{
+  "hero": {
+    "eyebrow": "THE WORK",
+    "headlineLead": "Proven",
+    "headlineOutlined": "Outcomes!",
+    "body": "Client names kept confidential. Outcomes, numbers, and timelines are real.",
+    "stats": {
+      "first": {
+        "value": "30+",
+        "label": "Engagements"
+      },
+      "second": {
+        "value": "440M+",
+        "label": "Advised (AED)"
+      },
+      "third": {
+        "value": "3",
+        "label": "GCC Markets"
+      }
+    }
+  },
+  "filters": {
+    "allTabLabel": "ALL WORK"
+  },
+  "grid": {
+    "problemLabel": "PROBLEM",
+    "outcomeLabel": "OUTCOME",
+    "featuredBadge": "FEATURED"
+  },
+  "detail": {
+    "backLabel": "← Back to Case Studies",
+    "stepsLabel": "STEPS"
+  },
+  "finalCta": {
+    "heading": "Ready to write your own outcome?",
+    "body": "Let’s discuss how Frontier Quotient can support your business growth.",
+    "buttonLabel": "BOOK A CONSULTATION"
+  }
+}

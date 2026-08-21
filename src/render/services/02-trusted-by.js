@@ -12,10 +12,12 @@ var spell = require('../html').spell;
 // first duplicate tile and scroll by exactly that distance for a seamless
 // loop (same mechanism as the toolkit ticker in how-we-work/03-tools.js).
 //
-// Per-logo left/top/width/height bleed offsets are unchanged from the
-// static-grid version -- they're about a logo's crop within its own card,
-// independent of whether that card is stationary or moving.
+// Each logo renders via object-fit: contain inside a fixed-size card (see
+// css/services-trusted-by.css) -- no per-logo crop offsets to hand-tune,
+// so any number of logos of any source aspect ratio can be added through
+// the CMS with no code changes.
 module.exports = function (content) {
+  var copy = content.copy.services.trustedBy;
   var items = content.trustedBy.items;
   var half = Math.ceil(items.length / 2);
   var rows = [items.slice(0, half), items.slice(half)];
@@ -25,7 +27,7 @@ module.exports = function (content) {
     var alt = hidden ? '' : spell(logo.alt);
     var label = logo.label.split('\n').map(spell).join('<br />');
     return '          <div class="trusted-by__tile"' + attrs + '>\n' +
-      '            <div class="trusted-by__card"><img class="trusted-by__logo" src="' + logo.src + '" alt="' + alt + '" style="left:' + logo.left + 'px; top:' + logo.top + 'px; width:' + logo.width + 'px; height:' + logo.height + 'px;" loading="lazy" width="' + logo.width + '" height="' + logo.height + '" /></div>\n' +
+      '            <div class="trusted-by__card"><img class="trusted-by__logo" src="' + logo.src + '" alt="' + alt + '" loading="lazy" /></div>\n' +
       '            <p class="trusted-by__label">' + label + '</p>\n' +
       '          </div>';
   }
@@ -45,8 +47,8 @@ module.exports = function (content) {
 
   return '<section class="trusted-by">\n' +
     '  <div class="trusted-by__inner">\n' +
-    '    <p class="trusted-by__eyebrow animate-on-scroll">TRUSTED ACROSS THE GCC</p>\n' +
-    '    <h2 class="trusted-by__heading animate-on-scroll">Businesses that trust us with their numbers</h2>\n' +
+    '    <p class="trusted-by__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="trusted-by__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
     '    <div class="trusted-by__accent"></div>\n' +
     '\n' +
     band(rows[0], 1) + '\n' +

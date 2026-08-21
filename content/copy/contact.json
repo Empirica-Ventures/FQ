@@ -1,0 +1,111 @@
+{
+  "main": {
+    "eyebrow": "GET IN TOUCH",
+    "headingLine1Lead": "Let’s",
+    "headingLine1Outlined": "discuss",
+    "headingLine2": "your finance",
+    "headingLine3": "needs.",
+    "body": "Whether you need bookkeeping, reporting, or strategic finance support, our team is ready to help."
+  },
+  "details": {
+    "email": {
+      "label": "EMAIL",
+      "value": "info@frontierquotient.com"
+    },
+    "office": {
+      "label": "OFFICE LOCATION",
+      "value": "GCC Office Address"
+    },
+    "phone": {
+      "label": "PHONE",
+      "value": "+971 50 473 4860",
+      "tel": "+971504734860"
+    },
+    "hours": {
+      "label": "BUSINESS HOURS",
+      "value": "Monday to Friday"
+    }
+  },
+  "notices": {
+    "success": {
+      "heading": "Thanks — message sent.",
+      "body": "We’ve received your request and will be in touch within 1 business day."
+    },
+    "error": {
+      "heading": "Something went wrong.",
+      "bodyBeforeEmail": "Your message wasn’t sent. Please try again, or email us directly at",
+      "bodyAfterEmail": ".",
+      "retryLabel": "TRY AGAIN"
+    }
+  },
+  "form": {
+    "eyebrow": "CONSULTATION REQUEST",
+    "headingLine1": "Tell us about",
+    "headingLine2": "your business.",
+    "fields": {
+      "name": {
+        "label": "Full Name *",
+        "placeholder": "Your full name"
+      },
+      "company": {
+        "label": "Company Name *",
+        "placeholder": "Your company name"
+      },
+      "email": {
+        "label": "Email Address *",
+        "placeholder": "your@email.com"
+      },
+      "phone": {
+        "label": "Phone Number",
+        "placeholder": "+971 XX XXX XXXX"
+      },
+      "service": {
+        "label": "Services Interested In *",
+        "placeholder": "Select a service: Bookkeeping / Reporting / Cash Flow / Fractional CFO / VAT..."
+      },
+      "message": {
+        "label": "Message *",
+        "placeholder": "Tell us about your business, current challenges, and the type of support you're looking for..."
+      }
+    },
+    "serviceOptions": {
+      "bookkeeping": "Bookkeeping",
+      "reporting": "Management Reporting",
+      "cashFlow": "Cash Flow & Forecasting",
+      "fractionalCfo": "Fractional CFO",
+      "vat": "Tax & VAT Compliance",
+      "other": "Other"
+    },
+    "submitLabel": "SEND MESSAGE →"
+  },
+  "locations": {
+    "eyebrow": "WHERE WE OPERATE",
+    "heading": "Regional reach, local depth",
+    "subtext": [
+      "Two core markets, anchored by our UAE office, with",
+      "active coverage across the wider region."
+    ],
+    "coreMarketsLabel": "CORE MARKETS",
+    "alsoServingLabel": "ALSO SERVING",
+    "markets": {
+      "uae": {
+        "name": "UAE",
+        "country": "United Arab Emirates",
+        "note": "Primary office · UAE CT & VAT"
+      },
+      "ksa": {
+        "name": "KSA",
+        "country": "Saudi Arabia",
+        "note": "ZATCA & VAT specialists"
+      }
+    },
+    "chips": {
+      "first": "Qatar",
+      "second": "Bahrain",
+      "third": "Lebanon"
+    }
+  },
+  "quickFaq": {
+    "eyebrow": "QUICK ANSWERS"
+  }
+}

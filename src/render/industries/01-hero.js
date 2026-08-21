@@ -9,6 +9,7 @@ var spell = require('../html').spell;
 var ACCENTS = ['red', 'navy', 'green'];
 
 module.exports = function (content) {
+  var copy = content.copy.industries.hero;
   var items = content.industries.items;
   var bg = content.images.items['industries-hero-bg'];
 
@@ -22,9 +23,9 @@ module.exports = function (content) {
     '    <img src="' + bg.src + '" width="' + bg.width + '" height="' + bg.height + '" alt="' + spell(bg.alt) + '" loading="eager" fetchpriority="high" />\n' +
     '  </div>\n' +
     '  <div class="industries-hero__inner">\n' +
-    '    <p class="industries-hero__eyebrow animate-on-scroll">INDUSTRIES WE SERVE</p>\n' +
-    '    <h1 class="industries-hero__heading animate-on-scroll">Finance built for your type of business.</h1>\n' +
-    '    <p class="industries-hero__subtext">We don\'t believe in generic finance support. Every industry has its own financial reality, and we work with yours.</p>\n' +
+    '    <p class="industries-hero__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h1 class="industries-hero__heading animate-on-scroll">' + spell(copy.heading) + '</h1>\n' +
+    '    <p class="industries-hero__subtext">' + spell(copy.subtext) + '</p>\n' +
     '\n' +
     '    <div class="industries-hero__pills">\n' +
     pills + '\n' +

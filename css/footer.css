@@ -13,11 +13,19 @@
   pointer-events: none;
 }
 
+/* Height driven by a custom property build.js computes from the tallest of
+   the four columns below (see src/render/footer/inner-style.js), so the
+   Company and Follow lists -- the two now unlocked for allow_add in the CMS
+   -- can grow past their old fixed 6/3 counts without one clipping the other
+   invisibly against a hardcoded height. The 400px fallback matches today's
+   6-item tall column exactly, for the same reason every other computed-height
+   section on this site keeps a fallback: nothing changes if the inline style
+   ever fails to apply. */
 .footer__inner {
   max-width: var(--page-width);
   margin: 0 auto;
   position: relative;
-  height: 400px;
+  height: var(--footer-inner-height, 400px);
 }
 
 /* Was a child of .footer__inner (capped at --page-width/1440px, centered),
@@ -152,7 +160,7 @@
 .footer__divider {
   position: absolute;
   left: 80px;
-  top: 342px;
+  top: var(--footer-divider-top, 342px);
   width: 1280px;
   height: 1px;
   background: var(--color-white);
@@ -162,7 +170,7 @@
 .footer__bottom-row {
   position: absolute;
   left: 80px;
-  top: 356px;
+  top: var(--footer-bottom-row-top, 356px);
   width: 1280px;
   display: flex;
   justify-content: space-between;

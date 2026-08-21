@@ -1,0 +1,76 @@
+{
+  "pages": {
+    "404": {
+      "title": "404: Page Not Found | Frontier Quotient",
+      "description": "This page could not be found."
+    },
+    "about": {
+      "title": "About | Frontier Quotient",
+      "description": "Frontier Quotient combines accounting expertise with practical finance strategy to help GCC companies operate with clarity and confidence."
+    },
+    "bookkeeping": {
+      "title": "Bookkeeping & Accounting | Frontier Quotient",
+      "description": "Organized, accurate bookkeeping and accounting services that keep your financial records up to date, compliant, and audit-ready."
+    },
+    "case-studies": {
+      "title": "Case Studies | Frontier Quotient",
+      "description": "Real outcomes from GCC operators who partnered with Frontier Quotient for FP&A and business finance support."
+    },
+    "cashflow": {
+      "title": "Cash Flow & Forecasting | Frontier Quotient",
+      "description": "Better planning and financial visibility. Rolling cash flow forecasts, scenario planning, and working capital optimization."
+    },
+    "cleanup": {
+      "title": "Cleanup & Catch-Up Accounting | Frontier Quotient",
+      "description": "Resolve accounting backlogs and make your financial records reliable again. Historical cleanup, reconciliation, and reporting fixes."
+    },
+    "contact": {
+      "title": "Contact | Frontier Quotient",
+      "description": "Get in touch with Frontier Quotient to discuss your finance and accounting needs across the GCC."
+    },
+    "fpa": {
+      "title": "FP&A / Business Finance | Frontier Quotient",
+      "description": "Strategic finance guidance without full-time overhead. Collaborative budget-building, performance monitoring, and financial decision support."
+    },
+    "how-we-work": {
+      "title": "How We Work | Frontier Quotient",
+      "description": "A simple, structured finance process for GCC businesses: discovery, scope, setup, and ongoing support."
+    },
+    "index": {
+      "title": "Frontier Quotient | GCC Financial Consultancy",
+      "description": "Strategic finance for the Gulf's most ambitious operators. Accounting, FP&A, and business finance for GCC growth companies."
+    },
+    "industries": {
+      "title": "Industries | Frontier Quotient",
+      "description": "Finance and accounting built around how your industry actually works: D2C & CPG, Retail, Healthcare, Manufacturing, Logistics, Construction."
+    },
+    "insights": {
+      "title": "Insights | Frontier Quotient",
+      "description": "Finance clarity, by category: practical insights on cash flow, VAT compliance, and business growth for GCC operators."
+    },
+    "mgmt-reporting": {
+      "title": "Management Reporting | Frontier Quotient",
+      "description": "Monthly reporting that turns financial data into clear, actionable insights. Dashboards, KPIs, and performance visibility for leadership."
+    },
+    "partners": {
+      "title": "Partners | Frontier Quotient",
+      "description": "The technology and service partners Frontier Quotient works with to deliver stronger outcomes for GCC businesses."
+    },
+    "privacy-policy": {
+      "title": "Privacy Policy | Frontier Quotient",
+      "description": "How Frontier Quotient collects, uses, and protects your information on frontierquotient.com."
+    },
+    "services": {
+      "title": "Services | Frontier Quotient",
+      "description": "Flexible finance and accounting support for GCC businesses, from FP&A to bookkeeping, tax compliance, and cash flow forecasting."
+    },
+    "tax-vat": {
+      "title": "Tax & VAT Compliance | Frontier Quotient",
+      "description": "Stay compliant with local VAT, corporate tax and Saudi Zakat/ZATCA regulations. Accurate filings, regulatory monitoring, and the confidence to focus on growth."
+    },
+    "terms-of-service": {
+      "title": "Terms of Service | Frontier Quotient",
+      "description": "The terms governing your use of frontierquotient.com."
+    }
+  }
+}

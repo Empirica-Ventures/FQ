@@ -1,0 +1,27 @@
+{
+  "hero": {
+    "eyebrow": "OUR SERVICES",
+    "title": {
+      "lead": "Finance & accounting services",
+      "outlined": {
+        "first": "designed for",
+        "second": "growth"
+      }
+    },
+    "body": "Flexible finance support tailored to your business needs.",
+    "cardLabel": "THE FULL SUITE"
+  },
+  "trustedBy": {
+    "eyebrow": "TRUSTED ACROSS THE GCC",
+    "heading": "Businesses that trust us with their numbers"
+  },
+  "servicesGrid": {
+    "eyebrow": "WHAT WE DELIVER",
+    "heading": "Six core services"
+  },
+  "finalCta": {
+    "heading": "Ready to simplify your finance operations?",
+    "subtext": "Let’s discuss how Frontier Quotient can support your business growth.",
+    "buttonLabel": "BOOK A CONSULTATION"
+  }
+}

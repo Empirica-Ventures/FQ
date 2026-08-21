@@ -1,14 +1,16 @@
 var spell = require('../html').spell;
 
-// Only the 5 steps' text (title/desc) and their per-step badge/text color
-// variants are data here -- the rings/connectors/arrows around them are a
-// hand-drawn snake-path flowchart specific to exactly 5 steps in exactly
-// these positions (a 6th step has no defined connector), so they stay
-// fixed chrome in this render function rather than becoming count-agnostic.
+// Apart from the section's own copy, only the 5 steps' text (title/desc)
+// and their per-step badge/text color variants are data here -- the
+// rings/connectors/arrows around them are a hand-drawn snake-path
+// flowchart specific to exactly 5 steps in exactly these positions (a 6th
+// step has no defined connector), so they stay fixed chrome in this
+// render function rather than becoming count-agnostic.
 // The color variants likewise don't reduce to a clean position-derived
 // rule (step 4's label and title colors even disagree with each other),
 // so they're stored per item rather than derived and risking a wrong guess.
 module.exports = function (content) {
+  var copy = content.copy['how-we-work'].process;
   var items = content.processSteps.items;
 
   var steps = items.map(function (step, i) {
@@ -17,7 +19,9 @@ module.exports = function (content) {
       '        <div class="hww-process__badge hww-process__badge--' + step.badgeBg + '">\n' +
       '          <span class="hww-process__badge-num hww-process__badge-num--' + step.numColor + '">' + num + '</span>\n' +
       '        </div>\n' +
-      '        <p class="hww-process__step-label hww-process__step-label--' + step.labelVariant + '">STEP ' + num + '</p>\n' +
+      // copy.stepLabel is the word only ("STEP") -- the two-digit number
+      // after it is the step's position, not editable copy.
+      '        <p class="hww-process__step-label hww-process__step-label--' + step.labelVariant + '">' + spell(copy.stepLabel) + ' ' + num + '</p>\n' +
       '        <h3 class="hww-process__step-title hww-process__step-title--' + step.titleVariant + '">' + spell(step.title) + '</h3>\n' +
       '        <p class="hww-process__step-desc hww-process__step-desc--' + step.descVariant + '">' + spell(step.desc) + '</p>\n' +
       '      </li>';
@@ -27,8 +31,8 @@ module.exports = function (content) {
     '  <div class="hww-process__inner">\n' +
     '    <div class="hww-process__grid" aria-hidden="true"></div>\n' +
     '\n' +
-    '    <p class="hww-process__eyebrow animate-on-scroll">THE PROCESS</p>\n' +
-    '    <h2 class="hww-process__heading animate-on-scroll">End to end streamlined process</h2>\n' +
+    '    <p class="hww-process__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="hww-process__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
     '    <div class="hww-process__rule animate-on-scroll"></div>\n' +
     '    <p class="hww-process__count">01 to ' + String(items.length).padStart(2, '0') + '</p>\n' +
     '\n' +

@@ -8,6 +8,7 @@ var spell = require('../html').spell;
 //   repo. It's inert either way, so it's dropped entirely rather than
 //   reproduced inconsistently.
 module.exports = function (content) {
+  var copy = content.copy.insights.articleGrid;
   var articles = content.insightsArticles.items.filter(function (a) { return !a.featured; });
   var categories = content.insightsCategories.items;
 
@@ -24,13 +25,13 @@ module.exports = function (content) {
       '        <h3 class="article-grid__title animate-on-scroll">' + spell(article.title) + '</h3>\n' +
       '        <p class="article-grid__excerpt">' + spell(article.excerpt) + '</p>\n' +
       '        <p class="article-grid__read-time">' + spell(article.readTime) + '</p>\n' +
-      '        <a href="/insights/' + article.slug + '.html" class="article-grid__read-link">READ ' + spell('→') + '</a>\n' +
+      '        <a href="/insights/' + article.slug + '.html" class="article-grid__read-link">' + spell(copy.cardLinkLabel) + '</a>\n' +
       '      </article>';
   }).join('\n\n');
 
   return '<section class="article-grid">\n' +
     '  <div class="article-grid__inner">\n' +
-    '    <p class="article-grid__eyebrow animate-on-scroll">LATEST INSIGHTS</p>\n' +
+    '    <p class="article-grid__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
     '\n' +
     '    <div class="article-grid__grid">\n' +
     cards + '\n' +

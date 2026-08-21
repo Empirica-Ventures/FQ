@@ -17,6 +17,7 @@ var TOP_OFFSET = 205;
 var BOTTOM_BREATHING_ROOM = 35;
 
 module.exports = function (content) {
+  var copy = content.copy.home.trustIntro;
   var items = content.testimonials.items;
   var bg = content.images.items['home-trust-intro-desk'];
   var rows = Math.ceil(items.length / CARDS_PER_ROW);
@@ -37,8 +38,8 @@ module.exports = function (content) {
     '    </div>\n' +
     '\n' +
     '    <p class="trust-intro__quote-mark" aria-hidden="true">&quot;</p>\n' +
-    '    <p class="trust-intro__eyebrow animate-on-scroll">WHO WE ARE</p>\n' +
-    '    <h2 class="trust-intro__heading animate-on-scroll stagger-1">More than accounting. A finance partner for growth.</h2>\n' +
+    '    <p class="trust-intro__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="trust-intro__heading animate-on-scroll stagger-1">' + spell(copy.heading) + '</h2>\n' +
     '\n' +
     '    <div class="trust-intro__cards">\n' +
     cards + '\n' +

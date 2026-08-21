@@ -28,6 +28,12 @@
 // label text for KSA/Qatar/Bahrain (SAUDI ARABIA / QATAR / BAHRAIN) is
 // inferred to match the exact "UNITED ARAB EMIRATES" full-name pattern
 // already confirmed for the UAE slide's label.
+//
+// Those four region labels are read off each dot's data-slide-label rather
+// than kept in an array here. They used to be hardcoded in both places at
+// once — the UAE one in the partial's visible label and all four in this
+// file — so editing the labels through the CMS would have changed the
+// initial one and left the other three saying whatever this array said.
 (function () {
   var slider = document.querySelector('.hero__slider');
   var controls = document.querySelector('.hero__controls');
@@ -36,15 +42,32 @@
   var slides = slider.querySelectorAll('.hero__slide');
   var dots = controls.querySelectorAll('.hero__dot');
   var label = controls.querySelector('[data-hero-label]');
-  var labels = ['UNITED ARAB EMIRATES', 'SAUDI ARABIA', 'QATAR', 'BAHRAIN'];
+  var labels = Array.prototype.map.call(dots, function (dot) {
+    return dot.getAttribute('data-slide-label');
+  });
   var current = 0;
   var timer = null;
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (!slides.length || !dots.length) return;
 
+  // Slides 2-4 ship with data-src, not src: all four .hero__slide elements
+  // sit stacked at the same inset:0 position (only opacity tells them
+  // apart), so the browser's native loading="lazy" viewport check saw all
+  // four as already on-screen and downloaded every region's hero photo on
+  // every visit -- roughly 200KB nobody asked for on a page most visitors
+  // never scroll the carousel past slide 1. loadSlide() swaps in the real
+  // src, once, exactly when a slide is actually needed.
+  function loadSlide(slide) {
+    var img = slide.querySelector('img[data-src]');
+    if (!img) return;
+    img.src = img.getAttribute('data-src');
+    img.removeAttribute('data-src');
+  }
+
   function goTo(index) {
     if (index === current) return;
+    loadSlide(slides[index]);
     slides[current].classList.remove('is-active');
     dots[current].classList.remove('is-active');
     dots[current].setAttribute('aria-pressed', 'false');
@@ -85,6 +108,38 @@
   controls.addEventListener('focusout', startAutoplay);
 
   startAutoplay();
+
+  // Background-load the other three slides once the page is idle, so the
+  // first autoplay transition (6s away) never has to wait on a fresh
+  // fetch -- deferred to idle rather than requested up front, so these
+  // photos still don't compete with anything on the page's critical path.
+  var prefetchDeferredSlides = function () {
+    for (var i = 0; i < slides.length; i++) loadSlide(slides[i]);
+  };
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(prefetchDeferredSlides, { timeout: 4000 });
+  } else {
+    window.setTimeout(prefetchDeferredSlides, 1500);
+  }
+})();
+
+// Amiri (Arabic display font, ~100KB) has no @font-face in css/fonts.css --
+// see the comment there. Injecting the rule after idle means the browser
+// only starts that fetch once the page's critical resources (hero image,
+// core Latin fonts) already have it, instead of competing with them for
+// bandwidth from navigation start. Font-matching is lazy: on pages with no
+// text set in 'Amiri', this rule sits unused and nothing is ever fetched.
+(function () {
+  function loadAmiriFont() {
+    var style = document.createElement('style');
+    style.textContent = "@font-face { font-family: 'Amiri'; font-style: normal; font-weight: 700; font-display: swap; src: url('/assets/fonts/Amiri-Bold.woff2') format('woff2'); }";
+    document.head.appendChild(style);
+  }
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(loadAmiriFont, { timeout: 4000 });
+  } else {
+    window.setTimeout(loadAmiriFont, 1500);
+  }
 })();
 
 // Generic category-filter wiring for any [data-filter-group] — currently

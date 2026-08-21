@@ -5,6 +5,7 @@ var spell = require('../html').spell;
 var COLORS = ['var(--color-brand-red)', 'var(--color-navy)', 'var(--color-green)'];
 
 module.exports = function (content) {
+  var copy = content.copy.about.values;
   var items = content.values.items;
 
   var cards = items.map(function (v, i) {
@@ -18,8 +19,8 @@ module.exports = function (content) {
 
   return '<section class="values">\n' +
     '  <div class="values__inner">\n' +
-    '    <p class="values__eyebrow animate-on-scroll">OUR VALUES</p>\n' +
-    '    <h2 class="values__heading animate-on-scroll">Our Values</h2>\n' +
+    '    <p class="values__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    '    <h2 class="values__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
     '    <div class="values__rule animate-on-scroll"></div>\n' +
     '\n' +
     '    <div class="values__grid">\n' +

@@ -3,40 +3,42 @@
     <div class="contact-main__pattern" aria-hidden="true"></div>
     <div class="contact-main__accent"></div>
 
-    <p class="contact-main__eyebrow animate-on-scroll">GET IN TOUCH</p>
+    <p class="contact-main__eyebrow animate-on-scroll">{{TXT_CONTACT_MAIN_EYEBROW}}</p>
     <h2 class="contact-main__heading animate-on-scroll">
-      <span>Let&rsquo;s <span class="contact-main__outline text-outline">discuss</span></span>
-      <span>your finance</span>
-      <span>needs.</span>
+      <span>{{TXT_CONTACT_MAIN_HEADING_LINE1_LEAD}} <span class="contact-main__outline text-outline">{{TXT_CONTACT_MAIN_HEADING_LINE1_OUTLINED}}</span></span>
+      <span>{{TXT_CONTACT_MAIN_HEADING_LINE2}}</span>
+      <span>{{TXT_CONTACT_MAIN_HEADING_LINE3}}</span>
     </h2>
-    <p class="contact-main__body animate-on-scroll">Whether you need bookkeeping, reporting, or strategic finance support, our team is ready to help.</p>
+    <p class="contact-main__body animate-on-scroll">{{TXT_CONTACT_MAIN_BODY}}</p>
 
     <div class="contact-main__divider" style="top:428px;"></div>
     <div class="contact-main__detail" style="top:452px;">
       <span class="contact-main__detail-icon">&#9993;</span>
-      <p class="contact-main__detail-label">EMAIL</p>
-      <p class="contact-main__detail-value">info@frontierquotient.com</p>
+      <p class="contact-main__detail-label">{{TXT_CONTACT_DETAILS_EMAIL_LABEL}}</p>
+      <p class="contact-main__detail-value">{{TXT_CONTACT_DETAILS_EMAIL_VALUE}}</p>
     </div>
 
     <div class="contact-main__divider" style="top:528px;"></div>
     <div class="contact-main__detail" style="top:536px;">
       <span class="contact-main__detail-icon">&#9678;</span>
-      <p class="contact-main__detail-label">OFFICE LOCATION</p>
-      <p class="contact-main__detail-value">GCC Office Address</p>
+      <p class="contact-main__detail-label">{{TXT_CONTACT_DETAILS_OFFICE_LABEL}}</p>
+      <p class="contact-main__detail-value">{{TXT_CONTACT_DETAILS_OFFICE_VALUE}}</p>
     </div>
 
     <div class="contact-main__divider" style="top:612px;"></div>
     <div class="contact-main__detail" style="top:620px;">
       <span class="contact-main__detail-icon">&#9742;</span>
-      <p class="contact-main__detail-label">PHONE</p>
-      <p class="contact-main__detail-value"><a href="tel:+971504734860">+971 50 473 4860</a></p>
+      <p class="contact-main__detail-label">{{TXT_CONTACT_DETAILS_PHONE_LABEL}}</p>
+      <!-- `tel` is the dialable form of `value` -- same number, no spaces,
+           since a tel: URI can't carry the display formatting. -->
+      <p class="contact-main__detail-value"><a href="tel:{{TXTA_CONTACT_DETAILS_PHONE_TEL}}">{{TXT_CONTACT_DETAILS_PHONE_VALUE}}</a></p>
     </div>
 
     <div class="contact-main__divider" style="top:696px;"></div>
     <div class="contact-main__detail" style="top:704px;">
       <span class="contact-main__detail-icon">&#9707;</span>
-      <p class="contact-main__detail-label">BUSINESS HOURS</p>
-      <p class="contact-main__detail-value">Monday to Friday</p>
+      <p class="contact-main__detail-label">{{TXT_CONTACT_DETAILS_HOURS_LABEL}}</p>
+      <p class="contact-main__detail-value">{{TXT_CONTACT_DETAILS_HOURS_VALUE}}</p>
     </div>
   </div>
 
@@ -49,21 +51,24 @@
          .is-visible (not the `hidden` attribute, whose UA-stylesheet
          display:none an author `display:flex` rule would otherwise beat). -->
     <div class="contact-main__notice contact-main__notice--success" id="contact-notice-success">
-      <p class="contact-main__notice-heading">Thanks — message sent.</p>
-      <p class="contact-main__notice-body">We&rsquo;ve received your request and will be in touch within 1 business day.</p>
+      <p class="contact-main__notice-heading">{{TXT_CONTACT_NOTICES_SUCCESS_HEADING}}</p>
+      <p class="contact-main__notice-body">{{TXT_CONTACT_NOTICES_SUCCESS_BODY}}</p>
     </div>
 
     <div class="contact-main__notice contact-main__notice--error" id="contact-notice-error">
-      <p class="contact-main__notice-heading">Something went wrong.</p>
-      <p class="contact-main__notice-body">Your message wasn&rsquo;t sent. Please try again, or email us directly at <a href="mailto:info@frontierquotient.com">info@frontierquotient.com</a>.</p>
-      <a href="/contact.html" class="btn btn-primary contact-main__notice-retry">TRY AGAIN</a>
+      <p class="contact-main__notice-heading">{{TXT_CONTACT_NOTICES_ERROR_HEADING}}</p>
+      <!-- Sentence wraps the mailto link, so it's stored as the text either
+           side of it; the address itself is the same key the EMAIL detail
+           above uses, so the link and its label can never disagree. -->
+      <p class="contact-main__notice-body">{{TXT_CONTACT_NOTICES_ERROR_BODY_BEFORE_EMAIL}} <a href="mailto:{{TXTA_CONTACT_DETAILS_EMAIL_VALUE}}">{{TXT_CONTACT_DETAILS_EMAIL_VALUE}}</a>{{TXT_CONTACT_NOTICES_ERROR_BODY_AFTER_EMAIL}}</p>
+      <a href="/contact.html" class="btn btn-primary contact-main__notice-retry">{{TXT_CONTACT_NOTICES_ERROR_RETRY_LABEL}}</a>
     </div>
 
     <form class="contact-main__form" id="contact-form" action="/api/contact" method="post">
-      <p class="contact-main__form-eyebrow">CONSULTATION REQUEST</p>
+      <p class="contact-main__form-eyebrow">{{TXT_CONTACT_FORM_EYEBROW}}</p>
       <h2 class="contact-main__form-heading">
-        <span>Tell us about</span>
-        <span>your business.</span>
+        <span>{{TXT_CONTACT_FORM_HEADING_LINE1}}</span>
+        <span>{{TXT_CONTACT_FORM_HEADING_LINE2}}</span>
       </h2>
 
       <!-- Honeypot: invisible to real visitors (off-screen, tabindex -1,
@@ -76,44 +81,46 @@
       </div>
 
       <div class="contact-main__field" style="top:218px;">
-        <label for="contact-name">Full Name *</label>
-        <input id="contact-name" name="name" type="text" placeholder="Your full name" required />
+        <label for="contact-name">{{TXT_CONTACT_FORM_FIELDS_NAME_LABEL}}</label>
+        <input id="contact-name" name="name" type="text" placeholder="{{TXTA_CONTACT_FORM_FIELDS_NAME_PLACEHOLDER}}" required />
       </div>
 
       <div class="contact-main__field" style="top:294px;">
-        <label for="contact-company">Company Name *</label>
-        <input id="contact-company" name="company" type="text" placeholder="Your company name" required />
+        <label for="contact-company">{{TXT_CONTACT_FORM_FIELDS_COMPANY_LABEL}}</label>
+        <input id="contact-company" name="company" type="text" placeholder="{{TXTA_CONTACT_FORM_FIELDS_COMPANY_PLACEHOLDER}}" required />
       </div>
 
       <div class="contact-main__field" style="top:370px;">
-        <label for="contact-email">Email Address *</label>
-        <input id="contact-email" name="email" type="email" placeholder="your@email.com" required />
+        <label for="contact-email">{{TXT_CONTACT_FORM_FIELDS_EMAIL_LABEL}}</label>
+        <input id="contact-email" name="email" type="email" placeholder="{{TXTA_CONTACT_FORM_FIELDS_EMAIL_PLACEHOLDER}}" required />
       </div>
 
       <div class="contact-main__field" style="top:446px;">
-        <label for="contact-phone">Phone Number</label>
-        <input id="contact-phone" name="phone" type="tel" placeholder="+971 XX XXX XXXX" />
+        <label for="contact-phone">{{TXT_CONTACT_FORM_FIELDS_PHONE_LABEL}}</label>
+        <input id="contact-phone" name="phone" type="tel" placeholder="{{TXTA_CONTACT_FORM_FIELDS_PHONE_PLACEHOLDER}}" />
       </div>
 
       <div class="contact-main__field" style="top:522px;">
-        <label for="contact-service">Services Interested In *</label>
+        <label for="contact-service">{{TXT_CONTACT_FORM_FIELDS_SERVICE_LABEL}}</label>
+        <!-- Option `value`s are the wire format api/contact.js reads; only the
+             visible labels come from content. -->
         <select id="contact-service" name="service" required>
-          <option value="" disabled selected hidden>Select a service: Bookkeeping / Reporting / Cash Flow / Fractional CFO / VAT...</option>
-          <option value="bookkeeping">Bookkeeping</option>
-          <option value="reporting">Management Reporting</option>
-          <option value="cash-flow">Cash Flow &amp; Forecasting</option>
-          <option value="fractional-cfo">Fractional CFO</option>
-          <option value="vat">Tax &amp; VAT Compliance</option>
-          <option value="other">Other</option>
+          <option value="" disabled selected hidden>{{TXT_CONTACT_FORM_FIELDS_SERVICE_PLACEHOLDER}}</option>
+          <option value="bookkeeping">{{TXT_CONTACT_FORM_SERVICE_OPTIONS_BOOKKEEPING}}</option>
+          <option value="reporting">{{TXT_CONTACT_FORM_SERVICE_OPTIONS_REPORTING}}</option>
+          <option value="cash-flow">{{TXT_CONTACT_FORM_SERVICE_OPTIONS_CASH_FLOW}}</option>
+          <option value="fractional-cfo">{{TXT_CONTACT_FORM_SERVICE_OPTIONS_FRACTIONAL_CFO}}</option>
+          <option value="vat">{{TXT_CONTACT_FORM_SERVICE_OPTIONS_VAT}}</option>
+          <option value="other">{{TXT_CONTACT_FORM_SERVICE_OPTIONS_OTHER}}</option>
         </select>
       </div>
 
       <div class="contact-main__field contact-main__field--message" style="top:602px;">
-        <label for="contact-message">Message *</label>
-        <textarea id="contact-message" name="message" placeholder="Tell us about your business, current challenges, and the type of support you're looking for..." required></textarea>
+        <label for="contact-message">{{TXT_CONTACT_FORM_FIELDS_MESSAGE_LABEL}}</label>
+        <textarea id="contact-message" name="message" placeholder="{{TXTA_CONTACT_FORM_FIELDS_MESSAGE_PLACEHOLDER}}" required></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary contact-main__submit">SEND MESSAGE &rarr;</button>
+      <button type="submit" class="btn btn-primary contact-main__submit">{{TXT_CONTACT_FORM_SUBMIT_LABEL}}</button>
     </form>
 
   </div>

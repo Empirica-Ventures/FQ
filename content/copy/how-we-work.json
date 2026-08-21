@@ -1,0 +1,27 @@
+{
+  "hero": {
+    "eyebrow": "HOW WE WORK",
+    "heading": {
+      "line1": "A simple and",
+      "line2Outlined": "structured",
+      "line2Rest": "finance",
+      "line3": "process"
+    },
+    "body": "We make onboarding and finance management clear and efficient."
+  },
+  "process": {
+    "eyebrow": "THE PROCESS",
+    "heading": "End to end streamlined process",
+    "stepLabel": "STEP"
+  },
+  "tools": {
+    "eyebrow": "OUR TOOLKIT",
+    "heading": "The platforms behind every number",
+    "tag": "TECH STACK"
+  },
+  "cta": {
+    "heading": "Ready to simplify your finance operations?",
+    "subtext": "Let's discuss how Frontier Quotient can support your business growth.",
+    "buttonLabel": "Book a Consultation"
+  }
+}

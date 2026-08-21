@@ -8,6 +8,7 @@ var icons = require('../_fixtures/services-grid-icons');
 var ACCENTS = ['green', 'navy', 'red'];
 
 module.exports = function (content) {
+  var copy = content.copy.services.servicesGrid;
   var items = content.services.items;
 
   var cards = items.map(function (svc, i) {
@@ -47,8 +48,12 @@ module.exports = function (content) {
 
   return '<section class="services-grid">\n' +
     '  <div class="services-grid__inner">\n' +
-    '    <p class="services-grid__eyebrow animate-on-scroll">WHAT WE DELIVER</p>\n' +
-    '    <h2 class="services-grid__heading animate-on-scroll">Six core services</h2>\n' +
+    '    <p class="services-grid__eyebrow animate-on-scroll">' + spell(copy.eyebrow) + '</p>\n' +
+    // The heading names a count ("Six core services") but is a plain editable
+    // string, not derived from items.length -- the wording is the client's to
+    // rephrase, and a computed number would fight whatever they write. It does
+    // mean adding a 7th service through the CMS needs the heading edited too.
+    '    <h2 class="services-grid__heading animate-on-scroll">' + spell(copy.heading) + '</h2>\n' +
     '    <div class="services-grid__accent"></div>\n' +
     '\n' +
     '    <div class="services-grid__cards">\n' +
