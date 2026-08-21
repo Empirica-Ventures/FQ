@@ -153,6 +153,14 @@ const MEASURE = (vw) => {
 (async () => {
   const browser = await chromium.launch(LAUNCH);
 
+  // This sandbox has no outbound route to real third-party hosts, so the
+  // GA4/Clarity tags' requests would otherwise hang unresolved forever and
+  // networkidle would never fire. Abort them locally only -- production
+  // has real internet access and loads them normally.
+  const blockThirdPartyAnalytics = (page) => {
+    page.route(/googletagmanager\.com|clarity\.ms/, (route) => route.abort());
+  };
+
   const load = async (page, name) => {
     await page.goto(`${BASE}/${name}.html`, { waitUntil: 'networkidle' });
     // Settle the scroll-reveal state so geometry is the final, user-visible one.
@@ -165,6 +173,7 @@ const MEASURE = (vw) => {
   // Desktop baseline: what is *supposed* to be clipped.
   const baseline = {};
   const dp = await browser.newPage({ viewport: { width: DESKTOP, height: 900 } });
+  blockThirdPartyAnalytics(dp);
   for (const name of PAGES) {
     await load(dp, name);
     baseline[name] = await dp.evaluate(MEASURE, DESKTOP);
@@ -175,12 +184,16 @@ const MEASURE = (vw) => {
 
   for (const w of WIDTHS) {
     const page = await browser.newPage({ viewport: { width: w, height: 812 } });
+    blockThirdPartyAnalytics(page);
     for (const name of PAGES) {
       const errors = [];
       page.removeAllListeners('pageerror');
       page.removeAllListeners('requestfailed');
       page.on('pageerror', e => errors.push('pageerror: ' + e.message));
-      page.on('requestfailed', r => errors.push('requestfailed: ' + r.url()));
+      page.on('requestfailed', r => {
+        if (/googletagmanager\.com|clarity\.ms/.test(r.url())) return;
+        errors.push('requestfailed: ' + r.url());
+      });
       await load(page, name);
       const m = await page.evaluate(MEASURE, w);
       const base = baseline[name];
