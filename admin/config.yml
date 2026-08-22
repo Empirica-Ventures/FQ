@@ -287,16 +287,13 @@ collections:
           - label: "Items"
             name: "items"
             widget: "list"
-            # Unlocked: css/home-trust-intro.css's .trust-intro__cards now
-            # wraps to additional rows (flex-wrap + a real width
-            # constraint) instead of clipping past a fixed-width single
-            # row, and the section's own height is computed in
-            # src/render/home/03-trust-intro.js from items.length rather
-            # than hardcoded -- verified by simulating a 4th testimonial
-            # through the real render function, which wrapped to a
-            # visible 2nd row instead of clipping. min:3 keeps the count
-            # from ever dropping below today's real quotes; no max, since
-            # the layout has no upper bound anymore.
+            # Unlocked: css/home-trust-intro.css's .trust-intro__cards is a
+            # single-row horizontal scroller (overflow-x: auto) rather than
+            # a fixed-width row that clips past 3 items -- adding a 4th+
+            # testimonial makes the row scroll wider, and the section's own
+            # height stays constant regardless of items.length. min:3 keeps
+            # the count from ever dropping below today's real quotes; no
+            # max, since the layout has no upper bound.
             allow_add: true
             min: 3
             fields:
