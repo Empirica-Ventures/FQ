@@ -1260,6 +1260,13 @@ collections:
             # rendering a 7th study through the real render function.
             allow_add: true
             min: 1
+            # Collapsed by default -- each case study carries a full detail-page
+            # body (block list, same shape as Insights Articles below), so
+            # leaving every item expanded meant opening this one entry showed
+            # every case study's entire write-up stacked at once. Collapsed,
+            # each shows one line (title + category) until clicked open.
+            collapsed: true
+            summary: '{{fields.title}} — {{fields.category}}'
             fields:
               - label: "URL Slug (this case study's web address — lowercase, hyphens only, must be unique)"
                 name: "slug"
@@ -1452,6 +1459,14 @@ collections:
             # articles sharing a slug would overwrite each other's page.
             allow_add: true
             min: 1
+            # Collapsed by default -- each article's full body (paragraph/
+            # heading/list/quote blocks) used to render expanded inline for
+            # every article at once, so opening this one entry meant
+            # scrolling through every article's entire write-up stacked
+            # together. Collapsed, each shows one line (title + category)
+            # until clicked open.
+            collapsed: true
+            summary: '{{fields.title}} — {{fields.category}}'
             fields:
               - label: "URL Slug (this article's web address — lowercase, hyphens only, must be unique)"
                 name: "slug"
