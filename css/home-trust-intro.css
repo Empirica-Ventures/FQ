@@ -1,18 +1,11 @@
 .trust-intro {
   position: relative;
   background: var(--color-white);
-  /* src/render/home/03-trust-intro.js computes and injects the real
-     height as a CSS custom property (--trust-intro-height), since how
-     many card rows exist depends on items.length (known at build time).
-     Deliberately NOT a plain inline `style="height:...px"` -- that would
-     have higher specificity than any stylesheet rule regardless of media
-     query, silently overriding the mobile fallback's `height: auto`
-     below and clipping the stacked mobile layout. Referencing the
-     variable here keeps the mobile rule free to win normally at <=900px,
-     since both rules are still plain author-stylesheet rules with equal
-     specificity. The 420px fallback matches today's exact 1-row count.
-  */
-  height: var(--trust-intro-height, 420px);
+  /* Fixed height regardless of items.length: .trust-intro__cards below is
+     a single-row horizontal scroller, not a wrapping grid, so adding a
+     4th+ testimonial through the CMS makes the row scroll wider rather
+     than growing the section taller. */
+  height: 420px;
   overflow: hidden;
 }
 
@@ -82,14 +75,15 @@
   /* right, not a hardcoded width -- 3 cards at 410px + 2 gaps at 25px
      (1280px) already fit inside 1440-80-80=1280px exactly. Without an
      explicit width, this absolutely-positioned flex container would
-     shrink-to-fit its content and never actually wrap regardless of
-     flex-wrap; anchoring both edges gives it the same 1280px constraint
-     a 4th card needs to overflow before flex-wrap below kicks in. */
+     shrink-to-fit its content instead of clipping to a real viewport,
+     and overflow-x: auto would have nothing to scroll within. */
   right: 80px;
   top: 205px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 25px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .trust-intro__card {
@@ -144,7 +138,9 @@
 
 /* No mobile Figma frame — fallback: background photo hidden (pure
    decoration), quote-mark watermark hidden, heading/eyebrow flow normally,
-   and the 3 testimonial cards stack into a single column instead of a
+   and the testimonial cards become a swipeable horizontal strip -- same
+   overflow-x: auto pattern as .filters__inner (css/cs-filters.css) and
+   .categories__inner (css/insights-categories.css) -- instead of a
    fixed-width row. */
 @media (max-width: 900px) {
   .trust-intro {
@@ -153,7 +149,7 @@
 
   .trust-intro__inner {
     height: auto;
-    padding: 40px 24px;
+    padding: 40px 0 40px 24px;
   }
 
   .trust-intro__bg,
@@ -169,17 +165,20 @@
     position: static;
     width: auto;
     margin-top: 12px;
+    padding-right: 24px;
   }
 
   .trust-intro__cards {
     position: static;
-    flex-direction: column;
     margin-top: 24px;
     gap: 16px;
+    padding-right: 24px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .trust-intro__card {
-    width: 100%;
+    width: 82vw;
+    max-width: 340px;
     height: auto;
     padding: 23px;
   }
