@@ -1376,6 +1376,11 @@ collections:
                 name: "newsletter"
                 widget: "object"
                 fields:
+                  - label: "Show Newsletter Signup Box"
+                    name: "enabled"
+                    widget: "boolean"
+                    default: false
+                    hint: "Off by default. The rest of this box's fields only matter once this is checked."
                   - { label: "Title", name: "title", widget: "string" }
                   - { label: "Sub-title", name: "subtitle", widget: "string" }
                   - { label: "Email Field Placeholder", name: "emailPlaceholder", widget: "string" }

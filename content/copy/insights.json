@@ -5,6 +5,7 @@
     "titleOutlined": "no fluff.",
     "body": "Practical finance and accounting insights for GCC business owners, founders, and finance leads.",
     "newsletter": {
+      "enabled": false,
       "title": "Get insights in your inbox.",
       "subtitle": "Monthly. No spam. Unsubscribe anytime.",
       "emailPlaceholder": "your@email.com",
