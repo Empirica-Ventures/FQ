@@ -65,6 +65,25 @@
     img.removeAttribute('data-src');
   }
 
+  // Prefetches only the single slide that would be shown next, not every
+  // remaining slide at once -- a real Lighthouse/PageSpeed run is mostly
+  // idle right after paint (no user ever interacts), so requestIdleCallback
+  // fires almost immediately regardless of its timeout ceiling. Eagerly
+  // loading all three deferred region photos there meant ~157KB of images
+  // nobody was looking at competed for bandwidth during the exact window
+  // being scored, which is exactly what PageSpeed's "Improve image
+  // delivery" flagged. One slide ahead is still always ready well before
+  // the next 6s autoplay tick (or a dot click) needs it.
+  function schedulePrefetchNext() {
+    var nextIndex = (current + 1) % slides.length;
+    var run = function () { loadSlide(slides[nextIndex]); };
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(run, { timeout: 4000 });
+    } else {
+      window.setTimeout(run, 1500);
+    }
+  }
+
   function goTo(index) {
     if (index === current) return;
     loadSlide(slides[index]);
@@ -76,6 +95,7 @@
     dots[current].classList.add('is-active');
     dots[current].setAttribute('aria-pressed', 'true');
     if (label && labels[current]) label.textContent = labels[current];
+    schedulePrefetchNext();
   }
 
   function next() {
@@ -108,19 +128,7 @@
   controls.addEventListener('focusout', startAutoplay);
 
   startAutoplay();
-
-  // Background-load the other three slides once the page is idle, so the
-  // first autoplay transition (6s away) never has to wait on a fresh
-  // fetch -- deferred to idle rather than requested up front, so these
-  // photos still don't compete with anything on the page's critical path.
-  var prefetchDeferredSlides = function () {
-    for (var i = 0; i < slides.length; i++) loadSlide(slides[i]);
-  };
-  if (window.requestIdleCallback) {
-    window.requestIdleCallback(prefetchDeferredSlides, { timeout: 4000 });
-  } else {
-    window.setTimeout(prefetchDeferredSlides, 1500);
-  }
+  schedulePrefetchNext();
 })();
 
 // Amiri (Arabic display font, ~100KB) has no @font-face in css/fonts.css --
