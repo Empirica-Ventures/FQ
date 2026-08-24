@@ -12,6 +12,11 @@
     "industries-hero-bg": { "src": "/assets/images/industries-hero-bg.webp", "alt": "", "width": 1704, "height": 923 },
     "case-studies-hero-bg": { "src": "/assets/images/case-studies-hero-bg.webp", "alt": "", "width": 1672, "height": 941 },
     "insights-hero-bg": { "src": "/assets/images/insights-hero-bg.webp", "alt": "", "width": 1536, "height": 1024 },
-    "how-we-work-hero-bg": { "src": "/assets/images/howwework-hero-bg.webp", "alt": "", "width": 1536, "height": 1024 }
+    "how-we-work-hero-bg": { "src": "/assets/images/howwework-hero-bg.webp", "alt": "", "width": 1536, "height": 1024 },
+    "insights-topic-finance-tips": { "src": "", "alt": "", "width": 600, "height": 360 },
+    "insights-topic-cash-flow": { "src": "", "alt": "", "width": 600, "height": 360 },
+    "insights-topic-vat-compliance": { "src": "", "alt": "", "width": 600, "height": 360 },
+    "insights-topic-business-growth": { "src": "", "alt": "", "width": 600, "height": 360 },
+    "insights-topic-cfo-insights": { "src": "", "alt": "", "width": 600, "height": 360 }
   }
 }

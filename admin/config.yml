@@ -2260,6 +2260,51 @@ collections:
                   - { label: "Alt Text (decorative — usually blank)", name: "alt", widget: "string", required: false }
                   - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
                   - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
+              # Ships with src empty for every category below -- the Featured
+              # Article section (src/render/insights/03-featured.js) falls
+              # back to a plain color placeholder until each one is set, so
+              # `src` is deliberately optional here (Image widgets default
+              # to required).
+              - label: "Insights Featured Article Photo — Finance Tips"
+                name: "insights-topic-finance-tips"
+                widget: "object"
+                fields:
+                  - { label: "Image", name: "src", widget: "image", required: false }
+                  - { label: "Alt Text", name: "alt", widget: "string", required: false }
+                  - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
+                  - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
+              - label: "Insights Featured Article Photo — Cash Flow"
+                name: "insights-topic-cash-flow"
+                widget: "object"
+                fields:
+                  - { label: "Image", name: "src", widget: "image", required: false }
+                  - { label: "Alt Text", name: "alt", widget: "string", required: false }
+                  - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
+                  - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
+              - label: "Insights Featured Article Photo — VAT & Compliance"
+                name: "insights-topic-vat-compliance"
+                widget: "object"
+                fields:
+                  - { label: "Image", name: "src", widget: "image", required: false }
+                  - { label: "Alt Text", name: "alt", widget: "string", required: false }
+                  - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
+                  - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
+              - label: "Insights Featured Article Photo — Business Growth"
+                name: "insights-topic-business-growth"
+                widget: "object"
+                fields:
+                  - { label: "Image", name: "src", widget: "image", required: false }
+                  - { label: "Alt Text", name: "alt", widget: "string", required: false }
+                  - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
+                  - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
+              - label: "Insights Featured Article Photo — CFO Insights"
+                name: "insights-topic-cfo-insights"
+                widget: "object"
+                fields:
+                  - { label: "Image", name: "src", widget: "image", required: false }
+                  - { label: "Alt Text", name: "alt", widget: "string", required: false }
+                  - { label: "Width (px)", name: "width", widget: "number", value_type: "int" }
+                  - { label: "Height (px)", name: "height", widget: "number", value_type: "int" }
 
   - divider: true
 
