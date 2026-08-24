@@ -1,7 +1,7 @@
 {
   "priority": 0.6,
   "sections": [
-    "insights/01-hero.html",
+    "insights/01-hero.js",
     "insights/02-categories.js",
     "insights/03-featured.js",
     "insights/04-article-grid.js",
