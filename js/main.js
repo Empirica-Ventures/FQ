@@ -142,6 +142,33 @@
   }
 })();
 
+// Google Analytics (GA4) + Microsoft Clarity, deferred to window "load"
+// rather than idle+timeout like the Amiri font above -- unlike a purely
+// decorative asset, delaying analytics too aggressively risks not
+// recording a real visit at all if someone leaves before it fires. By the
+// time "load" fires, the page's own critical resources (hero image, core
+// fonts) have already finished, so this stops a ~168KB compressed third-
+// party script (gtag.js) from competing with them for bandwidth on a
+// throttled mobile connection, without meaningfully undercounting fast
+// bounces: a visit ending before "load" would very likely have ended
+// before the old eager-loaded analytics script finished initializing too.
+window.addEventListener('load', function () {
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-V0FQ6CTFNV');
+  var gaScript = document.createElement('script');
+  gaScript.async = true;
+  gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-V0FQ6CTFNV';
+  document.head.appendChild(gaScript);
+
+  (function (c, l, a, r, i, t, y) {
+    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+    t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+    y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+  })(window, document, 'clarity', 'script', 'y5x2pknvrg');
+});
+
 // Generic category-filter wiring for any [data-filter-group] — currently
 // used by Case Studies' filter tabs and Insights' category pills. Both had
 // real active-state styling (implying a working filter) with no click

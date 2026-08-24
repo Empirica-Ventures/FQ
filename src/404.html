@@ -3,22 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- Google Analytics (GA4) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V0FQ6CTFNV"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-V0FQ6CTFNV');
-</script>
-<!-- Microsoft Clarity -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "y5x2pknvrg");
-</script>
+<!-- Google Analytics (GA4) + Microsoft Clarity: loading deferred to
+     js/main.js (see the window "load" handler there). gtag.js alone is a
+     ~168KB compressed third-party script; loading it eagerly here meant it
+     competed directly with the hero image and core fonts for bandwidth on
+     a throttled mobile connection -- the real, measured cause of a live
+     PageSpeed LCP regression. -->
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESCRIPTION}}" />
 <meta name="robots" content="noindex" />
