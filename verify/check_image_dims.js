@@ -28,6 +28,12 @@ const ASPECT_WARN_THRESHOLD = 0.2; // 20% relative difference in width/height ra
 (async () => {
   let failed = false;
   for (const [key, img] of Object.entries(images)) {
+    // An intentionally-empty slot (e.g. a per-category image the client
+    // hasn't uploaded yet) -- not a failure, just nothing to check.
+    if (!img.src) {
+      console.log(`SKIP ${key}: no image set yet`);
+      continue;
+    }
     const filePath = path.join(ROOT, img.src.replace(/^\//, ''));
     if (!fs.existsSync(filePath)) {
       console.error(`FAIL ${key}: file not found at ${img.src}`);

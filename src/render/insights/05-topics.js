@@ -8,9 +8,19 @@ var spell = require('../html').spell;
 // -- that was already correct in the original).
 var ACCENTS = ['red', 'green'];
 
+// CFO Insights has exactly one article (see content/collections/insights-
+// articles.json) and, at 5 categories total, left this grid with a single
+// lone card stranded on its own second row. Excluded from this grid only --
+// the taxonomy entry, its filter tab (02-categories.js), and the one
+// article's own categorization are untouched, so filtering by it still
+// works; it's just not advertised as a "topic" to browse into here.
+var HIDDEN_FROM_GRID = ['cfo-insights'];
+
 module.exports = function (content) {
   var copy = content.copy.insights.topics;
-  var categories = content.insightsCategories.items;
+  var categories = content.insightsCategories.items.filter(function (c) {
+    return HIDDEN_FROM_GRID.indexOf(c.slug) === -1;
+  });
   var articles = content.insightsArticles.items;
 
   // The heading is hard-wrapped into one .topics__heading-line span per

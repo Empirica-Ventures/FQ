@@ -12,7 +12,7 @@ module.exports = function (content) {
 
   return '<section class="categories">\n' +
     '  <div class="categories__inner">\n' +
-    '    <nav class="categories__tabs" aria-label="' + attr(copy.filterAriaLabel) + '" data-filter-group data-filter-target=".article-grid__card" data-active-class="categories__tab--active">\n' +
+    '    <nav class="categories__tabs" aria-label="' + attr(copy.filterAriaLabel) + '" data-filter-group data-filter-target=".article-grid__card, .featured" data-active-class="categories__tab--active">\n' +
     tabs.join('\n') + '\n' +
     '    </nav>\n' +
     '  </div>\n' +
