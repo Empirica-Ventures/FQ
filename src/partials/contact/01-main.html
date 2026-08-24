@@ -43,13 +43,16 @@
   </div>
 
   <div class="contact-main__inner">
-    <!-- Submits to api/contact.js, a Vercel serverless function that
-         sends straight to the client's own inbox over SMTP -- no
-         third-party form service ever handles the submission. JS below
-         (js/main.js) swaps in one of these two notices based on the
-         redirect's ?sent=1 / ?error=1 query param; both start hidden via
-         .is-visible (not the `hidden` attribute, whose UA-stylesheet
-         display:none an author `display:flex` rule would otherwise beat). -->
+    <!-- Submits to Web3Forms (web3forms.com) -- a free form-relay service,
+         no backend code or mail server credentials of our own. js/main.js
+         intercepts the submit, POSTs via fetch, and navigates to this same
+         page with ?sent=1 / ?error=1 based on the JSON {success} field,
+         so the notice below swaps in exactly as it always has. The plain
+         action/method/enctype below are a no-JS fallback only: Web3Forms
+         redirects natively using the hidden "redirect" field if the fetch
+         handler never runs. Both notices start hidden via .is-visible (not
+         the `hidden` attribute, whose UA-stylesheet display:none an author
+         `display:flex` rule would otherwise beat). -->
     <div class="contact-main__notice contact-main__notice--success" id="contact-notice-success">
       <p class="contact-main__notice-heading">{{TXT_CONTACT_NOTICES_SUCCESS_HEADING}}</p>
       <p class="contact-main__notice-body">{{TXT_CONTACT_NOTICES_SUCCESS_BODY}}</p>
@@ -64,20 +67,29 @@
       <a href="/contact.html" class="btn btn-primary contact-main__notice-retry">{{TXT_CONTACT_NOTICES_ERROR_RETRY_LABEL}}</a>
     </div>
 
-    <form class="contact-main__form" id="contact-form" action="/api/contact" method="post">
+    <form class="contact-main__form" id="contact-form" action="https://api.web3forms.com/submit" method="post" enctype="multipart/form-data">
       <p class="contact-main__form-eyebrow">{{TXT_CONTACT_FORM_EYEBROW}}</p>
       <h2 class="contact-main__form-heading">
         <span>{{TXT_CONTACT_FORM_HEADING_LINE1}}</span>
         <span>{{TXT_CONTACT_FORM_HEADING_LINE2}}</span>
       </h2>
 
-      <!-- Honeypot: invisible to real visitors (off-screen, tabindex -1,
-           not `type="hidden"` since some bots specifically skip that).
-           api/contact.js silently no-ops the send if this is filled in,
-           without telling the bot it was caught. -->
+      <!-- Web3Forms config. access_key is meant to be public (it identifies
+           the destination inbox, not a secret) -- Web3Forms' own docs say
+           it needs no special handling. "redirect" is the no-JS fallback
+           path only; the fetch handler in js/main.js overrides it whenever
+           JS runs, so the two never actually race. -->
+      <input type="hidden" name="access_key" value="d55419b8-c304-4cd5-b573-a40147d666a3" />
+      <input type="hidden" name="subject" value="New Consultation Request — Frontier Quotient Website" />
+      <input type="hidden" name="from_name" value="Frontier Quotient Contact Form" />
+      <input type="hidden" name="redirect" value="https://www.frontierquotient.com/contact.html?sent=1" />
+
+      <!-- Honeypot, Web3Forms' own convention ("botcheck"): invisible to
+           real visitors (off-screen, tabindex -1), a bot that auto-fills
+           every field trips it and Web3Forms silently drops the send. -->
       <div class="contact-main__honeypot" aria-hidden="true">
-        <label for="contact-website">Website</label>
-        <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        <label for="contact-botcheck">Do not fill this in</label>
+        <input id="contact-botcheck" name="botcheck" type="checkbox" tabindex="-1" autocomplete="off" />
       </div>
 
       <div class="contact-main__field" style="top:218px;">
