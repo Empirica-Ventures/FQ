@@ -288,12 +288,14 @@ collections:
             name: "items"
             widget: "list"
             # Unlocked: css/home-trust-intro.css's .trust-intro__cards is a
-            # single-row horizontal scroller (overflow-x: auto) rather than
-            # a fixed-width row that clips past 3 items -- adding a 4th+
-            # testimonial makes the row scroll wider, and the section's own
-            # height stays constant regardless of items.length. min:3 keeps
-            # the count from ever dropping below today's real quotes; no
-            # max, since the layout has no upper bound.
+            # continuously-scrolling marquee (same duplicate-the-set-once
+            # technique as the Trusted-By logos and How We Work toolkit
+            # ticker) rather than a fixed-width row that clips past 3 items
+            # -- adding a 4th+ testimonial lengthens the loop, and the
+            # section's own height stays constant regardless of
+            # items.length. min:3 keeps the count from ever dropping below
+            # today's real quotes; no max, since the layout has no upper
+            # bound.
             allow_add: true
             min: 3
             fields:

@@ -47,6 +47,7 @@ const KNOWN_CLIPPING_VIA = [
   'div.hww-tools__band',
   'div.trusted-by__band.trusted-by__band--row1',
   'div.trusted-by__band.trusted-by__band--row2',
+  'div.trust-intro__cards',
 ];
 
 const MEASURE = (vw) => {

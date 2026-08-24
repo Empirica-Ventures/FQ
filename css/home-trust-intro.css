@@ -74,16 +74,62 @@
   left: 80px;
   /* right, not a hardcoded width -- 3 cards at 410px + 2 gaps at 25px
      (1280px) already fit inside 1440-80-80=1280px exactly. Without an
-     explicit width, this absolutely-positioned flex container would
-     shrink-to-fit its content instead of clipping to a real viewport,
-     and overflow-x: auto would have nothing to scroll within. */
+     explicit width, this absolutely-positioned band would shrink-to-fit
+     its content instead of clipping to a real viewport, and the marquee
+     track would have no fixed-size window to scroll within. 10px of
+     vertical padding (top 195 instead of 205, height 200 instead of 180)
+     keeps the card's hover lift/shadow from getting hard-clipped by the
+     band's overflow:hidden -- .trust-intro__track's align-items: center
+     re-centers the real 180px-tall card back to the original position. */
   right: 80px;
-  top: 205px;
+  top: 195px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.trust-intro__track {
   display: flex;
-  flex-wrap: nowrap;
+  align-items: center;
   gap: 25px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  width: max-content;
+  /* Fallback for the current 3-testimonials scenario (3 x 410px + 2 x
+     25px = 1280px), used only if JS never runs -- js/main.js measures the
+     actual rendered track width and overrides this custom property, so
+     the real distance always matches however many testimonials actually
+     exist. Slower than the logo/toolkit tickers (32-40s) on purpose: a
+     quote needs to actually be read, not just glanced at. */
+  --trust-intro-scroll-distance: -1280px;
+  animation: trust-intro-scroll 60s linear infinite;
+}
+
+@keyframes trust-intro-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--trust-intro-scroll-distance)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-intro__track {
+    animation: none;
+  }
+}
+
+.trust-intro__fade {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.trust-intro__fade--left {
+  left: 0;
+  background: linear-gradient(to right, var(--color-white), rgba(255, 255, 255, 0));
+}
+
+.trust-intro__fade--right {
+  right: 0;
+  background: linear-gradient(to left, var(--color-white), rgba(255, 255, 255, 0));
 }
 
 .trust-intro__card {
@@ -138,10 +184,10 @@
 
 /* No mobile Figma frame — fallback: background photo hidden (pure
    decoration), quote-mark watermark hidden, heading/eyebrow flow normally,
-   and the testimonial cards become a swipeable horizontal strip -- same
-   overflow-x: auto pattern as .filters__inner (css/cs-filters.css) and
-   .categories__inner (css/insights-categories.css) -- instead of a
-   fixed-width row. */
+   and the testimonial marquee keeps scrolling continuously (same
+   principle as css/services-trusted-by.css and css/hww-tools.css's
+   mobile fallbacks: only the surrounding layout reflows to static
+   stacking, the band itself keeps animating at every width). */
 @media (max-width: 900px) {
   .trust-intro {
     height: auto;
@@ -169,18 +215,27 @@
   }
 
   .trust-intro__cards {
-    position: static;
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    width: 100%;
+    /* 244px, not the desktop 200px: a wrapped 5-line quote at the
+       narrower mobile card width needs more room than the single-line
+       desktop layout. Measured directly (height:auto, overflow:visible)
+       against the CMS's own 156-char max quote length: true content
+       height is 199px, so this leaves a real ~25px safety margin rather
+       than exactly enough. */
+    height: 244px;
     margin-top: 24px;
-    gap: 16px;
-    padding-right: 24px;
-    -webkit-overflow-scrolling: touch;
   }
 
   .trust-intro__card {
     width: 82vw;
     max-width: 340px;
-    height: auto;
+    height: 224px;
     padding: 23px;
+    box-sizing: border-box;
   }
 
   .trust-intro__card-rule {
@@ -197,5 +252,9 @@
     position: static;
     margin-top: 16px;
     display: block;
+  }
+
+  .trust-intro__fade {
+    width: 15%;
   }
 }
