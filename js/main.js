@@ -225,11 +225,38 @@ measureMarquee('.trusted-by__track--row2', '--trusted-by-scroll-distance');
   });
 })();
 
-// Contact form result — api/contact.js (a Vercel serverless function, not
-// a third-party form service) redirects back here with ?sent=1 or
-// ?error=1 after handling the POST. Swaps in the matching notice from
-// src/partials/contact/01-main.html and hides the form via an inline
-// style (wins regardless of any stylesheet specificity) rather than
+// Contact form submit -> Web3Forms. Intercepted with fetch rather than a
+// plain native POST so the outcome (Web3Forms returns {success: true/false}
+// in the JSON body) can be routed through this exact same site's own
+// ?sent=1 / ?error=1 pages, instead of trusting an undocumented redirect-
+// on-failure behavior on Web3Forms' side. The form's own action/method/
+// enctype/hidden "redirect" field stay in the markup purely as a no-JS
+// fallback -- e.preventDefault() below means the browser never actually
+// acts on them once this handler runs.
+(function () {
+  var form = document.getElementById('contact-form');
+  if (!form) return;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        location.href = '/contact.html?' + (data && data.success ? 'sent=1' : 'error=1');
+      })
+      .catch(function () {
+        location.href = '/contact.html?error=1';
+      });
+  });
+})();
+
+// Contact form result — the fetch handler above navigates back here with
+// ?sent=1 or ?error=1 once Web3Forms responds. Swaps in the matching
+// notice from src/partials/contact/01-main.html and hides the form via an
+// inline style (wins regardless of any stylesheet specificity) rather than
 // relying on the `hidden` attribute, which an author display:flex rule
 // would otherwise override -- see the CSS comment on .contact-main__notice.
 (function () {
