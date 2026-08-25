@@ -234,6 +234,7 @@ function measureMarquee(selector, cssVar) {
 measureMarquee('.hww-tools__track', '--hww-tools-scroll-distance');
 measureMarquee('.trusted-by__track--row1', '--trusted-by-scroll-distance');
 measureMarquee('.trusted-by__track--row2', '--trusted-by-scroll-distance');
+measureMarquee('.trust-intro__track', '--trust-intro-scroll-distance');
 
 // --- Scroll Animations ---
 // Uses IntersectionObserver to trigger fade-up animations as elements enter the viewport.
