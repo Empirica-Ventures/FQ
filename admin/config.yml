@@ -6,7 +6,7 @@
 # is used, so base_url alone is enough.
 backend:
   name: github
-  repo: Empirica-Ventures/FQ
+  repo: muddassir-FQ/FQ-website
   branch: main
   base_url: https://sveltia-cms-auths.rafaybinyousuf314.workers.dev
 
